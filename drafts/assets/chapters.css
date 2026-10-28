@@ -1,0 +1,112 @@
+.ch {
+  --size: min(33vw, 56svh);
+  --ink: #171717;
+  --cream: #feece3;
+  position: relative;
+}
+.ch-stage {
+  position: sticky; top: 0; height: 100svh; overflow: hidden;
+  perspective: 1500px; touch-action: pan-y; user-select: none; -webkit-user-select: none;
+  cursor: grab;
+}
+.ch-stage.is-drag { cursor: grabbing; }
+.ch-canvas {
+  position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+  background: radial-gradient(circle at 50% 46%, #ffb427 0 30%, #f894bf 50%, #f87800 74%);
+}
+.ch-covers {
+  list-style: none; margin: 0; padding: 0;
+  position: absolute; left: 50%; top: 46%; width: 0; height: 0;
+  transform-style: preserve-3d;
+}
+.cv {
+  position: absolute; left: calc(var(--size) / -2); top: calc(var(--size) / -2);
+  width: var(--size); height: var(--size);
+  transform-style: flat; will-change: transform;
+}
+.cv-sleeve {
+  position: absolute; inset: 0; overflow: hidden; border-radius: 3px;
+  background: var(--c);
+  box-shadow: 0 34px 60px rgba(23, 23, 23, .26), 0 10px 20px rgba(23, 23, 23, .18);
+  transition: transform .4s cubic-bezier(.2, .7, .2, 1);
+}
+.cv.is-on .cv-sleeve { transform: perspective(900px) rotateX(var(--ty, 0deg)) rotateY(var(--tx, 0deg)); }
+.cv-photo {
+  position: absolute; left: 13%; top: 12%; width: 74%; height: 74%;
+  object-fit: cover; border-radius: 50%; border: 3px solid var(--ink);
+}
+.cv-char { position: absolute; right: -3%; bottom: -2%; width: 44%; height: auto; }
+.cv-sticker {
+  position: absolute; left: 5%; top: 5%; width: 36%; aspect-ratio: 1; border-radius: 50%;
+  background: var(--k); border: 3px solid var(--ink); color: #fff;
+  display: grid; place-content: center; text-align: center; rotate: -11deg;
+  font-family: var(--font-point); padding: 8%;
+}
+.cv-sticker b { display: block; font-weight: 900; font-size: calc(var(--size) * .064); line-height: 1.05; letter-spacing: -0.03em; }
+.cv-sticker small { display: block; margin-top: .45em; font-weight: 700; font-size: calc(var(--size) * .026); line-height: 1.25; opacity: .92; }
+.cv-label {
+  position: absolute; left: 5%; bottom: 5%; padding: .35em .6em; border: 2px solid var(--ink); background: #fff;
+  font: 800 calc(var(--size) * .024)/1.1 var(--font-point); color: var(--ink); letter-spacing: .02em;
+}
+.cv-sheen {
+  position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; opacity: .6;
+  background:
+    linear-gradient(118deg, rgba(255,255,255,0) 30%, rgba(255,255,255,.42) 45%, rgba(255,255,255,0) 57%) var(--sx, 0%) 0 / 220% 100% no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .03' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 -.35'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+  transition: background-position .4s;
+}
+.cv-disc {
+  position: absolute; left: 3%; top: 3%; width: 94%; height: 94%;
+  transition: transform .8s cubic-bezier(.2, .7, .2, 1);
+}
+.cv.is-on .cv-disc { transform: translateX(40%); }
+.cv-vinyl {
+  position: absolute; inset: 0; border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(255,255,255,0) 0 60%, rgba(255,255,255,.08) 61%, rgba(255,255,255,0) 63%),
+    repeating-radial-gradient(circle, #161616 0 2px, #232323 2px 4px);
+  box-shadow: 0 18px 40px rgba(23, 23, 23, .35);
+  animation: cv-spin 7s linear infinite; animation-play-state: paused;
+}
+.cv.is-on .cv-vinyl { animation-play-state: running; }
+.cv-vinyl img { position: absolute; left: 32%; top: 32%; width: 36%; height: 36%; border-radius: 50%; object-fit: cover; border: 4px solid var(--k); }
+.cv-vinyl::after { content: ""; position: absolute; left: 48.6%; top: 48.6%; width: 2.8%; height: 2.8%; border-radius: 50%; background: var(--ink); }
+@keyframes cv-spin { to { transform: rotate(360deg); } }
+
+.ch-player {
+  position: absolute; z-index: 300; left: 50%; top: calc(46% + var(--size) / 2 - 36px);
+  transform: translateX(-50%);
+  width: min(88vw, calc(var(--size) * .92));
+  display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; align-items: center; gap: 12px;
+  background: var(--ink); color: var(--cream); border-radius: 99px; padding: 8px 12px 8px 8px;
+  transition: opacity .3s, transform .3s;
+}
+.ch-stage.is-moving .ch-player { opacity: 0; transform: translate(-50%, 14px); pointer-events: none; }
+.ch-play { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: var(--cream); color: var(--ink); }
+.ch-play svg { width: 20px; height: 20px; margin-left: 3px; fill: currentColor; }
+.ch-meta { min-width: 0; line-height: 1.28; }
+.ch-meta b { display: block; font-family: var(--font-point); font-weight: 800; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ch-meta span { display: block; font-size: 12px; opacity: .78; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ch-skip { display: flex; gap: 2px; }
+.ch-skip button { width: 38px; height: 38px; border: 0; border-radius: 50%; background: transparent; color: var(--cream); cursor: pointer; display: grid; place-items: center; }
+.ch-skip button:hover { background: #333; }
+.ch-skip svg { width: 18px; height: 18px; fill: currentColor; }
+.ch-desc {
+  position: absolute; z-index: 300; left: 28px; bottom: 26px; max-width: 300px; margin: 0;
+  font-weight: 700; font-size: 14px; line-height: 1.6; color: var(--ink);
+  background: var(--cream); border: 2px solid var(--ink); border-radius: 18px; padding: 12px 16px;
+  transition: opacity .3s;
+}
+.ch-stage.is-moving .ch-desc { opacity: 0; }
+
+@media (max-width: 700px) {
+  .ch { --size: min(70vw, 44svh); }
+  .ch-player { width: min(92vw, 420px); }
+  .ch-covers { top: 42%; }
+  .ch-player { top: calc(42% + var(--size) / 2 - 30px); }
+  .ch-desc { left: 16px; right: 16px; bottom: 18px; max-width: none; font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cv-vinyl { animation: none; }
+  .cv-sleeve, .cv-disc, .ch-player { transition: none; }
+}

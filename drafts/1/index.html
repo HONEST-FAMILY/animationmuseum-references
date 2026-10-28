@@ -12,50 +12,60 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%274%27 y=%273%27 width=%2724%27 height=%2726%27 rx=%273%27 fill=%27%23ef1e28%27/%3E%3Ccircle cx=%2721%27 cy=%279%27 r=%273.5%27 fill=%27%23fff%27/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="preconnect" href="https://fastly.jsdelivr.net">
-<link rel="stylesheet" href="../assets/fonts.css?v=2">
-<link rel="stylesheet" href="style.css?v=2">
+<link rel="stylesheet" href="../assets/fonts.css?v=7">
+<link rel="stylesheet" href="../assets/site.css?v=7">
+<link rel="stylesheet" href="../assets/chapters.css?v=7">
+<link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
 <a class="skip" href="#main">본문으로 바로가기</a>
 <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false"><defs><clipPath id="blob" clipPathUnits="objectBoundingBox"><path d="M0.03,0.514 C0.03,0.407 0.12,0.364 0.215,0.383 C0.235,0.186 0.36,0.057 0.5,0.057 C0.64,0.057 0.765,0.186 0.785,0.383 C0.88,0.364 0.97,0.407 0.97,0.514 C0.97,0.614 0.9,0.65 0.83,0.636 C0.85,0.8 0.82,0.943 0.76,1 L0.24,1 C0.18,0.943 0.15,0.8 0.17,0.636 C0.1,0.65 0.03,0.614 0.03,0.514 Z"/></clipPath></defs></svg>
 
-<header class="top">
-  <a class="top-link top-left" href="#chapters">전시와 체험</a>
-  <a class="logo" href="#top" aria-label="애니메이션박물관 처음으로"><img src="../assets/img/logo.png" alt="애니메이션박물관 Animation Museum" width="150" height="55"></a>
-  <a class="top-link top-right" href="#visit">관람 안내</a>
-  <a class="top-book" href="https://www.gica.or.kr/Ani/M50000/M50100/html">사전예약</a>
-</header>
-
-<button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="전체 메뉴 열기"><i></i><i></i><i></i><i></i></button>
-<nav class="menu" id="menu" aria-label="전체 메뉴" hidden>
-  <div class="menu-in">
-    <div class="menu-col">
-      <h2>이용안내</h2>
-      <a href="https://www.gica.or.kr/Ani/M10000/M10100/html">이용안내</a>
-      <a href="https://www.gica.or.kr/Ani/M10000/M10200/html">교통안내</a>
-      <a href="https://www.gica.or.kr/Ani/M10000/M10300/html">시설안내</a>
-      <a href="https://www.gica.or.kr/Ani/M50000/M50100/html">예약안내</a>
-    </div>
-    <div class="menu-col">
-      <h2>박물관소개</h2>
-      <a href="https://www.gica.or.kr/Ani/M20000/M20100/html">애니메이션박물관이란?</a>
-      <a href="https://www.gica.or.kr/Ani/M20000/M20200/html">전시내용</a>
-      <a href="https://www.gica.or.kr/Ani/M20000/M20300/boardList">전시, 체험, 교육, 행사</a>
-      <a href="https://www.gica.or.kr/Ani/M20000/M20400/html">자료기증</a>
-      <a href="https://www.gica.or.kr/Ani/M20000/M20600/html">야외 드론투어</a>
-    </div>
-    <div class="menu-col">
-      <h2>커뮤니티</h2>
-      <a href="https://www.gica.or.kr/Ani/M40000/M40100/boardList">박물관소식</a>
-      <a href="https://www.gica.or.kr/Ani/M40000/M40200/boardList">자유게시판</a>
-      <h2>사전예약</h2>
-      <a href="https://www.gica.or.kr/Ani/M50000/M50100/html">온라인 예약처</a>
-    </div>
-    <div class="menu-sites">
+<header class="hd hd--center">
+  <div class="hd-top">
+    <nav class="hd-sites" aria-label="기관 바로가기">
+      <a class="is-on" href="https://www.gica.or.kr/Ani/index" aria-current="page">애니메이션박물관</a>
       <a href="https://www.gica.or.kr/Toy/index">토이로봇관</a>
-      <a href="http://www.gwmf.co.kr">강원음악창작소</a>
-      <a href="https://www.gica.or.kr/Home/index">강원정보문화산업진흥원</a>
-    </div>
+    </nav>
+    <nav class="hd-utils" aria-label="바로가기">
+      <a href="https://www.gica.or.kr/Ani/index">HOME</a>
+      <a href="https://www.gica.or.kr/Home/login/login">로그인</a>
+      <a class="hd-agency" href="https://www.gica.or.kr/Home/index">강원정보문화산업진흥원</a>
+    </nav>
+  </div>
+  <div class="hd-main">
+    <nav class="gnb gnb-l" aria-label="주 메뉴 앞쪽">
+    <ul class="gnb-list">
+      <li class="gnb-item"><a class="gnb-link" href="https://www.gica.or.kr/Ani/M10000/M10100/html">이용안내</a>
+        <ul class="gnb-sub"><li><a href="https://www.gica.or.kr/Ani/M10000/M10100/html">이용안내</a></li><li><a href="https://www.gica.or.kr/Ani/M10000/M10200/html">교통안내</a></li><li><a href="https://www.gica.or.kr/Ani/M10000/M10300/html">시설안내</a></li><li><a href="https://www.gica.or.kr/Ani/M50000/M50100/html">예약안내</a></li></ul>
+      </li>
+      <li class="gnb-item"><a class="gnb-link" href="https://www.gica.or.kr/Ani/M20000/M20100/html">박물관소개</a>
+        <ul class="gnb-sub"><li><a href="https://www.gica.or.kr/Ani/M20000/M20200/html">전시내용</a></li><li><a href="https://www.gica.or.kr/Ani/M20000/M20300/boardList">전시/체험·교육/행사</a></li><li><a href="https://www.gica.or.kr/Ani/M20000/M20400/html">자료기증</a></li><li><a href="https://www.gica.or.kr/Ani/M20000/M20100/html">애니메이션박물관이란?</a></li><li><a href="https://www.gica.or.kr/Ani/M20000/M20600/html">야외 드론투어</a></li></ul>
+      </li>
+    </ul>
+    </nav>
+    <a class="hd-logo" href="#top" aria-label="애니메이션박물관 처음으로"><img src="../assets/img/logo.png" alt="애니메이션박물관 Animation Museum" width="150" height="55"></a>
+    <nav class="gnb gnb-r" aria-label="주 메뉴 뒤쪽">
+    <ul class="gnb-list">
+      <li class="gnb-item"><a class="gnb-link" href="https://www.gica.or.kr/Ani/M40000/M40100/boardList">커뮤니티</a>
+        <ul class="gnb-sub"><li><a href="https://www.gica.or.kr/Ani/M40000/M40100/boardList">박물관소식</a></li><li><a href="https://www.gica.or.kr/Ani/M40000/M40200/boardList">자유게시판</a></li></ul>
+      </li>
+      <li class="gnb-item"><a class="gnb-link" href="https://www.gica.or.kr/Ani/M50000/M50100/html">사전예약</a>
+        <ul class="gnb-sub"><li><a href="https://www.gica.or.kr/Ani/M50000/M50100/html">온라인 예약처</a></li></ul>
+      </li>
+    </ul>
+    </nav>
+    <button class="hd-burger" type="button" aria-expanded="false" aria-controls="sitemap" aria-label="전체 메뉴 열기"><i></i><i></i><i></i></button>
+  </div>
+</header>
+<nav class="sitemap" id="sitemap" aria-label="전체 메뉴" hidden>
+  <div class="sm-in">
+    <div class="sm-col"><h2><a href="https://www.gica.or.kr/Ani/M10000/M10100/html">이용안내</a></h2><ul><li><a href="https://www.gica.or.kr/Ani/M10000/M10100/html">이용안내</a></li><li><a href="https://www.gica.or.kr/Ani/M10000/M10200/html">교통안내</a></li><li><a href="https://www.gica.or.kr/Ani/M10000/M10300/html">시설안내</a></li><li><a href="https://www.gica.or.kr/Ani/M50000/M50100/html">예약안내</a></li></ul></div>
+    <div class="sm-col"><h2><a href="https://www.gica.or.kr/Ani/M20000/M20100/html">박물관소개</a></h2><ul><li><a href="https://www.gica.or.kr/Ani/M20000/M20200/html">전시내용</a></li><li><a href="https://www.gica.or.kr/Ani/M20000/M20300/boardList">전시/체험·교육/행사</a></li><li><a href="https://www.gica.or.kr/Ani/M20000/M20400/html">자료기증</a></li><li><a href="https://www.gica.or.kr/Ani/M20000/M20100/html">애니메이션박물관이란?</a></li><li><a href="https://www.gica.or.kr/Ani/M20000/M20600/html">야외 드론투어</a></li></ul></div>
+    <div class="sm-col"><h2><a href="https://www.gica.or.kr/Ani/M40000/M40100/boardList">커뮤니티</a></h2><ul><li><a href="https://www.gica.or.kr/Ani/M40000/M40100/boardList">박물관소식</a></li><li><a href="https://www.gica.or.kr/Ani/M40000/M40200/boardList">자유게시판</a></li></ul></div>
+    <div class="sm-col"><h2><a href="https://www.gica.or.kr/Ani/M50000/M50100/html">사전예약</a></h2><ul><li><a href="https://www.gica.or.kr/Ani/M50000/M50100/html">온라인 예약처</a></li></ul></div>
+    <div class="sm-sites"><a href="https://www.gica.or.kr/Ani/index">애니메이션박물관 <img src="../assets/img/icon_arrow_up_right_gray.png" alt="" width="15" height="15"></a><a href="https://www.gica.or.kr/Toy/index">토이로봇관 <img src="../assets/img/icon_arrow_up_right_gray.png" alt="" width="15" height="15"></a><a href="http://www.gwmf.co.kr">강원음악창작소 <img src="../assets/img/icon_arrow_up_right_gray.png" alt="" width="15" height="15"></a></div>
+    <div class="sm-utils"><a href="https://www.gica.or.kr/Ani/index">HOME</a><a href="https://www.gica.or.kr/Home/login/login">로그인</a><a href="https://www.gica.or.kr/Home/index">강원정보문화산업진흥원</a></div>
   </div>
 </nav>
 
@@ -113,46 +123,110 @@
   </div>
 </section>
 
-<section class="chapters" id="chapters" aria-labelledby="ch-h">
-  <div class="ch-head">
-    <h2 id="ch-h">1층 동굴벽화에서<br>2층 기획전시실까지</h2>
-    <p>관람 순서대로 아홉 개의 공간을 한 장씩 넘겨 보세요.</p>
+<section class="ch ch--x" id="chapters" aria-labelledby="ch-h">
+  <h2 id="ch-h" class="sr-only">1층 동굴벽화에서 2층 기획전시실까지, 전시 공간 아홉 곳</h2>
+  <div class="ch-stage" tabindex="0" aria-label="전시 공간 넘기기. 좌우 화살표 키나 끌어서 넘길 수 있습니다.">
+    <canvas class="ch-canvas" aria-hidden="true"></canvas>
+    <p class="ch-head"><b>1층 동굴벽화에서 2층 기획전시실까지</b><span>끌거나 내려서 한 장씩 넘겨 보세요</span></p>
+    <ol class="ch-covers" aria-label="전시 공간 아홉 곳">
+      <li class="cv" style="--c:#ffd23f;--k:#ef1e28" aria-label="01 동굴벽화">
+        <div class="cv-disc" aria-hidden="true"><div class="cv-vinyl"><img src="../assets/img/cave2.webp" alt=""></div></div>
+        <div class="cv-sleeve">
+          <img class="cv-photo" src="../assets/img/cave2.webp" alt="알타미라 동굴벽화를 재현한 전시 공간">
+          <img class="cv-char" src="../assets/img/ch_bison.webp" alt="" width="474" height="420">
+          <span class="cv-sticker"><b>동굴<br>벽화</b><small>애니메이션박물관 1층</small></span>
+          <span class="cv-label">애니메이션박물관 01</span>
+          <span class="cv-sheen" aria-hidden="true"></span>
+        </div>
+      </li>
+      <li class="cv" style="--c:#39b54a;--k:#7e7eff" aria-label="02 1층 전시관">
+        <div class="cv-disc" aria-hidden="true"><div class="cv-vinyl"><img src="../assets/img/hall.webp" alt=""></div></div>
+        <div class="cv-sleeve">
+          <img class="cv-photo" src="../assets/img/hall.webp" alt="옛 만화가게 거리와 대형 로봇이 있는 1층 전시관">
+          
+          <span class="cv-sticker"><b>1층<br>전시관</b><small>애니메이션박물관 1층</small></span>
+          <span class="cv-label">애니메이션박물관 02</span>
+          <span class="cv-sheen" aria-hidden="true"></span>
+        </div>
+      </li>
+      <li class="cv" style="--c:#2bb3c0;--k:#ffb427" aria-label="03 영사기">
+        <div class="cv-disc" aria-hidden="true"><div class="cv-vinyl"><img src="../assets/img/projector.webp" alt=""></div></div>
+        <div class="cv-sleeve">
+          <img class="cv-photo" src="../assets/img/projector.webp" alt="영사기 전시 공간">
+          <img class="cv-char" src="../assets/img/ch_projector.webp" alt="" width="420" height="411">
+          <span class="cv-sticker"><b>영사기</b><small>애니메이션박물관 1층</small></span>
+          <span class="cv-label">애니메이션박물관 03</span>
+          <span class="cv-sheen" aria-hidden="true"></span>
+        </div>
+      </li>
+      <li class="cv" style="--c:#7e7eff;--k:#f894bf" aria-label="04 상상의 계단">
+        <div class="cv-disc" aria-hidden="true"><div class="cv-vinyl"><img src="../assets/img/stairs.webp" alt=""></div></div>
+        <div class="cv-sleeve">
+          <img class="cv-photo" src="../assets/img/stairs.webp" alt="애니메이션 포스터가 걸린 보랏빛 상상의 계단">
+          
+          <span class="cv-sticker"><b>상상의<br>계단</b><small>1층에서 2층으로</small></span>
+          <span class="cv-label">애니메이션박물관 04</span>
+          <span class="cv-sheen" aria-hidden="true"></span>
+        </div>
+      </li>
+      <li class="cv" style="--c:#4f7dff;--k:#ffb427" aria-label="05 세계관">
+        <div class="cv-disc" aria-hidden="true"><div class="cv-vinyl"><img src="../assets/img/world.webp" alt=""></div></div>
+        <div class="cv-sleeve">
+          <img class="cv-photo" src="../assets/img/world.webp" alt="나라별 애니메이션을 소개하는 세계관">
+          <img class="cv-char" src="../assets/img/ch_cloud.webp" alt="" width="468" height="390">
+          <span class="cv-sticker"><b>세계관</b><small>애니메이션박물관 2층</small></span>
+          <span class="cv-label">애니메이션박물관 05</span>
+          <span class="cv-sheen" aria-hidden="true"></span>
+        </div>
+      </li>
+      <li class="cv" style="--c:#2e9d6e;--k:#ef1e28" aria-label="06 메모리얼 홀">
+        <div class="cv-disc" aria-hidden="true"><div class="cv-vinyl"><img src="../assets/img/memorial.webp" alt=""></div></div>
+        <div class="cv-sleeve">
+          <img class="cv-photo" src="../assets/img/memorial.webp" alt="故 신동헌 감독 메모리얼 홀">
+          
+          <span class="cv-sticker"><b>메모리얼<br>홀</b><small>애니메이션박물관 2층</small></span>
+          <span class="cv-label">애니메이션박물관 06</span>
+          <span class="cv-sheen" aria-hidden="true"></span>
+        </div>
+      </li>
+      <li class="cv" style="--c:#f894bf;--k:#7e7eff" aria-label="07 애니메이션이랑 놀자">
+        <div class="cv-disc" aria-hidden="true"><div class="cv-vinyl"><img src="../assets/img/pinscreen.webp" alt=""></div></div>
+        <div class="cv-sleeve">
+          <img class="cv-photo" src="../assets/img/pinscreen.webp" alt="몸으로 누르는 핀스크린 체험">
+          <img class="cv-char" src="../assets/img/ch_robot.webp" alt="" width="367" height="414">
+          <span class="cv-sticker"><b>애니메이션<br>이랑 놀자</b><small>애니메이션박물관 2층</small></span>
+          <span class="cv-label">애니메이션박물관 07</span>
+          <span class="cv-sheen" aria-hidden="true"></span>
+        </div>
+      </li>
+      <li class="cv" style="--c:#ffc21a;--k:#ef1e28" aria-label="08 체험공간">
+        <div class="cv-disc" aria-hidden="true"><div class="cv-vinyl"><img src="../assets/img/dubbing.webp" alt=""></div></div>
+        <div class="cv-sleeve">
+          <img class="cv-photo" src="../assets/img/dubbing.webp" alt="더빙 체험 스튜디오">
+          <img class="cv-char" src="../assets/img/ch_mic.webp" alt="" width="361" height="414">
+          <span class="cv-sticker"><b>체험<br>공간</b><small>애니메이션박물관 2층</small></span>
+          <span class="cv-label">애니메이션박물관 08</span>
+          <span class="cv-sheen" aria-hidden="true"></span>
+        </div>
+      </li>
+      <li class="cv" style="--c:#f87800;--k:#39b54a" aria-label="09 기획전시실">
+        <div class="cv-disc" aria-hidden="true"><div class="cv-vinyl"><img src="../assets/img/anima.webp" alt=""></div></div>
+        <div class="cv-sleeve">
+          <img class="cv-photo" src="../assets/img/anima.webp" alt="제21회 기획전 아니마(ANIMA) 포스터">
+          <img class="cv-char" src="../assets/img/ch_pencil.webp" alt="" width="374" height="431">
+          <span class="cv-sticker"><b>기획<br>전시실</b><small>애니메이션박물관 2층</small></span>
+          <span class="cv-label">애니메이션박물관 09</span>
+          <span class="cv-sheen" aria-hidden="true"></span>
+        </div>
+      </li>
+    </ol>
+    <div class="ch-player" role="group" aria-label="전시 공간 넘기기">
+      <a class="ch-play" href="https://www.gica.or.kr/Ani/M20000/M20200/html" aria-label="전시내용 보기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5v15l13-7.5z"/></svg></a>
+      <p class="ch-meta" aria-live="polite"><b data-ch-title>01.동굴벽화</b><span data-ch-sub>애니메이션박물관 1층</span></p>
+      <div class="ch-skip"><button type="button" data-ch-step="-1" aria-label="이전 공간"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h2.5v14H6zM19 5v14L9.5 12z"/></svg></button><button type="button" data-ch-step="1" aria-label="다음 공간"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 5H18v14h-2.5zM5 5l9.5 7L5 19z"/></svg></button></div>
+    </div>
+    <p class="ch-desc" data-ch-desc aria-live="polite">애니메이션은 무슨 뜻일까요? 기원전 1만년 경 알타미라 동굴에서 그 뜻과 원리를 알아보세요.</p>
   </div>
-  <ol class="covers" aria-label="전시 공간 목록">
-    <li class="cover" style="--c:#ffb427" data-name="동굴벽화" data-floor="애니메이션박물관 1층" data-desc="애니메이션은 무슨 뜻일까요? 기원전 1만년 경 알타미라 동굴에서 그 뜻과 원리를 알아보세요.">
-      <div class="cover-art"><img src="../assets/img/cave.webp" alt="동굴벽화 전시 공간" width="600" height="324" loading="lazy"><span class="sticker">01<small>1층</small></span><img class="peek" src="../assets/img/ch_bison.webp" alt="" loading="lazy"></div>
-    </li>
-    <li class="cover" style="--c:#39b54a" data-name="1층 전시관" data-floor="애니메이션박물관 1층" data-desc="애니메이션의 탄생과 발전과정을 영상과 다양한 전시물로 살펴보고, 애니메이션의 종류와 한국 애니 역사를 알아볼 수 있습니다.">
-      <div class="cover-art"><img src="../assets/img/hall.webp" alt="1층 전시관의 옛 만화가게 거리와 대형 로봇" width="1200" height="498" loading="lazy"><span class="sticker">02<small>1층</small></span></div>
-    </li>
-    <li class="cover" style="--c:#2bb3c0" data-name="영사기" data-floor="애니메이션박물관 1층" data-desc="영사기는 어떻게 시작되었을까요? 환등기에서 시작된 영사기의 발달과정과 1890년대 사용된 유리필름을 만나보세요.">
-      <div class="cover-art"><img src="../assets/img/projector.webp" alt="영사기 전시 공간" width="600" height="324" loading="lazy"><span class="sticker">03<small>1층</small></span><img class="peek" src="../assets/img/ch_projector.webp" alt="" loading="lazy"></div>
-    </li>
-    <li class="cover" style="--c:#7e7eff" data-name="상상의 계단" data-floor="1층에서 2층으로" data-desc="다양한 애니메이션 포스터가 있는 상상의 계단을 통해 2층으로 올라가보세요.">
-      <div class="cover-art"><img src="../assets/img/stairs.webp" alt="애니메이션 포스터가 걸린 보랏빛 상상의 계단" width="1200" height="498" loading="lazy"><span class="sticker">04<small>계단</small></span></div>
-    </li>
-    <li class="cover" style="--c:#4f7dff" data-name="세계관" data-floor="애니메이션박물관 2층" data-desc="각 나라별 애니메이션 경향을 알 수 있습니다.">
-      <div class="cover-art"><img src="../assets/img/world.webp" alt="세계관 전시 공간" width="600" height="324" loading="lazy"><span class="sticker">05<small>2층</small></span><img class="peek" src="../assets/img/ch_cloud.webp" alt="" loading="lazy"></div>
-    </li>
-    <li class="cover" style="--c:#2e9d6e" data-name="메모리얼 홀" data-floor="애니메이션박물관 2층" data-desc="한국 애니메이션의 산 역사, 故 신동헌 감독의 기념 공간입니다.">
-      <div class="cover-art"><img src="../assets/img/memorial.webp" alt="故 신동헌 감독 메모리얼 홀" width="600" height="324" loading="lazy"><span class="sticker">06<small>2층</small></span></div>
-    </li>
-    <li class="cover" style="--c:#f894bf" data-name="애니메이션이랑 놀자" data-floor="애니메이션박물관 2층" data-desc="몸으로 느껴보는 핀스크린 체험, 주인공 체험, 캐릭터 변검체험을 할 수 있습니다.">
-      <div class="cover-art"><img src="../assets/img/pinscreen.webp" alt="핀스크린 체험" width="600" height="324" loading="lazy"><span class="sticker">07<small>2층</small></span><img class="peek" src="../assets/img/ch_robot.webp" alt="" loading="lazy"></div>
-    </li>
-    <li class="cover" style="--c:#ef1e28" data-name="체험공간" data-floor="애니메이션박물관 2층" data-desc="소리를 만들어 내는 폴리아티스트 체험, 더빙체험을 할 수 있습니다.">
-      <div class="cover-art"><img src="../assets/img/dubbing.webp" alt="더빙 체험 스튜디오" width="600" height="324" loading="lazy"><span class="sticker">08<small>2층</small></span><img class="peek" src="../assets/img/ch_mic.webp" alt="" loading="lazy"></div>
-    </li>
-    <li class="cover" style="--c:#f87800" data-name="기획전시실" data-floor="애니메이션박물관 2층" data-desc="해마다 두 번 이상 애니메이션 기획전을 엽니다. 제21회 기획전 《아니마(ANIMA): 연필 끝에서 살아나는 우리들의 얼굴》은 지금 양평 황순원문학촌에서 순회 전시 중입니다(26.10.27 ~ 11.29).">
-      <div class="cover-art"><img src="../assets/img/anima.webp" alt="제21회 기획전 아니마(ANIMA) 포스터" width="701" height="906" loading="lazy"><span class="sticker">09<small>2층</small></span><img class="peek" src="../assets/img/ch_pencil.webp" alt="" loading="lazy"></div>
-    </li>
-  </ol>
-  <div class="player" role="group" aria-label="전시 공간 넘기기">
-    <button class="pl-btn" type="button" data-step="-1" aria-label="이전 공간"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg></button>
-    <p class="pl-now" aria-live="polite"><b data-now-name>동굴벽화</b><span data-now-floor>애니메이션박물관 1층</span></p>
-    <button class="pl-btn" type="button" data-step="1" aria-label="다음 공간"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
-  </div>
-  <p class="cover-desc" data-now-desc>애니메이션은 무슨 뜻일까요? 기원전 1만년 경 알타미라 동굴에서 그 뜻과 원리를 알아보세요.</p>
 </section>
 
 <section class="now" id="now" aria-labelledby="now-h">
@@ -203,6 +277,7 @@
         <li><a href="https://www.gica.or.kr/Ani/M40000/M40100/boardView?board_key=12629">2026년 추석연휴 운영안내</a></li>
       </ul>
       <a class="more" href="https://www.gica.or.kr/Ani/M40000/M40100/boardList">소식 전체 보기</a>
+      <a class="donate" href="https://www.gica.or.kr/Ani/M20000/M20400/html"><b>자료기증안내</b><span>애니메이션과 관련된 소중한 자료를 기증받습니다.</span></a>
     </div>
   </div>
 </section>
@@ -233,20 +308,40 @@
 </section>
 </main>
 
-<footer class="foot">
-  <img src="../assets/img/logo_footer.png" alt="애니메이션박물관" width="173" height="46" loading="lazy">
-  <nav class="foot-links" aria-label="바닥 메뉴">
-    <a href="https://www.gica.or.kr/Ani/M60000/M60100/html">개인정보처리방침</a>
-    <a href="https://www.gica.or.kr/Ani/M60000/M60200/html">이메일무단수집거부</a>
-    <a href="https://www.gica.or.kr/Ani/M20000/M20400/html">자료기증안내</a>
-    <a href="https://www.facebook.com/animuseum.ani">페이스북</a>
-    <a href="https://www.instagram.com/animation_museum">인스타그램</a>
-  </nav>
-  <p>24461 강원특별자치도 춘천시 서면 박사로 854, Tel 033-245-6470</p>
-  <p>강원정보문화산업진흥원, 대표자 백창석, 통신판매업신고번호 제 2016-강원춘천-0093호, 사업자등록번호 221-82-09598</p>
-  <p class="foot-related">관련 사이트 <a href="http://www.chuncheon.go.kr/index.chuncheon">춘천시</a> <a href="http://tour.chuncheon.go.kr">춘천 관광 포털</a> <a href="http://www.cccouncil.go.kr/index.php">춘천시의회</a> <a href="http://www.gwebiz.kr/main/index">강원이지비즈</a></p>
-  <p class="copy">Copyright ⓒ 2019 강원정보문화산업진흥원. All rights reserved.</p>
+<footer class="ft">
+  <div class="ft-top"><div class="ft-top-in">
+    <nav class="ft-links" aria-label="바닥 메뉴">
+      <a href="https://www.gica.or.kr/Ani/M10000/M10200/html">찾아오시는길</a>
+      <a href="https://www.gica.or.kr/Ani/M60000/M60200/html">이메일무단수집거부</a>
+      <a href="https://www.gica.or.kr/Ani/M60000/M60100/html">개인정보처리방침</a>
+    </nav>
+    <div class="ft-right">
+      <div class="ft-family">
+        <button class="ft-family-btn" type="button" aria-expanded="false" aria-controls="family">관련 사이트</button>
+        <div class="ft-family-list" id="family" hidden>
+          <a href="http://www.chuncheon.go.kr/index.chuncheon">춘천시</a>
+          <a href="http://tour.chuncheon.go.kr">춘천 관광 포털</a>
+          <a href="http://www.cccouncil.go.kr/index.php">춘천시의회</a>
+        </div>
+      </div>
+      <button class="ft-top-btn" type="button" aria-label="맨 위로">TOP</button>
+    </div>
+  </div></div>
+  <div class="ft-bottom">
+    <img class="ft-logo" src="../assets/img/logo_footer.png" alt="애니메이션박물관" width="173" height="46" loading="lazy">
+    <p>24461 강원특별자치도 춘천시 서면 박사로 854 | <a href="tel:033-245-6470">Tel : 033-245-6470</a></p>
+    <p>대표자 : 백창석 · 통신판매업신고번호 : 제 2016-강원춘천-0093호 · 사업자등록번호 : 221-82-09598</p>
+    <p class="ft-copy">Copyright ⓒ 2019 강원정보문화산업진흥원. All rights reserved.</p>
+    <div class="ft-socials">
+      <a href="https://www.facebook.com/animuseum.ani" aria-label="페이스북"><img src="../assets/img/icon_facebook_gray.png" alt="" width="13" height="24"></a>
+      <a href="https://www.instagram.com/animation_museum/" aria-label="인스타그램"><img src="../assets/img/icon_instargram_gray.png" alt="" width="25" height="24"></a>
+      <a href="https://www.youtube.com/춘천TV" aria-label="유튜브"><img src="../assets/img/icon_youtube_gray.png" alt="" width="28" height="20"></a>
+    </div>
+  </div>
 </footer>
-<script src="app.js?v=2"></script>
+<script>window.CHAPTER_DATA = [{"name": "동굴벽화", "floor": "애니메이션박물관 1층", "desc": "애니메이션은 무슨 뜻일까요? 기원전 1만년 경 알타미라 동굴에서 그 뜻과 원리를 알아보세요.", "pal": ["#ff8a1f", "#f894bf"]}, {"name": "1층 전시관", "floor": "애니메이션박물관 1층", "desc": "애니메이션의 탄생과 발전과정을 영상과 다양한 전시물로 살펴보고, 애니메이션의 종류와 한국 애니 역사를 알아볼 수 있습니다.", "pal": ["#39b54a", "#ffd23f"]}, {"name": "영사기", "floor": "애니메이션박물관 1층", "desc": "영사기는 어떻게 시작되었을까요? 환등기에서 시작된 영사기의 발달과정과 1890년대 사용된 유리필름을 만나보세요.", "pal": ["#2bb3c0", "#7e7eff"]}, {"name": "상상의 계단", "floor": "1층에서 2층으로", "desc": "다양한 애니메이션 포스터가 있는 상상의 계단을 통해 2층으로 올라가보세요.", "pal": ["#7e7eff", "#ef1e28"]}, {"name": "세계관", "floor": "애니메이션박물관 2층", "desc": "각 나라별 애니메이션 경향을 알 수 있습니다.", "pal": ["#4f7dff", "#ffb427"]}, {"name": "메모리얼 홀", "floor": "애니메이션박물관 2층", "desc": "한국 애니메이션의 산 역사, 故 신동헌 감독의 기념 공간입니다.", "pal": ["#2e9d6e", "#feece3"]}, {"name": "애니메이션이랑 놀자", "floor": "애니메이션박물관 2층", "desc": "몸으로 느껴보는 핀스크린 체험, 주인공 체험, 캐릭터 변검체험을 할 수 있습니다.", "pal": ["#f894bf", "#7e7eff"]}, {"name": "체험공간", "floor": "애니메이션박물관 2층", "desc": "소리를 만들어 내는 폴리아티스트 체험, 더빙체험을 할 수 있습니다.", "pal": ["#ffc21a", "#ef1e28"]}, {"name": "기획전시실", "floor": "애니메이션박물관 2층", "desc": "해마다 두 번 이상 애니메이션 기획전을 엽니다. 제21회 기획전 《아니마(ANIMA): 연필 끝에서 살아나는 우리들의 얼굴》은 지금 양평 황순원문학촌에서 순회 전시 중입니다(26.10.27 ~ 11.29).", "pal": ["#f87800", "#7e7eff"]}];</script>
+<script src="../assets/site.js?v=7"></script>
+<script src="../assets/chapters.js?v=7"></script>
+<script src="app.js?v=7"></script>
 </body>
 </html>
