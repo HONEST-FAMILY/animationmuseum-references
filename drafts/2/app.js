@@ -27,7 +27,7 @@
       cardSub.textContent = '아홉 칸을 모두 채웠어요. 이제 진짜 상상의 계단을 올라 볼 차례입니다.';
     } else if (n > 0) {
       cardTitle.textContent = '도장 ' + n + '개를 모았어요';
-      cardSub.textContent = '남은 칸은 ' + (stations.length - n) + '칸입니다. 위로 올라가 빠진 곳을 지나가면 도장이 찍힙니다.';
+      cardSub.textContent = '남은 칸은 ' + (stations.length - n) + '칸입니다. 아래로 계속 내려가면 나머지 칸에도 도장이 찍힙니다.';
     }
   };
 
@@ -35,8 +35,7 @@
     if (i === current) return;
     current = i;
     var st = stations[i];
-    var id = st.id;
-    stamped[id] = true;
+    for (var k = 0; k <= i; k++) stamped[stations[k].id] = true;
     document.body.style.setProperty('--bg', st.style.getPropertyValue('--bg'));
     frames.forEach(function (f) { if (stamped[f.dataset.for]) f.classList.add('done'); });
     slots.forEach(function (s) { if (stamped[s.dataset.for]) s.classList.add('done'); });
@@ -53,9 +52,8 @@
 
   var check = function () {
     var mid = innerHeight / 2;
-    for (var k = 0; k < stations.length; k++) {
-      var r = stations[k].getBoundingClientRect();
-      if (r.top <= mid && r.bottom >= mid) { setCurrent(k); return; }
+    for (var k = stations.length - 1; k >= 0; k--) {
+      if (stations[k].getBoundingClientRect().top <= mid) { setCurrent(k); return; }
     }
   };
   window.addEventListener('scroll', check, { passive: true });
