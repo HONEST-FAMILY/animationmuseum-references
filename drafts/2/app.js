@@ -51,17 +51,20 @@
     updateCard();
   };
 
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) setCurrent(stations.indexOf(en.target));
-      });
-    }, { rootMargin: '-45% 0px -45% 0px' });
-    stations.forEach(function (s) { io.observe(s); });
-  } else {
-    stations.forEach(function (s, k) { stamped[s.id] = true; });
-    setCurrent(0);
-  }
+  var check = function () {
+    var mid = innerHeight / 2;
+    for (var k = 0; k < stations.length; k++) {
+      var r = stations[k].getBoundingClientRect();
+      if (r.top <= mid && r.bottom >= mid) { setCurrent(k); return; }
+    }
+  };
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () { check(); ticking = false; });
+  }, { passive: true });
+  check();
 
   centerStrip(0);
   window.addEventListener('resize', function () { centerStrip(Math.max(0, current)); });
