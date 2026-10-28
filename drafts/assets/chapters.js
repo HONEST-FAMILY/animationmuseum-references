@@ -133,7 +133,7 @@
 
     var p = 0, target = 0, prevP = 0, speed = 0, index = -1;
     var colorFrom = palette[0], colorTo = palette[0], mixStart = -10;
-    var flat = 0, active = true, dragging = false, snapTimer = null, glide = null;
+    var flat = 0, active = true, dragging = false, snapTimer = null;
     var start = performance.now();
 
     var range = function () {
@@ -200,7 +200,7 @@
       readTarget();
       if (snapTimer) clearTimeout(snapTimer);
       snapTimer = setTimeout(function () {
-        if (dragging || glide) return;
+        if (dragging) return;
         var r = range();
         if (window.scrollY <= r.top + 2 || window.scrollY >= r.top + r.h - 2) return;
         var near = Math.round(target);
@@ -216,7 +216,6 @@
         if (e.button !== 0 || e.target.closest('a, button')) return;
         dragging = true; decided = false; horizontal = false;
         startX = lastX = e.clientX; startY = e.clientY; startScroll = window.scrollY; lastT = performance.now(); vel = 0;
-        if (glide) { cancelAnimationFrame(glide); glide = null; }
       });
       window.addEventListener('pointermove', function (e) {
         if (!dragging) return;
@@ -226,21 +225,17 @@
         var now = performance.now();
         vel = (e.clientX - lastX) / Math.max(1, now - lastT);
         lastX = e.clientX; lastT = now;
-        window.scrollTo({ top: startScroll - dx * perPx(), behavior: 'instant' });
+        var r = range();
+        window.scrollTo({ top: clamp(startScroll - dx * perPx(), r.top, r.top + r.h), behavior: 'instant' });
       });
       var release = function () {
         if (!dragging) return;
         dragging = false;
         stage.classList.remove('is-drag');
         if (!horizontal) return;
-        var v = vel * 16;
-        var step = function () {
-          v *= 0.9;
-          window.scrollBy({ top: -v * perPx(), behavior: 'instant' });
-          if (Math.abs(v) > 0.6) { glide = requestAnimationFrame(step); }
-          else { glide = null; go(Math.round(target)); }
-        };
-        if (reduce) { go(Math.round(target)); } else { glide = requestAnimationFrame(step); }
+        var v = clamp(vel, -3, 3);
+        var extra = Math.abs(v) > 0.25 ? -Math.sign(v) * Math.min(3, Math.max(1, Math.round(Math.abs(v) * 1.2))) : 0;
+        go(Math.round(target) + extra);
       };
       window.addEventListener('pointerup', release);
       window.addEventListener('pointercancel', release);
