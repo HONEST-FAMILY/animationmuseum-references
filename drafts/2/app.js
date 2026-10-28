@@ -58,12 +58,7 @@
       if (r.top <= mid && r.bottom >= mid) { setCurrent(k); return; }
     }
   };
-  var ticking = false;
-  window.addEventListener('scroll', function () {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(function () { check(); ticking = false; });
-  }, { passive: true });
+  window.addEventListener('scroll', check, { passive: true });
   check();
 
   centerStrip(0);
