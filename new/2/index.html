@@ -11,9 +11,7 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://fastly.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="preload" as="image" href="media/poster_720.jpg" media="(min-width: 601px)">
-<link rel="preload" as="image" href="media/poster_480.jpg" media="(max-width: 600px)">
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=5">
 <script>
 (function () {
   var d = document.documentElement, rm = false, seen = false;
@@ -44,7 +42,7 @@
   </div>
   <div class="hd-main">
     <div class="wrap hd-main-in">
-      <a class="hd-logo" href="#top" aria-label="애니메이션박물관 처음으로"><img src="../assets/img/logo.png" alt="애니메이션박물관 Animation Museum" width="150" height="55"></a>
+      <a class="hd-logo" href="#top" aria-label="애니메이션박물관 홈"><img src="../assets/img/logo.png" alt="애니메이션박물관 Animation Museum" width="150" height="55"></a>
       <nav class="gnb" aria-label="주 메뉴">
         <ul class="gnb-list">
           <li class="gnb-item"><a class="gnb-link" href="https://www.gica.or.kr/Ani/M10000/M10100/html">이용안내</a>
@@ -56,13 +54,13 @@
           <li class="gnb-item"><a class="gnb-link" href="https://www.gica.or.kr/Ani/M40000/M40100/boardList">커뮤니티</a>
             <ul class="gnb-sub"><li><a href="https://www.gica.or.kr/Ani/M40000/M40100/boardList">박물관소식</a></li><li><a href="https://www.gica.or.kr/Ani/M40000/M40200/boardList">자유게시판</a></li></ul>
           </li>
-          <li class="gnb-item"><a class="gnb-link" href="https://www.gica.or.kr/Ani/M50000/M50100/html">사전예약</a>
+          <li class="gnb-item"><a class="gnb-link gnb-book" href="https://www.gica.or.kr/Ani/M50000/M50100/html">사전예약</a>
             <ul class="gnb-sub"><li><a href="https://www.gica.or.kr/Ani/M50000/M50100/html">온라인 예약처</a></li></ul>
           </li>
         </ul>
       </nav>
       <div class="hd-act">
-        <a class="ticket ticket--sm" href="https://www.gica.or.kr/Ani/M50000/M50100/html">사전예약</a>
+        <a class="btn-red btn-sm hd-book" href="https://www.gica.or.kr/Ani/M50000/M50100/html">사전예약</a>
         <button class="hd-burger" type="button" aria-expanded="false" aria-controls="sitemap" aria-label="전체 메뉴 열기"><i></i><i></i><i></i></button>
       </div>
     </div>
@@ -91,67 +89,52 @@
 <main id="main">
 
 <section class="hero" id="top" aria-labelledby="hero-h">
-  <div class="wrap hero-in">
-    <figure class="gate" aria-label="판타스마고리, 에밀 콜, 1908년 영화의 한 장면">
-      <span class="gate-strip gate-strip--l" aria-hidden="true"></span>
-      <div class="gate-win">
-        <video class="gate-video" autoplay muted playsinline loop preload="auto" poster="media/poster_720.jpg" width="720" height="576" aria-hidden="true">
-          <source src="media/fantasmagorie_480.webm" type="video/webm" media="(max-width: 600px)">
-          <source src="media/fantasmagorie_480.mp4" type="video/mp4" media="(max-width: 600px)">
-          <source src="media/fantasmagorie_720.webm" type="video/webm">
-          <source src="media/fantasmagorie_720.mp4" type="video/mp4">
-        </video>
-        <span class="gate-grain" aria-hidden="true"></span>
-        <div class="leader" aria-hidden="true">
-          <i class="ld-sweep"></i>
-          <i class="ld-ring ld-ring--o"></i>
-          <i class="ld-ring ld-ring--i"></i>
-          <i class="ld-x"></i>
-          <i class="ld-y"></i>
-          <b class="ld-num">5</b>
-        </div>
-        <button class="gate-toggle" type="button" aria-pressed="false">일시정지</button>
+  <div class="hero-in">
+    <div class="hero-film">
+      <video class="film-video" autoplay muted playsinline loop preload="auto" poster="media/fm_poster_720.jpg" width="1440" height="1152" aria-label="판타스마고리, 에밀 콜, 1908년 영화의 한 장면">
+        <source src="media/fm_720.webm" type="video/webm" media="(max-width: 1199px)">
+        <source src="media/fm_720.mp4" type="video/mp4" media="(max-width: 1199px)">
+        <source src="media/fm_1440.webm" type="video/webm">
+        <source src="media/fm_1440.mp4" type="video/mp4">
+      </video>
+      <div class="leader" aria-hidden="true">
+        <i class="ld-sweep"></i>
+        <i class="ld-ring ld-ring--o"></i>
+        <i class="ld-ring ld-ring--i"></i>
+        <i class="ld-x"></i>
+        <i class="ld-y"></i>
+        <b class="ld-num">5</b>
       </div>
-      <span class="gate-strip gate-strip--r" aria-hidden="true"></span>
-    </figure>
-
+      <button class="film-toggle" type="button" aria-pressed="false">일시정지</button>
+    </div>
     <div class="hero-copy">
-      <p class="band">첫 번째 만화영화</p>
-      <h1 class="title" id="hero-h">1908년,<br> 그림이 처음 움직였습니다.</h1>
-      <p class="src">판타스마고리 — 에밀 콜, 1908</p>
+      <p class="band">에밀 콜 「판타스마고리」 1908</p>
+      <h1 class="title" id="hero-h">1908년 파리,<br> 흰 선이 스스로 움직이기 시작했습니다.</h1>
       <div class="hero-act">
-        <a class="ticket" href="https://www.gica.or.kr/Ani/M50000/M50100/html">사전예약하기</a>
-        <a class="btn-start" href="#today">오늘의 상영 안내</a>
+        <a class="btn-red" href="https://www.gica.or.kr/Ani/M50000/M50100/html">사전예약하기</a>
+        <a class="btn-line" href="#visit">관람 안내</a>
       </div>
-      <p class="hero-today" data-hero-today>관람 10:00~18:00 (입장마감 17:00) · 매주 월요일 휴관</p>
     </div>
   </div>
 </section>
 
 <section class="today" id="today" aria-labelledby="today-h">
-  <div class="it">
-    <div class="it-card">
-      <h2 class="it-h" id="today-h">오늘의 상영 안내</h2>
+  <div class="wrap today-in">
+    <div class="today-info">
+      <h2 class="today-h" id="today-h">오늘 관람 안내</h2>
+      <ul class="today-list">
+        <li class="today-state" data-state><span data-date>오늘</span> <b data-open>매주 월요일 휴관</b></li>
+        <li>10:00 ~ 18:00</li>
+        <li>입장마감 17:00</li>
+        <li>월요일 휴관</li>
+      </ul>
     </div>
-  </div>
-  <div class="wrap">
-    <div class="tk" data-today>
-      <div class="tk-stub">
-        <p class="tk-date" data-date>오늘</p>
-        <p class="tk-state" data-state>관람 10:00~18:00</p>
-        <p class="tk-next" data-next>매주 월요일 휴관</p>
-      </div>
-      <div class="tk-main">
-        <dl class="tk-facts">
-          <div class="tk-hours"><dt>관람시간</dt><dd><span class="tk-big">10:00<i>~</i>18:00</span><span class="tk-sub">오전 10:00 ~ 오후 18:00</span></dd></div>
-          <div><dt>입장마감</dt><dd><span class="tk-mid">17:00</span></dd></div>
-          <div><dt>정기휴관</dt><dd><span class="tk-mid">매주 월요일</span><span class="tk-sub">월요일이 공휴일인 경우 다음날</span></dd></div>
-        </dl>
-        <div class="tk-act">
-          <a class="ticket" href="https://www.gica.or.kr/Ani/M50000/M50100/html">사전예약하기</a>
-          <a class="tk-link" href="https://www.gica.or.kr/Ani/M50000/M50100/html">예약안내</a>
-        </div>
-      </div>
+    <div class="today-now">
+      <h2 class="today-h">지금 전시</h2>
+      <ul class="today-ex">
+        <li><a href="https://www.gica.or.kr/Ani/M20000/M20300/boardView?board_key=12649"><img src="../assets/img/ex1.webp" alt="" width="400" height="480"><span>42.195km, a Story on the Road 길 위의 이야기</span></a></li>
+        <li><a href="https://www.gica.or.kr/Ani/M20000/M20300/boardView?board_key=12642"><img src="../assets/img/ex2.webp" alt="" width="400" height="400"><span>예술이야</span></a></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -166,7 +149,7 @@
   <div class="scene">
     <div class="wrap">
       <figure class="big">
-        <div class="frame frame--big"><img src="../assets/img/glassfilm.webp" alt="1층 영사기 전시 공간의 옛 영사기와 유리필름 진열장" width="1400" height="780" loading="lazy" style="aspect-ratio:1400/780"></div>
+        <div class="ph ph--big"><img src="../assets/img/glassfilm.webp" alt="1층 영사기 전시 공간의 옛 영사기와 유리필름 진열장" width="1400" height="780" loading="lazy" style="aspect-ratio:1400/780"></div>
         <figcaption class="big-cap">
           <b>1890년대 유리필름</b>
           <span>1층 영사기 전시</span>
@@ -175,15 +158,15 @@
       </figure>
       <ol class="strip" aria-label="1층 전시 공간">
         <li class="still">
-          <div class="frame"><img src="../assets/img/cave2.webp" alt="알타미라 동굴벽화를 재현한 1층 전시 공간" width="600" height="324" loading="lazy"><span class="edge" aria-hidden="true">01</span></div>
+          <div class="ph"><img src="../assets/img/cave2.webp" alt="알타미라 동굴벽화를 재현한 1층 전시 공간" width="600" height="324" loading="lazy"></div>
           <div class="cap"><b>동굴벽화</b><span>애니메이션박물관 1층</span><p>애니메이션은 무슨 뜻일까요?</p></div>
         </li>
         <li class="still">
-          <div class="frame"><img src="../assets/img/hall.webp" alt="옛 만화가게 거리와 대형 로봇이 있는 1층 전시관" width="1200" height="498" loading="lazy"><span class="edge" aria-hidden="true">02</span></div>
+          <div class="ph"><img src="../assets/img/hall.webp" alt="옛 만화가게 거리와 대형 로봇이 있는 1층 전시관" width="1200" height="498" loading="lazy"></div>
           <div class="cap"><b>1층 전시관</b><span>애니메이션박물관 1층</span><p>애니메이션의 탄생과 발전과정</p></div>
         </li>
         <li class="still">
-          <div class="frame"><img src="../assets/img/projector.webp" alt="커다란 옛 영사기가 놓인 영사기 전시 공간" width="600" height="324" loading="lazy"><span class="edge" aria-hidden="true">03</span></div>
+          <div class="ph"><img src="../assets/img/projector.webp" alt="커다란 옛 영사기가 놓인 영사기 전시 공간" width="600" height="324" loading="lazy"></div>
           <div class="cap"><b>영사기</b><span>애니메이션박물관 1층</span><p>환등기에서 시작된 영사기의 발달과정</p></div>
         </li>
       </ol>
@@ -201,7 +184,7 @@
   <div class="scene scene--stairs">
     <div class="wrap">
       <figure class="big big--wide">
-        <div class="frame frame--big"><img src="../assets/img/stairs.webp" alt="애니메이션 포스터가 걸린 상상의 계단" width="1200" height="498" loading="lazy" style="aspect-ratio:1200/498"><span class="edge" aria-hidden="true">04</span></div>
+        <div class="ph ph--big"><img src="../assets/img/stairs.webp" alt="애니메이션 포스터가 걸린 상상의 계단" width="1200" height="498" loading="lazy" style="aspect-ratio:1200/498"></div>
         <figcaption class="big-cap">
           <b>상상의 계단</b>
           <span>1층에서 2층으로</span>
@@ -224,23 +207,23 @@
     <div class="wrap">
       <ol class="strip strip--5" aria-label="2층 전시 공간">
         <li class="still">
-          <div class="frame"><img src="../assets/img/world.webp" alt="나라별 애니메이션을 소개하는 세계관" width="600" height="324" loading="lazy"><span class="edge" aria-hidden="true">05</span></div>
+          <div class="ph"><img src="../assets/img/world.webp" alt="나라별 애니메이션을 소개하는 세계관" width="600" height="324" loading="lazy"></div>
           <div class="cap"><b>세계관</b><span>애니메이션박물관 2층</span><p>각 나라별 애니메이션 경향</p></div>
         </li>
         <li class="still">
-          <div class="frame"><img src="../assets/img/memorial.webp" alt="고 신동헌 감독 메모리얼 홀" width="600" height="324" loading="lazy"><span class="edge" aria-hidden="true">06</span></div>
+          <div class="ph"><img src="../assets/img/memorial.webp" alt="고 신동헌 감독 메모리얼 홀" width="600" height="324" loading="lazy"></div>
           <div class="cap"><b>메모리얼 홀</b><span>애니메이션박물관 2층</span><p>故 신동헌 감독의 기념 공간</p></div>
         </li>
         <li class="still">
-          <div class="frame"><img src="../assets/img/pinscreen.webp" alt="몸으로 눌러 보는 핀스크린 체험" width="600" height="324" loading="lazy"><span class="edge" aria-hidden="true">07</span></div>
-          <div class="cap"><b>애니메이션이랑 놀자</b><span>애니메이션박물관 2층</span><p>핀스크린 · 주인공 · 캐릭터 변검 체험</p></div>
+          <div class="ph"><img src="../assets/img/pinscreen.webp" alt="몸으로 눌러 보는 핀스크린 체험" width="600" height="324" loading="lazy"></div>
+          <div class="cap"><b>애니메이션이랑 놀자</b><span>애니메이션박물관 2층</span><p>핀스크린, 주인공, 캐릭터 변검 체험</p></div>
         </li>
         <li class="still">
-          <div class="frame"><img src="../assets/img/dubbing.webp" alt="더빙 체험 스튜디오" width="600" height="324" loading="lazy"><span class="edge" aria-hidden="true">08</span></div>
-          <div class="cap"><b>체험공간</b><span>애니메이션박물관 2층</span><p>폴리아티스트 · 더빙 체험</p></div>
+          <div class="ph"><img src="../assets/img/dubbing.webp" alt="더빙 체험 스튜디오" width="600" height="324" loading="lazy"></div>
+          <div class="cap"><b>체험공간</b><span>애니메이션박물관 2층</span><p>폴리아티스트, 더빙 체험</p></div>
         </li>
         <li class="still">
-          <div class="frame"><img class="top" src="../assets/img/anima.webp" alt="기획전 아니마(ANIMA) 포스터" width="701" height="906" loading="lazy"><span class="edge" aria-hidden="true">09</span></div>
+          <div class="ph"><img class="top" src="../assets/img/anima.webp" alt="기획전 아니마(ANIMA) 포스터" width="701" height="906" loading="lazy"></div>
           <div class="cap"><b>기획전시실</b><span>애니메이션박물관 2층</span><p>해마다 두 번 이상 여는 기획전</p></div>
         </li>
       </ol>
@@ -327,10 +310,10 @@
       <h2 class="sec-h" id="out-h">나들이</h2>
     </div>
     <ul class="outing-list">
-      <li><div class="frame frame--sm"><img src="../assets/img/shop.webp" alt="1층 뮤지엄샵" width="600" height="324" loading="lazy"></div><b>뮤지엄샵</b><span>1층, 10:00 ~ 18:00</span></li>
-      <li><div class="frame frame--sm"><img src="../assets/img/cafe.webp" alt="1층 구름빵 카페 창가 자리" width="600" height="324" loading="lazy"></div><b>구름빵 카페</b><span>1층, 10:00 ~ 18:00</span></li>
-      <li><div class="frame frame--sm"><img src="../assets/img/parkhouse.webp" alt="단풍이 든 야외 캐릭터공원" width="600" height="324" loading="lazy"></div><b>야외 캐릭터공원</b><span>박물관 바깥</span></li>
-      <li><a href="https://www.gica.or.kr/Toy/index"><div class="frame frame--sm"><img src="../assets/img/robothall.webp" alt="토이로봇관 전시 공간" width="600" height="324" loading="lazy"></div><b>토이로봇관</b><span>함께 둘러보는 옆 전시관</span></a></li>
+      <li><div class="ph"><img src="../assets/img/shop.webp" alt="1층 뮤지엄샵" width="600" height="324" loading="lazy"></div><b>뮤지엄샵</b><span>1층, 10:00 ~ 18:00</span></li>
+      <li><div class="ph"><img src="../assets/img/cafe.webp" alt="1층 구름빵 카페 창가 자리" width="600" height="324" loading="lazy"></div><b>구름빵 카페</b><span>1층, 10:00 ~ 18:00</span></li>
+      <li><div class="ph"><img src="../assets/img/parkhouse.webp" alt="단풍이 든 야외 캐릭터공원" width="600" height="324" loading="lazy"></div><b>야외 캐릭터공원</b><span>박물관 바깥</span></li>
+      <li><a href="https://www.gica.or.kr/Toy/index"><div class="ph"><img src="../assets/img/robothall.webp" alt="토이로봇관 전시 공간" width="600" height="324" loading="lazy"></div><b>토이로봇관</b><span>함께 둘러보는 옆 전시관</span></a></li>
     </ul>
   </div>
 </section>
@@ -340,20 +323,20 @@
     <div class="visit-main">
       <h2 class="sec-h" id="visit-h">관람 안내</h2>
       <dl class="facts">
-        <div><dt>관람시간</dt><dd>오전 10:00 ~ 오후 18:00<small>입장마감 17:00</small></dd></div>
-        <div><dt>정기휴관</dt><dd><span class="red-t">매주 월요일</span><small>월요일이 공휴일인 경우 다음날</small></dd></div>
+        <div><dt>관람시간</dt><dd>10:00 ~ 18:00<small>입장마감 17:00</small></dd></div>
+        <div><dt>정기휴관</dt><dd><span class="red-t">매주 월요일</span><small class="nw">월요일이 공휴일인 경우 다음날</small></dd></div>
         <div><dt>찾아오시는 길</dt><dd>강원특별자치도 춘천시<br>서면 박사로 854</dd></div>
         <div><dt>문의</dt><dd><a href="tel:033-245-6470">033-245-6470</a></dd></div>
       </dl>
       <div class="visit-act">
-        <a class="ticket" href="https://www.gica.or.kr/Ani/M50000/M50100/html">사전예약하기</a>
+        <a class="btn-red" href="https://www.gica.or.kr/Ani/M50000/M50100/html">사전예약하기</a>
         <a class="btn-line" href="https://www.gica.or.kr/Ani/M10000/M10200/html">교통안내</a>
         <a class="btn-line" href="https://www.gica.or.kr/Ani/M30000/M30100/html">VR로 미리 둘러보기</a>
         <a class="btn-line" href="https://www.gica.or.kr/Ani/M20000/M20600/html">야외 드론투어</a>
       </div>
     </div>
     <figure class="visit-photo">
-      <div class="frame frame--sm"><img src="../assets/img/exterior.webp" alt="애니메이션박물관 건물 바깥 모습" width="600" height="324" loading="lazy"></div>
+      <div class="ph"><img src="../assets/img/exterior.webp" alt="애니메이션박물관 건물 바깥 모습" width="600" height="324" loading="lazy"></div>
     </figure>
   </div>
 </section>
@@ -386,7 +369,7 @@
     <img class="ft-logo" src="../assets/img/logo.png" alt="애니메이션박물관" width="150" height="55" loading="lazy">
     <div class="ft-info">
       <p>24461 강원특별자치도 춘천시 서면 박사로 854 | <a href="tel:033-245-6470">Tel : 033-245-6470</a></p>
-      <p>대표자 : 백창석 · 통신판매업신고번호 : 제 2016-강원춘천-0093호 · 사업자등록번호 : 221-82-09598</p>
+      <p class="ft-biz"><span>대표자 : 백창석</span><span>통신판매업신고번호 : 제 2016-강원춘천-0093호</span><span>사업자등록번호 : 221-82-09598</span></p>
       <p class="ft-copy">Copyright ⓒ 2019 강원정보문화산업진흥원. All rights reserved.</p>
     </div>
     <div class="ft-socials">
@@ -396,6 +379,6 @@
     </div>
   </div>
 </footer>
-<script src="app.js?v=3"></script>
+<script src="app.js?v=5"></script>
 </body>
 </html>

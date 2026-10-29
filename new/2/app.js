@@ -5,9 +5,9 @@
 
   /* ---------- 상영: 리더 카운트다운 + 영상 ---------- */
   var hero = d.querySelector('.hero');
-  var gate = d.querySelector('.gate');
-  var video = d.querySelector('.gate-video');
-  var toggle = d.querySelector('.gate-toggle');
+  var gate = d.querySelector('.hero-film');
+  var video = d.querySelector('.film-video');
+  var toggle = d.querySelector('.film-toggle');
   var leader = d.querySelector('.leader');
   var userPaused = false, scrollPaused = false;
 
@@ -135,21 +135,15 @@
       return { y: n.getUTCFullYear(), m: n.getUTCMonth() + 1, d: n.getUTCDate(), min: n.getUTCHours() * 60 + n.getUTCMinutes() };
     }
   }
-  var k = nowKST(), today = Date.UTC(k.y, k.m - 1, k.d), closed = closedOn(today), state, next;
-  if (closed) { state = '오늘은 휴관합니다'; next = '다음 관람일 ' + shortDate(nextOpen(today)) + ' 10:00'; }
-  else if (k.min < 600) { state = '오늘 10:00에 문을 엽니다'; next = '입장마감 17:00'; }
-  else if (k.min < 1020) { state = '지금 관람할 수 있습니다'; next = '입장마감 17:00 · 18:00까지 관람'; }
-  else if (k.min < 1080) { state = '오늘 입장이 마감되었습니다'; next = '18:00까지 관람 · 다음 관람일 ' + shortDate(nextOpen(today)); }
-  else { state = '오늘 관람이 끝났습니다'; next = '다음 관람일 ' + shortDate(nextOpen(today)) + ' 10:00'; }
-
-  var heroToday = d.querySelector('[data-hero-today]');
-  if (heroToday) {
-    heroToday.innerHTML = '<b>' + longDate(today) + '</b> · ' + (closed ? '<span class="is-closed">' + state + '</span>' : '<span>' + state + '</span> · <span>관람 10:00~18:00</span>');
-  }
+  var k = nowKST(), today = Date.UTC(k.y, k.m - 1, k.d), closed = closedOn(today), label;
+  if (closed) label = '오늘 휴관';
+  else if (k.min < 1020) label = '오늘 열림';
+  else if (k.min < 1080) label = '오늘 입장 마감';
+  else label = '오늘 관람 종료';
   var el;
-  if ((el = d.querySelector('[data-date]'))) el.textContent = longDate(today);
-  if ((el = d.querySelector('[data-state]'))) { el.textContent = state; el.classList.toggle('is-closed', closed); }
-  if ((el = d.querySelector('[data-next]'))) el.textContent = next;
+  if ((el = d.querySelector('[data-date]'))) el.textContent = shortDate(today);
+  if ((el = d.querySelector('[data-open]'))) el.textContent = label;
+  if ((el = d.querySelector('[data-state]'))) el.classList.toggle('is-closed', closed);
 
   /* ---------- 전체 메뉴 ---------- */
   var burger = d.querySelector('.hd-burger'), sm = d.getElementById('sitemap'), smClose = d.querySelector('.sm-close');

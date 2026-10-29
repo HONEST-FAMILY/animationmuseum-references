@@ -73,6 +73,27 @@
 
   const setAnswer = on => document.body.classList.toggle('is-answer', on);
 
+  // PC: 들소가 제목 글자와 겹치지 않게 — 제목 오른쪽 끝 + 24px에서 들소 몸이 시작하고, 머리는 화면 안에
+  const FR_L = .246, FR_R = .97, RATIO = 1000 / 573;
+  const fitBison = () => {
+    if (innerWidth < 1024) { stage.style.left = stage.style.width = stage.style.right = ''; return; }
+    let T = 0;
+    $$('.q > span').forEach(s => { const r = document.createRange(); r.selectNodeContents(s); [...r.getClientRects()].forEach(b => { if (b.width) T = Math.max(T, b.right); }); });
+    const VW = document.documentElement.clientWidth;
+    stage.style.right = 'auto';
+    stage.style.left = '0px';
+    const H = stage.clientHeight;
+    const W = Math.min(H * RATIO, (VW - 20 - (T + 24)) / (FR_R - FR_L));
+    stage.style.width = W + 'px';
+    const r0 = bison.getBoundingClientRect();
+    stage.style.left = (T + 24 - FR_L * r0.width - r0.left) + 'px';
+  };
+  fitBison();
+  addEventListener('resize', fitBison);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitBison);
+  addEventListener('load', fitBison);
+  setTimeout(fitBison, 600);
+
   if (!reduce) {
     let target = 0, cur = 0, drag = 0, auto = null, idle = null, inView = true, answered = false;
     const progress = () => {
@@ -132,6 +153,10 @@
   } else {
     setAnswer(true);
   }
+
+  /* ---------- 폰 아래 예약 줄: '오늘 운영' 띠가 화면 밖으로 나간 뒤에만 ---------- */
+  const band = $('.today');
+  new IntersectionObserver(es => { es.forEach(en => { document.body.classList.toggle('dock-on', !en.isIntersecting && en.boundingClientRect.top < 0); }); }).observe(band);
 
   /* ---------- 16장 펼침 ---------- */
   const strip = $('#strip');
