@@ -102,23 +102,22 @@
     x: function (d, i, st) {
       var ad = Math.abs(d), s = d < 0 ? -1 : 1;
       var near = Math.min(ad, 1), far = Math.max(ad - 1, 0);
-      var spread = st.w < 700 ? 0.62 : 0.33;
-      var x = s * (near * spread + far * (st.w < 700 ? 0.34 : 0.19)) * st.w;
-      var y = near * 0.035 * st.h;
-      var scale = (1 - near * 0.4 - far * 0.08) * (1 - Math.min(st.speed * 2.4, 0.08));
+      var x = s * (near * 0.8 + far * 0.5) * st.size;
+      var y = near * 0.02 * st.h;
+      var scale = (1 - near * 0.44 - far * 0.27) * (1 - Math.min(st.speed * 2.4, 0.08));
       var ry = -clamp(d, -1.6, 1.6) * 26;
-      var rz = d * 6 + (i % 2 ? 2.2 : -2.2) * near - 1.4 * (1 - near);
-      return { t: 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) rotateY(' + ry.toFixed(2) + 'deg) rotateZ(' + rz.toFixed(2) + 'deg) scale(' + scale.toFixed(4) + ')', z: 100 - Math.round(ad * 10), o: ad > 2.8 ? 0 : 1 };
+      var rz = d * 5 + (i % 2 ? 2 : -2) * near - 1.4 * (1 - near);
+      return { t: 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) rotateY(' + ry.toFixed(2) + 'deg) rotateZ(' + rz.toFixed(2) + 'deg) scale(' + Math.max(scale, 0.05).toFixed(4) + ')', z: 100 - Math.round(ad * 10), o: ad > 1.6 ? Math.max(0, 1 - (ad - 1.6) / 0.8) : 1 };
     },
     y: function (d, i, st) {
       var ad = Math.abs(d), s = d < 0 ? -1 : 1;
       var near = Math.min(ad, 1), far = Math.max(ad - 1, 0);
-      var y = s * (near * 0.58 + far * 0.3) * st.h;
-      var x = (i % 2 ? 1 : -1) * near * 0.06 * st.w;
-      var scale = (1 - near * 0.34 - far * 0.06) * (1 - Math.min(st.speed * 2.4, 0.08));
-      var rx = -clamp(d, -1.6, 1.6) * 18;
-      var rz = d * 9 + (i % 2 ? 3 : -3) * near - 1.4 * (1 - near);
-      return { t: 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) rotateX(' + rx.toFixed(2) + 'deg) rotateZ(' + rz.toFixed(2) + 'deg) scale(' + scale.toFixed(4) + ')', z: 100 - Math.round(ad * 10), o: ad > 2.6 ? 0 : 1 };
+      var y = s * (near * 0.6 + far * 0.26) * st.h;
+      var x = (s > 0 ? 1 : -1) * near * 0.05 * st.w;
+      var scale = (1 - near * 0.42 - far * 0.2) * (1 - Math.min(st.speed * 2.4, 0.08));
+      var rx = -clamp(d, -1.6, 1.6) * 22;
+      var rz = d * 8 + (i % 2 ? 2.5 : -2.5) * near - 1.4 * (1 - near);
+      return { t: 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) rotateX(' + rx.toFixed(2) + 'deg) rotateZ(' + rz.toFixed(2) + 'deg) scale(' + Math.max(scale, 0.05).toFixed(4) + ')', z: 100 - Math.round(ad * 10), o: ad > 2.2 ? 0 : (ad > 1.4 ? 1 - (ad - 1.4) / 0.8 : 1) };
     }
   };
 
@@ -156,7 +155,11 @@
       colorTo = palette[i];
       mixStart = index < 0 ? -10 : performance.now();
       index = i;
-      items.forEach(function (el, k) { el.classList.toggle('is-on', k === i); });
+      items.forEach(function (el, k) {
+        el.classList.toggle('is-on', k === i);
+        var sleeve = el.querySelector('.cv-sleeve');
+        if (sleeve) sleeve.tabIndex = k === i ? 0 : -1;
+      });
       if (o.onIndex) o.onIndex(i, dir);
     };
 
@@ -166,9 +169,9 @@
     };
 
     var center = function () {
-      var r = stage.getBoundingClientRect();
+      var r = (o.canvas || stage).getBoundingClientRect();
       var a = o.anchor.getBoundingClientRect();
-      return { x: a.left - r.left, y: a.top - r.top };
+      return { x: a.left - r.left, y: clamp(a.top - r.top, 0, r.height * 0.48) };
     };
 
     var frame = function (now) {
@@ -177,7 +180,7 @@
       p += (target - p) * (reduce ? 1 : 0.13);
       speed = Math.abs(p - prevP);
       prevP = p;
-      var st = { w: stage.clientWidth, h: stage.clientHeight, speed: speed };
+      var st = { w: stage.clientWidth, h: stage.clientHeight, size: items[0].offsetWidth, speed: speed };
       items.forEach(function (el, k) {
         var l = layout(k - p, k, st);
         el.style.transform = l.t;
@@ -213,7 +216,7 @@
       var startX = 0, startY = 0, startScroll = 0, lastX = 0, lastT = 0, vel = 0, decided = false, horizontal = false;
       var perPx = function () { return (range().h / Math.max(1, n - 1)) / (stage.clientWidth * (stage.clientWidth < 700 ? 0.55 : 0.32)); };
       stage.addEventListener('pointerdown', function (e) {
-        if (e.button !== 0 || e.target.closest('a, button')) return;
+        if (e.button !== 0 || e.target.closest('a, .ch-player')) return;
         dragging = true; decided = false; horizontal = false;
         startX = lastX = e.clientX; startY = e.clientY; startScroll = window.scrollY; lastT = performance.now(); vel = 0;
       });
@@ -233,6 +236,8 @@
         dragging = false;
         stage.classList.remove('is-drag');
         if (!horizontal) return;
+        stage.classList.add('was-drag');
+        setTimeout(function () { stage.classList.remove('was-drag'); }, 60);
         var v = clamp(vel, -3, 3);
         var extra = Math.abs(v) > 0.25 ? -Math.sign(v) * Math.min(3, Math.max(1, Math.round(Math.abs(v) * 1.2))) : 0;
         go(Math.round(target) + extra);
@@ -245,19 +250,32 @@
       stage.addEventListener('pointermove', function (e) {
         var r = stage.getBoundingClientRect();
         var nx = (e.clientX - r.left) / r.width - 0.5, ny = (e.clientY - r.top) / r.height - 0.5;
-        stage.style.setProperty('--tx', (nx * 14).toFixed(2) + 'deg');
-        stage.style.setProperty('--ty', (-ny * 10).toFixed(2) + 'deg');
-        stage.style.setProperty('--sx', (nx * 60).toFixed(1) + '%');
+        stage.style.setProperty('--tx', (nx * 12).toFixed(2) + 'deg');
+        stage.style.setProperty('--ty', (-ny * 9).toFixed(2) + 'deg');
+        stage.style.setProperty('--sx', (nx * 70).toFixed(1) + '%');
+        stage.style.setProperty('--sy', (ny * 50).toFixed(1) + '%');
       });
       stage.addEventListener('pointerleave', function () {
-        stage.style.setProperty('--tx', '0deg');
-        stage.style.setProperty('--ty', '0deg');
-        stage.style.setProperty('--sx', '0%');
+        ['--tx', '--ty'].forEach(function (k) { stage.style.setProperty(k, '0deg'); });
+        ['--sx', '--sy'].forEach(function (k) { stage.style.setProperty(k, '0%'); });
       });
     }
 
+    var moved = false;
+    stage.addEventListener('pointerdown', function () { moved = false; }, true);
+    window.addEventListener('pointermove', function (e) { if (e.buttons && (Math.abs(e.movementX) + Math.abs(e.movementY) > 2)) moved = true; }, true);
+    items.forEach(function (el, k) {
+      var btn = el.querySelector('.cv-sleeve');
+      if (!btn) return;
+      btn.addEventListener('click', function (e) {
+        if (moved && dragging === false && stage.classList.contains('was-drag')) { e.preventDefault(); return; }
+        if (k === index && o.onOpen) o.onOpen(k, btn);
+        else go(k);
+      });
+    });
+
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) { active = entries[0].isIntersecting; }, { rootMargin: '200px 0px' }).observe(section);
+      new IntersectionObserver(function (entries) { active = entries[0].isIntersecting; }, { rootMargin: '100% 0px' }).observe(section);
     }
 
     readTarget();
@@ -266,6 +284,7 @@
 
     return {
       go: go,
+      index: function () { return index; },
       next: function () { go(Math.round(target) + 1); },
       prev: function () { go(Math.round(target) - 1); },
       count: n

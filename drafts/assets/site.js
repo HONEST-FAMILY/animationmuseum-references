@@ -1,42 +1,118 @@
 (function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hd = document.querySelector('.hd');
+  var onScroll = function () { hd.classList.toggle('is-scrolled', window.scrollY > 40); };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  var closeTimers = {};
+  var openLayer = function (el) {
+    clearTimeout(closeTimers[el.id]);
+    el.hidden = false;
+    requestAnimationFrame(function () { requestAnimationFrame(function () { el.classList.add('is-open'); }); });
+    document.documentElement.style.overflow = 'hidden';
+  };
+  var closeLayer = function (el, done) {
+    el.classList.remove('is-open');
+    clearTimeout(closeTimers[el.id]);
+    closeTimers[el.id] = setTimeout(function () { el.hidden = true; if (done) done(); }, reduce ? 0 : 700);
+    document.documentElement.style.overflow = '';
+  };
+
+  var sm = document.getElementById('sitemap');
   var burger = document.querySelector('.hd-burger');
-  var sitemap = document.getElementById('sitemap');
-  if (burger && sitemap) {
-    var setOpen = function (open) {
-      sitemap.hidden = !open;
-      burger.setAttribute('aria-expanded', String(open));
-      burger.setAttribute('aria-label', open ? '전체 메뉴 닫기' : '전체 메뉴 열기');
-      document.documentElement.classList.toggle('is-sitemap', open);
-    };
-    burger.addEventListener('click', function () { setOpen(sitemap.hidden); });
-    sitemap.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !sitemap.hidden) { setOpen(false); burger.focus(); }
-    });
-  }
+  var smClose = sm.querySelector('.sm-close');
+  burger.addEventListener('click', function () {
+    burger.setAttribute('aria-expanded', 'true');
+    openLayer(sm);
+    setTimeout(function () { smClose.focus(); }, 50);
+  });
+  var closeSitemap = function () {
+    burger.setAttribute('aria-expanded', 'false');
+    closeLayer(sm, function () { burger.focus(); });
+  };
+  smClose.addEventListener('click', closeSitemap);
 
-  var header = document.querySelector('.hd');
-  if (header) {
-    var onScroll = function () { header.classList.toggle('is-scrolled', window.scrollY > 40); };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  }
+  var famBtn = document.querySelector('.ft-family-btn');
+  var fam = document.getElementById('family');
+  famBtn.addEventListener('click', function () {
+    var open = fam.hidden;
+    fam.hidden = !open;
+    famBtn.setAttribute('aria-expanded', String(open));
+  });
+  document.addEventListener('click', function (e) {
+    if (!fam.hidden && !e.target.closest('.ft-family')) { fam.hidden = true; famBtn.setAttribute('aria-expanded', 'false'); }
+  });
+  document.querySelector('.ft-top-btn').addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  });
 
-  var family = document.querySelector('.ft-family-btn');
-  var familyList = document.getElementById('family');
-  if (family && familyList) {
-    family.addEventListener('click', function () {
-      var open = familyList.hidden;
-      familyList.hidden = !open;
-      family.setAttribute('aria-expanded', String(open));
+  var rec = document.getElementById('rec');
+  var data = window.CHAPTER_DATA;
+  var recIndex = 0, recReturn = null;
+  var q = function (sel) { return rec.querySelector(sel); };
+  var fill = function (i) {
+    recIndex = i;
+    var c = data[i];
+    q('[data-rec-no]').textContent = String(i + 1).padStart(2, '0') + ' / ' + String(data.length).padStart(2, '0');
+    q('[data-rec-title]').textContent = c.name;
+    q('[data-rec-floor]').textContent = c.place;
+    q('[data-rec-desc]').textContent = c.desc;
+    var art = q('.rec-art');
+    art.src = '../assets/img/cover' + (i + 1) + '.webp';
+    art.style.animation = 'none';
+    void art.offsetWidth;
+    art.style.animation = '';
+    q('[data-rec-next]').textContent = i < data.length - 1 ? '다음 공간 ' + data[i + 1].name : '처음 공간으로';
+  };
+  window.openRecord = function (i, from) {
+    fill(i);
+    recReturn = document.activeElement;
+    if (from) {
+      var r = from.getBoundingClientRect();
+      rec.style.setProperty('--ox', (r.left + r.width / 2) + 'px');
+      rec.style.setProperty('--oy', (r.top + r.height / 2) + 'px');
+    }
+    openLayer(rec);
+    setTimeout(function () { q('.rec-close').focus(); }, 60);
+  };
+  var closeRecord = function () {
+    closeLayer(rec, function () { if (recReturn) recReturn.focus(); });
+    if (window.onRecordClose) window.onRecordClose(recIndex);
+  };
+  q('.rec-close').addEventListener('click', closeRecord);
+  q('[data-rec-next]').addEventListener('click', function () {
+    var n = (recIndex + 1) % data.length;
+    var disc = q('.rec-disc');
+    disc.style.transition = 'none';
+    disc.style.transform = 'translate(-50%, -50%) scale(.9) rotate(-40deg)';
+    requestAnimationFrame(function () {
+      disc.style.transition = '';
+      disc.style.transform = '';
     });
-  }
+    fill(n);
+  });
 
-  var topBtn = document.querySelector('.ft-top-btn');
-  if (topBtn) {
-    topBtn.addEventListener('click', function () {
-      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
-    });
-  }
+  var openedLayer = function () {
+    if (!rec.hidden) return rec;
+    if (!sm.hidden) return sm;
+    return null;
+  };
+  window.isLayerOpen = function () { return openedLayer() !== null; };
+  var keepFocusInside = function (layer, e) {
+    var focusables = Array.prototype.filter.call(layer.querySelectorAll('a[href], button'), function (el) { return el.offsetParent !== null; });
+    if (!focusables.length) return;
+    var first = focusables[0], last = focusables[focusables.length - 1];
+    if (!layer.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+    else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  };
+
+  document.addEventListener('keydown', function (e) {
+    var layer = openedLayer();
+    if (e.key === 'Tab' && layer) { keepFocusInside(layer, e); return; }
+    if (e.key !== 'Escape') return;
+    if (layer === rec) closeRecord();
+    else if (layer === sm) closeSitemap();
+  });
 })();

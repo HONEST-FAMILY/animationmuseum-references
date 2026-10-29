@@ -1,82 +1,116 @@
 (function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = window.matchMedia('(pointer: fine)').matches;
   var data = window.CHAPTER_DATA;
+
+  var intro = document.querySelector('.intro');
+  var art = intro.querySelector('.intro-art');
+  var title = intro.querySelector('.intro-title');
+  var side = intro.querySelector('.intro-side');
+  var clouds = intro.querySelector('.intro-clouds');
+  var mx = 0, my = 0, tx = 0, ty = 0, introOn = true;
+  if (fine) {
+    window.addEventListener('pointermove', function (e) {
+      tx = e.clientX / window.innerWidth - 0.5;
+      ty = e.clientY / window.innerHeight - 0.5;
+    }, { passive: true });
+  }
+  var tick = function (now) {
+    requestAnimationFrame(tick);
+    if (!introOn || reduce) return;
+    if (!fine) { tx = Math.sin(now / 2800) * 0.18; ty = Math.cos(now / 3300) * 0.12; }
+    mx += (tx - mx) * 0.07;
+    my += (ty - my) * 0.07;
+    var sy = Math.min(window.scrollY, window.innerHeight);
+    art.style.transform = 'translate3d(' + (-mx * 18).toFixed(2) + 'px,' + (-my * 12 + sy * 0.32).toFixed(2) + 'px,0) scale(' + (1 + sy / window.innerHeight * 0.06).toFixed(4) + ')';
+    title.style.transform = 'translate3d(' + (-mx * 8).toFixed(2) + 'px,' + (-my * 6 - sy * 0.1).toFixed(2) + 'px,0)';
+    side.style.transform = 'translate3d(' + (-mx * 10).toFixed(2) + 'px,' + (-my * 6 - sy * 0.14).toFixed(2) + 'px,0)';
+    clouds.style.transform = 'translate3d(' + (-mx * 34).toFixed(2) + 'px,' + (-my * 10 + sy * 0.08).toFixed(2) + 'px,0)';
+  };
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (en) { introOn = en[0].isIntersecting; }).observe(intro);
+  }
+  requestAnimationFrame(tick);
+
   var section = document.getElementById('journey');
   var stage = section.querySelector('.ch-stage');
-  var frames = Array.prototype.slice.call(section.querySelectorAll('.frame'));
-  var trail = Array.prototype.slice.call(section.querySelectorAll('.trail button'));
-  var slots = Array.prototype.slice.call(document.querySelectorAll('.slots li'));
-  var strip = section.querySelector('.strip');
+  var slots = Array.prototype.slice.call(section.querySelectorAll('.slot'));
+  var slam = section.querySelector('.slam');
   var info = section.querySelector('.jr-info');
-  var numEl = section.querySelector('[data-jr-num]');
-  var nameEl = section.querySelector('[data-jr-name]');
-  var floorEl = section.querySelector('[data-jr-floor]');
-  var textEl = section.querySelector('[data-jr-text]');
-  var titleEl = section.querySelector('[data-ch-title]');
-  var subEl = section.querySelector('[data-ch-sub]');
-  var cardTitle = document.querySelector('[data-card-title]');
-  var cardSub = document.querySelector('[data-card-sub]');
-  var reached = -1;
+  var q = function (sel) { return section.querySelector(sel); };
+  var reached = -1, seen = false, current = 0;
+  var pad = function (n) { return String(n).padStart(2, '0'); };
+  var lines = function (i) { return slots[i].querySelector('.slot-stamp').innerHTML; };
 
-  var centerStrip = function (i) {
-    var f = frames[i];
-    var y = strip.parentNode.clientHeight / 2 - (f.offsetTop + f.offsetHeight / 2);
-    strip.style.transform = 'translateY(' + Math.round(y) + 'px)';
-  };
-
-  var updateCard = function () {
-    var n = reached + 1;
-    if (n === data.length) {
-      cardTitle.textContent = '도장판 완성';
-      cardSub.textContent = '아홉 칸을 모두 채웠어요. 이제 진짜 상상의 계단을 올라 볼 차례입니다.';
-    } else if (n > 0) {
-      cardTitle.textContent = '도장 ' + n + '개를 모았어요';
-      cardSub.textContent = '남은 칸은 ' + (data.length - n) + '칸입니다. 아래로 계속 내려가면 나머지 칸에도 도장이 찍힙니다.';
-    }
+  var stamp = function (i) {
+    if (i <= reached) return;
+    for (var k = reached + 1; k <= i; k++) slots[k].classList.add('is-done');
+    reached = i;
+    if (reduce) return;
+    var c = getComputedStyle(slots[i]);
+    slam.style.setProperty('--k', c.getPropertyValue('--k'));
+    slam.style.setProperty('--kt', c.getPropertyValue('--kt'));
+    slam.querySelector('b').innerHTML = lines(i);
+    slam.querySelector('small').textContent = '도장 ' + pad(i + 1) + ' / ' + pad(data.length);
+    slam.classList.remove('is-hit');
+    void slam.offsetWidth;
+    slam.classList.add('is-hit');
   };
 
   var chapters = window.Chapters({
     section: section,
     stage: stage,
-    anchor: section.querySelector('.ch-covers'),
-    canvas: section.querySelector('.ch-canvas'),
+    anchor: q('.ch-covers'),
+    canvas: q('.ch-canvas'),
     items: section.querySelectorAll('.cv'),
     axis: 'y',
-    palette: data.map(function (d) { return d.pal; }),
+    drag: false,
+    palette: data.map(function (c) { return c.ring; }),
     onIndex: function (i) {
-      reached = Math.max(reached, i);
-      frames.forEach(function (f, k) { f.classList.toggle('done', k <= reached); });
-      slots.forEach(function (s, k) { s.classList.toggle('done', k <= reached); });
-      trail.forEach(function (b, k) {
-        b.classList.toggle('is-now', k === i);
-        b.classList.toggle('is-done', k <= reached);
-        if (k === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
-      });
-      centerStrip(i);
+      current = i;
+      q('[data-ch-title]').textContent = pad(i + 1) + '.' + data[i].name;
+      q('[data-ch-sub]').textContent = data[i].place;
+      q('[data-ch-count]').textContent = '도장 ' + (i + 1) + ' / ' + data.length;
+      q('[data-jr-no]').textContent = pad(i + 1);
+      q('[data-jr-place]').textContent = data[i].place;
+      q('[data-jr-name]').textContent = data[i].name;
+      q('[data-jr-desc]').textContent = data[i].desc;
       info.classList.remove('is-swap');
       void info.offsetWidth;
       info.classList.add('is-swap');
-      numEl.textContent = String(i + 1).padStart(2, '0');
-      nameEl.textContent = data[i].name;
-      floorEl.textContent = data[i].floor;
-      textEl.textContent = data[i].desc;
-      titleEl.textContent = String(i + 1).padStart(2, '0') + '.' + data[i].name;
-      subEl.textContent = '도장 ' + (reached + 1) + ' / ' + data.length + ', ' + data[i].floor;
-      updateCard();
-    }
+      slots.forEach(function (s, k) { s.classList.toggle('is-now', k === i); });
+      if (seen) stamp(i);
+    },
+    onOpen: function (i, el) { window.openRecord(i, el); }
   });
 
-  trail.forEach(function (b) {
-    b.addEventListener('click', function () { chapters.go(parseInt(b.dataset.go, 10)); });
-  });
-  section.querySelectorAll('[data-ch-step]').forEach(function (b) {
-    b.addEventListener('click', function () { if (b.dataset.chStep === '1') chapters.next(); else chapters.prev(); });
-  });
-  window.addEventListener('resize', function () { centerStrip(Math.max(0, frames.findIndex(function (f, k) { return trail[k].classList.contains('is-now'); }))); });
-
-  var today = document.querySelector('[data-today]');
-  if (today) {
-    today.textContent = new Date().getDay() === 1
-      ? '오늘은 정기휴관일(매주 월요일)입니다. 공휴일이면 다음날 쉽니다.'
-      : '오늘 10:00부터 18:00까지 관람할 수 있어요. 입장은 17:00까지입니다.';
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (en) {
+      if (en[0].isIntersecting && !seen) {
+        seen = true;
+        setTimeout(function () { stamp(current); }, 250);
+      }
+    }, { threshold: 0.5 }).observe(stage);
+  } else {
+    seen = true;
   }
+
+  slots.forEach(function (s, k) {
+    s.querySelector('button').addEventListener('click', function () { chapters.go(k); });
+  });
+  q('.ch-play').addEventListener('click', function (e) { window.openRecord(chapters.index(), e.currentTarget); });
+  section.querySelectorAll('[data-ch-step]').forEach(function (btn) {
+    btn.addEventListener('click', function () { if (btn.dataset.chStep === '1') chapters.next(); else chapters.prev(); });
+  });
+  window.onRecordClose = function (i) { if (i !== chapters.index()) chapters.go(i); };
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+    if (window.isLayerOpen()) return;
+    var r = section.getBoundingClientRect();
+    if (r.top > 10 || r.bottom < window.innerHeight - 10) return;
+    var target = chapters.index() + (e.key === 'ArrowDown' ? 1 : -1);
+    if (target < 0 || target >= data.length) return;
+    e.preventDefault();
+    chapters.go(target);
+  });
 })();
