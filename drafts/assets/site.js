@@ -58,6 +58,9 @@
     q('[data-rec-title]').textContent = c.name;
     q('[data-rec-floor]').textContent = c.place;
     q('[data-rec-desc]').textContent = c.desc;
+    var photo = q('[data-rec-photo]');
+    photo.src = '../assets/img/' + c.photo + '.webp';
+    photo.alt = c.photoAlt;
     var art = q('.rec-art');
     art.src = '../assets/img/cover' + (i + 1) + '.webp';
     art.style.animation = 'none';

@@ -22,11 +22,12 @@
 .m-box { border: 1.5px solid currentColor; border-radius: 3px; padding: 1px 4px; font-size: calc(var(--size) * .0115); font-weight: 900; letter-spacing: .04em; }
 .m-dot { width: calc(var(--size) * .026); aspect-ratio: 1; border-radius: 50%; border: 1.5px solid currentColor; }
 
-.ch-player { position: absolute; left: 50%; top: calc(48% + var(--size) * .5 - var(--size) * .03); z-index: 200; display: flex; align-items: center; gap: calc(var(--size) * .035); width: max(300px, calc(var(--size) * .72)); height: max(64px, calc(var(--size) * .154)); padding: 0 calc(var(--size) * .05) 0 calc(var(--size) * .06); background: var(--ink); color: var(--cream); border-radius: 999px; transform: translate(-50%, -50%); transition: opacity .35s, transform .55s var(--ease); }
+.ch-player { position: absolute; left: 50%; top: calc(48% + var(--size) * .5 - var(--size) * .03); z-index: 200; display: flex; align-items: center; gap: calc(var(--size) * .035); width: max(330px, calc(var(--size) * .8)); height: max(64px, calc(var(--size) * .154)); padding: 0 calc(var(--size) * .05) 0 calc(var(--size) * .06); background: var(--ink); color: var(--cream); border-radius: 999px; transform: translate(-50%, -50%); transition: opacity .35s, transform .55s var(--ease); }
 .ch-stage.is-moving .ch-player { opacity: 0; transform: translate(-50%, -20%) scale(.94); }
 .ch-play { flex: none; width: max(34px, calc(var(--size) * .07)); height: max(34px, calc(var(--size) * .07)); border: 0; padding: 0; background: none; cursor: pointer; transition: transform .3s var(--ease); }
 .ch-play:hover { transform: scale(1.12); }
 .ch-play svg { width: 100%; height: 100%; fill: var(--cream); }
+.ch-thumb { flex: none; width: max(40px, calc(var(--size) * .085)); aspect-ratio: 1; object-fit: cover; border-radius: 10px; border: 1.5px solid rgba(254, 236, 227, .35); }
 .ch-meta { flex: 1; min-width: 0; display: grid; gap: 1px; }
 .ch-meta b { font-size: max(14px, calc(var(--size) * .029)); font-weight: 800; letter-spacing: -.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ch-meta span { font-size: max(12.5px, calc(var(--size) * .024)); font-weight: 500; opacity: .92; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -45,6 +46,7 @@
   .ch-covers { top: 48%; }
   .ch-player { top: calc(48% + var(--size) * .5); width: min(92vw, calc(var(--size) * .9)); height: 66px; gap: 10px; padding: 0 12px 0 18px; }
   .ch-play { width: 30px; height: 30px; }
+  .ch-thumb { display: none; }
   .ch-meta b { font-size: 13.5px; }
   .ch-meta span { font-size: 12px; }
   .ch-meta small { font-size: 11px; }

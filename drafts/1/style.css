@@ -13,8 +13,8 @@
 .hero-stars i { position: absolute; width: calc(14px * var(--s)); height: calc(14px * var(--s)); background: var(--cream); clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%); animation: twinkle 3.6s var(--d) ease-in-out infinite; }
 @keyframes twinkle { 0%, 100% { transform: scale(.3) rotate(0deg); opacity: .2; } 50% { transform: scale(1) rotate(45deg); opacity: 1; } }
 
-.hero-copy { position: absolute; left: 50%; top: 102px; z-index: 4; width: 90%; text-align: center; color: var(--cream); transform: translateX(-50%); pointer-events: none; }
-.hero-title { font-family: var(--font-point); font-weight: 900; font-size: clamp(32px, min(5vh, 3.4vw), 60px); line-height: .98; letter-spacing: -.055em; text-shadow: 0 2px 0 rgba(150, 50, 0, .18); }
+.hero-copy { position: absolute; left: 50%; top: 102px; z-index: 4; width: 90%; text-align: center; color: var(--ink); transform: translateX(-50%); pointer-events: none; }
+.hero-title { font-family: var(--font-point); font-weight: 900; font-size: clamp(32px, min(5vh, 3.4vw), 60px); line-height: .98; letter-spacing: -.055em; }
 .hero-title .hl { display: block; white-space: nowrap; }
 .hero-title .hl + .hl { margin-left: .9em; }
 .hero-title .ch-l { display: inline-block; transform: translateY(var(--y, 0)) rotate(var(--r, 0deg)); }
@@ -43,12 +43,13 @@
 .hero-cta { position: absolute; z-index: 10; left: 50%; bottom: 9.5svh; display: block; text-decoration: none; transform: translate(-50%, 0); }
 .hero-cta span { display: block; padding: .32em .95em .4em; border-radius: 999px; background: var(--ink); color: var(--cream); font-family: var(--font-point); font-weight: 800; font-size: clamp(22px, min(3.6vh, 2.4vw), 34px); letter-spacing: -.03em; white-space: nowrap; transform: translate(var(--mx, 0px), var(--my, 0px)) rotate(var(--mr, 0deg)) scale(var(--ms, 1)); transition: transform .5s var(--ease); }
 .hero-cta:hover span { --ms: 1.1; }
+.hero-hours { position: absolute; z-index: 10; left: 50%; bottom: 4.4svh; margin: 0; transform: translateX(-50%); font-size: 14px; font-weight: 800; color: var(--ink); white-space: nowrap; }
 
 .hero { z-index: 1; }
 .hero-sticky { -webkit-mask-image: radial-gradient(circle at 50% 48%, transparent var(--R, 0px), #000 calc(var(--R, 0px) + .6px)); mask-image: radial-gradient(circle at 50% 48%, transparent var(--R, 0px), #000 calc(var(--R, 0px) + .6px)); }
 .hero-iris { position: absolute; inset: 0; z-index: 12; pointer-events: none; opacity: var(--io, 0); background: radial-gradient(circle at 50% 48%, transparent calc(var(--R, 0px) - 1px), #171717 var(--R, 0px), #171717 calc(var(--R, 0px) + 6px), transparent calc(var(--R, 0px) + 7px)); }
 .ch-canvas--fixed { position: fixed; inset: 0; z-index: 0; }
-.d1 .ch { background: transparent; z-index: 1; }
+.d1 .ch { background: transparent; z-index: 1; margin-top: -100svh; }
 .d1 .ch-stage::after { display: none; }
 .d1 .now, .d1 .visit, .d1 .ft { z-index: 1; }
 
@@ -69,4 +70,5 @@
   .hero-badge { display: none; }
   .hero-clouds { height: 22svh; }
   .hero-cta { bottom: 8svh; }
+  .hero-hours { bottom: 2.6svh; font-size: 12.5px; }
 }

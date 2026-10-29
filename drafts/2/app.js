@@ -70,7 +70,11 @@
       current = i;
       q('[data-ch-title]').textContent = pad(i + 1) + '.' + data[i].name;
       q('[data-ch-sub]').textContent = data[i].place;
-      q('[data-ch-count]').textContent = '도장 ' + (i + 1) + ' / ' + data.length;
+      q('[data-ch-count]').textContent = '관람 순서 ' + (i + 1) + ' / ' + data.length;
+      q('[data-ch-thumb]').src = '../assets/img/' + data[i].photo + '.webp';
+      q('[data-ch-thumb]').alt = data[i].photoAlt;
+      q('[data-jr-photo]').src = '../assets/img/' + data[i].photo + '.webp';
+      q('[data-jr-photo]').alt = data[i].photoAlt;
       q('[data-jr-no]').textContent = pad(i + 1);
       q('[data-jr-place]').textContent = data[i].place;
       q('[data-jr-name]').textContent = data[i].name;

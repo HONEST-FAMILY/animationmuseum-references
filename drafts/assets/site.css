@@ -35,7 +35,10 @@ h1, h2, h3, p { margin: 0; }
 .pill--lg { min-height: 58px; padding: 0 30px; font-family: var(--font-point); font-size: 20px; font-weight: 800; letter-spacing: -.02em; }
 
 /* 머리글 */
-.hd { position: fixed; left: 0; right: 0; top: 0; z-index: 60; color: var(--cream); pointer-events: none; }
+.hd { position: fixed; left: 0; right: 0; top: 0; z-index: 60; color: var(--ink); pointer-events: none; transition: color .3s; }
+.hd.is-scrolled { color: var(--cream); }
+.hd-logo .logo-light, .hd.is-scrolled .hd-logo .logo-dark { display: none; }
+.hd.is-scrolled .hd-logo .logo-light { display: block; }
 .hd a, .hd button { pointer-events: auto; }
 .hd-top { display: flex; justify-content: space-between; align-items: center; height: 36px; padding: 0 22px; font-size: 12px; font-weight: 700; letter-spacing: .01em; transition: opacity .3s, transform .4s var(--ease); }
 .hd-sites, .hd-utils { display: flex; align-items: center; }
@@ -137,6 +140,9 @@ h1, h2, h3, p { margin: 0; }
 .rec-title { margin-top: 14px; font-family: var(--font-point); font-weight: 900; font-size: clamp(38px, 5vw, 72px); line-height: 1.04; letter-spacing: -.045em; }
 .rec-floor { margin-top: 10px; font-weight: 700; font-size: 16px; opacity: .8; }
 .rec-desc { margin-top: 18px; font-size: 18px; line-height: 1.7; font-weight: 500; }
+.rec-photo { margin: 18px 0 0; width: min(340px, 100%); }
+.rec-photo img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 14px; border: 2px solid rgba(254, 236, 227, .35); }
+.rec-photo figcaption { margin-top: 6px; font-size: 12.5px; font-weight: 700; opacity: .75; }
 .rec-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
 .rec-actions .pill--line { color: var(--cream); }
 .rec-close { position: absolute; right: 22px; top: 22px; width: 56px; height: 56px; border-radius: 50%; border: 0; background: var(--cream); cursor: pointer; display: grid; place-items: center; transition: transform .4s var(--ease); }

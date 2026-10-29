@@ -33,6 +33,8 @@
   var clouds = hero.querySelector('.hero-clouds');
   var cta = hero.querySelector('.hero-cta');
   var ctaText = cta.querySelector('span');
+  var hours = hero.querySelector('.hero-hours');
+  var chapterStage = document.querySelector('#chapters .ch-stage');
 
   var mx = 0, my = 0, tx = 0, ty = 0, px = -1, py = -1, heroOn = true;
   window.addEventListener('pointermove', function (e) {
@@ -47,9 +49,15 @@
   };
   var ease = function (t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; };
 
+  var revealChapters = function (t) {
+    var reveal = reduce ? 1 : clamp((t - 0.88) / 0.12, 0, 1);
+    chapterStage.style.opacity = reveal;
+    chapterStage.style.pointerEvents = reveal < 1 ? 'none' : '';
+  };
+
   var tick = function (now) {
     requestAnimationFrame(tick);
-    if (!heroOn) return;
+    if (!heroOn) { revealChapters(progress()); return; }
     if (!fine && !reduce) {
       tx = Math.sin(now / 2600) * 0.22;
       ty = Math.cos(now / 3100) * 0.16;
@@ -57,6 +65,7 @@
     mx += (tx - mx) * 0.07;
     my += (ty - my) * 0.07;
     var t = reduce ? 0 : progress();
+    revealChapters(reduce ? 1 : t);
     var e = ease(t);
     var vw = window.innerWidth / 100, vh = window.innerHeight / 100;
     var p = function (d) { return 'translate3d(' + (-mx * d).toFixed(2) + 'px,' + (-my * d * 0.7).toFixed(2) + 'px,0) '; };
@@ -75,6 +84,8 @@
     var ctaOpacity = clamp(1 - t * 4, 0, 1);
     cta.style.opacity = ctaOpacity;
     cta.style.visibility = ctaOpacity > 0 ? '' : 'hidden';
+    hours.style.opacity = ctaOpacity;
+    hours.style.visibility = ctaOpacity > 0 ? '' : 'hidden';
     cta.style.pointerEvents = t > 0.2 ? 'none' : '';
     var r = clamp((t - 0.58) / 0.42, 0, 1);
     var maxR = Math.hypot(window.innerWidth / 2, window.innerHeight * 0.52) + 16;
@@ -98,6 +109,7 @@
   var title1 = document.querySelector('[data-ch-title]');
   var sub1 = document.querySelector('[data-ch-sub]');
   var count1 = document.querySelector('[data-ch-count]');
+  var thumb1 = document.querySelector('[data-ch-thumb]');
   var section = document.getElementById('chapters');
   var chapters = window.Chapters({
     section: section,
@@ -112,6 +124,8 @@
       title1.textContent = String(i + 1).padStart(2, '0') + '.' + data[i].name;
       sub1.textContent = data[i].place;
       count1.textContent = '관람 순서 ' + (i + 1) + ' / ' + data.length;
+      thumb1.src = '../assets/img/' + data[i].photo + '.webp';
+      thumb1.alt = data[i].photoAlt;
     },
     onOpen: function (i, el) { window.openRecord(i, el); }
   });

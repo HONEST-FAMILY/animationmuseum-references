@@ -199,11 +199,16 @@
       }
     };
 
+    var lastInput = 0;
+    ['wheel', 'touchstart', 'touchmove', 'keydown', 'pointerdown'].forEach(function (type) {
+      window.addEventListener(type, function () { lastInput = performance.now(); }, { passive: true });
+    });
+
     window.addEventListener('scroll', function () {
       readTarget();
       if (snapTimer) clearTimeout(snapTimer);
       snapTimer = setTimeout(function () {
-        if (dragging) return;
+        if (dragging || performance.now() - lastInput > 1500) return;
         var r = range();
         if (window.scrollY <= r.top + 2 || window.scrollY >= r.top + r.h - 2) return;
         var near = Math.round(target);
