@@ -12,7 +12,7 @@
 .intro-title span { text-shadow: 0 0 10px #ffb466, 0 0 5px #ffb466, 0 0 2px #ffb466; }
 .d2 .now-card { left: clamp(16px, 4vw, 70px); bottom: 5svh; }
 .it-sub { margin-top: 3.2em; font-size: clamp(22px, min(3.6vh, 2.2vw), 34px); letter-spacing: .1em; }
-.intro-side { position: absolute; z-index: 3; right: clamp(22px, 4.5vw, 90px); top: 26svh; width: min(370px, 30vw); color: var(--ink); display: flex; flex-direction: column; align-items: flex-start; }
+.intro-side { position: absolute; z-index: 3; right: clamp(22px, 4.5vw, 90px); top: 26svh; width: min(340px, 27vw); color: var(--ink); display: flex; flex-direction: column; align-items: flex-start; }
 .intro-side p { font-size: clamp(16px, 1.25vw, 19px); font-weight: 800; line-height: 1.65; letter-spacing: -.02em; text-shadow: 0 0 8px #ffb466, 0 0 4px #ffb466, 0 0 2px #ffb466; }
 .intro-actions { order: 2; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
 .intro-actions .pill--line-ink { background: var(--paper); }
@@ -81,13 +81,13 @@
 @media (max-width: 700px) {
   .intro { min-height: 0; }
   .intro-art { inset: 190px 0 0; overflow: hidden; }
-  .intro-art img { object-position: 50% 100%; transform: scale(1.14); transform-origin: 50% 100%; }
+  .intro-art img { object-position: 52% 100%; transform: scale(1.14); transform-origin: 50% 100%; }
   .intro-title { left: 18px; top: 104px; flex-direction: column; gap: 6px; color: var(--ink); text-shadow: none; }
   .intro-title span { writing-mode: horizontal-tb; }
   .intro-title .sp { height: auto; width: .28em; }
   .it-main { font-size: clamp(36px, 10vw, 44px); letter-spacing: -.04em; }
   .it-sub { margin-top: 0; font-size: 19px; letter-spacing: -.02em; }
-  .intro-title span { text-shadow: none; }
+  .intro-title span, .intro-side p, .intro-hours { text-shadow: none; }
   .d2 .now-card { display: none; }
   .intro-side { left: 16px; right: 16px; top: auto; bottom: calc(11svh + 78px); width: auto; display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
   .intro-side > p:first-child { width: 100%; font-size: 15px; background: var(--paper); border: 2.5px solid var(--ink); border-bottom: 0; padding: 12px 14px 6px; border-radius: 16px 16px 0 0; }

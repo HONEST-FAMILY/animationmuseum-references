@@ -67,7 +67,7 @@
   .hero-by { font-size: 14px; margin-top: 10px; }
   .hero-bison { height: 62svh; margin-left: calc(62svh * -.3585); bottom: 4svh; }
   .hero-otter { left: -18%; height: 46svh; bottom: 0; }
-  .hero-robot { right: -7%; height: 46svh; bottom: 0; }
+  .hero-robot { right: 1%; height: 42svh; bottom: 0; }
   .hero-otter { left: -9%; }
   .d1 .now-card { display: none; }
   .hero-badge { display: none; }
