@@ -4,7 +4,9 @@
 .intro { position: relative; height: 100svh; min-height: 620px; overflow: hidden; background: var(--orange); }
 .intro::after { content: ""; position: absolute; inset: 0; background: var(--grain); opacity: .08; mix-blend-mode: overlay; pointer-events: none; z-index: 6; }
 .intro-art { position: absolute; inset: -3%; will-change: transform; }
-.intro-art img { width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 50% 92%; }
+.intro-art > img { width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 50% 92%; }
+.intro-live { position: absolute; z-index: 1; pointer-events: none; }
+.intro-live > img { display: none; }
 .intro-title { position: absolute; z-index: 3; left: clamp(22px, 6vw, 110px); top: calc(118px + 3svh); display: flex; flex-direction: row-reverse; justify-content: flex-end; align-items: flex-start; gap: .5em; color: var(--ink); font-family: var(--font-point); font-weight: 900; line-height: 1; }
 .intro-title span { writing-mode: vertical-rl; text-orientation: upright; white-space: nowrap; }
 .intro-title .sp { display: inline-block; height: .32em; }
@@ -72,7 +74,8 @@
 .cs-stamp { width: 100%; height: 100%; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: var(--k); color: var(--kt); border: 3px solid var(--ink); box-shadow: inset 0 0 0 5px var(--k), inset 0 0 0 7.5px var(--ink); transform: rotate(var(--r)); }
 .cs-stamp b { font-family: var(--font-point); font-weight: 900; font-size: clamp(12px, 1.25vw, 18px); line-height: 1.02; letter-spacing: -.06em; }
 .cs-stamp small { margin-top: 5px; font-size: clamp(10px, .85vw, 12px); font-weight: 900; }
-.card-char { width: 100%; animation: bob2 3.2s ease-in-out infinite; transform-origin: 50% 100%; }
+.card-char { position: relative; display: block; width: 100%; }
+.card-char img { width: 100%; animation: bob2 3.2s ease-in-out infinite; transform-origin: 50% 100%; }
 @keyframes bob2 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-2%); } }
 
 @media (max-width: 1080px) {
@@ -81,7 +84,7 @@
 @media (max-width: 700px) {
   .intro { min-height: 0; }
   .intro-art { inset: 190px 0 0; overflow: hidden; }
-  .intro-art img { object-position: 52% 100%; transform: scale(1.14); transform-origin: 50% 100%; }
+  .intro-art > img { object-position: 52% 100%; transform: scale(1.14); transform-origin: 50% 100%; }
   .intro-title { left: 18px; top: 104px; flex-direction: column; gap: 6px; color: var(--ink); text-shadow: none; }
   .intro-title span { writing-mode: horizontal-tb; }
   .intro-title .sp { height: auto; width: .28em; }

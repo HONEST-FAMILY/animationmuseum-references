@@ -1,4 +1,35 @@
 (function () {
+  var clamp = function (value, min, max) { return Math.max(min, Math.min(max, value)); };
+  var quadProgram = function (gl, vertexSource, fragmentSource) {
+    var compile = function (type, source) {
+      var shader = gl.createShader(type);
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      if (gl.getShaderParameter(shader, gl.COMPILE_STATUS)) return shader;
+      console.error(gl.getShaderInfoLog(shader));
+      return null;
+    };
+    var vertex = compile(gl.VERTEX_SHADER, vertexSource);
+    var fragment = compile(gl.FRAGMENT_SHADER, fragmentSource);
+    if (!vertex || !fragment) return null;
+    var program = gl.createProgram();
+    gl.attachShader(program, vertex);
+    gl.attachShader(program, fragment);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      console.error(gl.getProgramInfoLog(program));
+      return null;
+    }
+    gl.useProgram(program);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    var position = gl.getAttribLocation(program, 'aPos');
+    gl.enableVertexAttribArray(position);
+    gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
+    return program;
+  };
+  window.Motion = { clamp: clamp, quadProgram: quadProgram };
+
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var hd = document.querySelector('.hd');
   var onScroll = function () { hd.classList.toggle('is-scrolled', window.scrollY > 40); };

@@ -176,6 +176,8 @@ h1, h2, h3, p { margin: 0; }
   .rec-body { right: 22px; }
   .rec-desc { font-size: 16px; }
 }
+.alive-cv { position: absolute; display: block; max-width: none; pointer-events: none; }
+.alive-on [data-alive]:not(.alive-fail) > img, [data-alive].is-alive > img { opacity: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }

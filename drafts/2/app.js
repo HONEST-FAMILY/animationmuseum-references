@@ -8,6 +8,34 @@
   var title = intro.querySelector('.intro-title');
   var side = intro.querySelector('.intro-side');
   var clouds = intro.querySelector('.intro-clouds');
+  var live = intro.querySelector('.intro-live');
+  var sceneImg = art.querySelector('img');
+  var placeLive = function () {
+    var box = live.dataset.box.split(',').map(Number);
+    var naturalW = Number(sceneImg.getAttribute('width')), naturalH = Number(sceneImg.getAttribute('height'));
+    var boxW = sceneImg.offsetWidth, boxH = sceneImg.offsetHeight;
+    var style = getComputedStyle(sceneImg);
+    var objectPos = style.objectPosition.split(' ').map(function (value) { return parseFloat(value) / 100; });
+    var scale = Math.max(boxW / naturalW, boxH / naturalH);
+    var offsetX = (boxW - naturalW * scale) * objectPos[0], offsetY = (boxH - naturalH * scale) * objectPos[1];
+    var matrix = style.transform !== 'none' ? new DOMMatrix(style.transform) : null;
+    var origin = style.transformOrigin.split(' ').map(parseFloat);
+    var place = function (x, y) {
+      if (!matrix) return [x, y];
+      var dx = x - origin[0], dy = y - origin[1];
+      return [origin[0] + matrix.a * dx + matrix.c * dy + matrix.e, origin[1] + matrix.b * dx + matrix.d * dy + matrix.f];
+    };
+    var topLeft = place(offsetX + box[0] * scale, offsetY + box[1] * scale);
+    var bottomRight = place(offsetX + box[2] * scale, offsetY + box[3] * scale);
+    live.style.left = (sceneImg.offsetLeft + topLeft[0]).toFixed(2) + 'px';
+    live.style.top = (sceneImg.offsetTop + topLeft[1]).toFixed(2) + 'px';
+    live.style.width = (bottomRight[0] - topLeft[0]).toFixed(2) + 'px';
+    live.style.height = (bottomRight[1] - topLeft[1]).toFixed(2) + 'px';
+  };
+  placeLive();
+  window.addEventListener('resize', placeLive);
+  sceneImg.addEventListener('load', placeLive);
+
   var mx = 0, my = 0, tx = 0, ty = 0, introOn = true;
   if (fine) {
     window.addEventListener('pointermove', function (e) {
