@@ -40,7 +40,8 @@
   var q = function (sel) { return section.querySelector(sel); };
   var reached = -1, seen = false, current = 0;
   var pad = function (n) { return String(n).padStart(2, '0'); };
-  var lines = function (i) { return slots[i].querySelector('.slot-stamp').innerHTML; };
+  var covers = section.querySelectorAll('.cv');
+  var lines = function (i) { return covers[i].querySelector('.cv-sticker b').innerHTML; };
 
   var stamp = function (i) {
     if (i <= reached) return;

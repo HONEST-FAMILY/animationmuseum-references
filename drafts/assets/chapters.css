@@ -38,7 +38,7 @@
 .ch-skip svg { width: 100%; height: 100%; fill: var(--cream); }
 .ch-tip { position: absolute; bottom: 22px; z-index: 3; display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border: 1.5px solid var(--cream); border-radius: 99px; color: var(--cream); font-size: 13.5px; font-weight: 800; text-decoration: none; text-shadow: 0 1px 8px rgba(80, 20, 0, .25); }
 .ch-tip svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.ch-tip--l { left: 22px; }
+.ch-tip--l { left: 22px; border-color: transparent; padding-left: 0; }
 .ch-tip--r { right: 22px; transition: transform .35s var(--ease); }
 .ch-tip--r:hover { transform: rotate(-4deg); }
 @media (max-width: 700px) {

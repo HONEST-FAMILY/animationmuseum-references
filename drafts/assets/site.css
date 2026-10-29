@@ -53,6 +53,7 @@ h1, h2, h3, p { margin: 0; }
 .hd--center .gnb-r { justify-self: start; }
 .hd--center .hd-logo { margin: 0 26px; }
 .hd--bar .hd-main { justify-content: space-between; padding: 0 92px 0 26px; }
+.hd:not(.is-scrolled) .gnb-list { background: rgba(254, 236, 227, .92); border-radius: 999px; padding: 4px; }
 .hd-logo { display: block; flex: none; }
 .hd-logo img { width: 150px; height: 55px; }
 .gnb-list { display: flex; align-items: center; gap: 4px; }
