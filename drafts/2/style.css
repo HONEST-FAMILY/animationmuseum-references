@@ -23,7 +23,7 @@
 
 /* 도장 여행 */
 .ch--y { height: calc(100svh + 8 * 70svh); }
-.ch--y .ch-stage { --size: min(33vw, 58svh); }
+.ch--y .ch-stage { --size: min(33vw, 58svh); perspective-origin: 43% 48%; }
 .ch--y .ch-covers { left: 43%; top: 48%; }
 .ch--y .ch-player { left: 43%; width: max(360px, calc(var(--size) * .78)); }
 .slots { --slot: clamp(34px, 5.6svh, 52px); position: absolute; z-index: 4; left: clamp(18px, 4vw, 64px); top: calc(50% + 30px); transform: translateY(-50%); display: grid; gap: clamp(2px, .9svh, 12px); }
@@ -66,7 +66,7 @@
 .card { position: relative; padding: clamp(80px, 12vh, 140px) 0; background: var(--peri); overflow: hidden; }
 .card::after { content: ""; position: absolute; inset: 0; background: var(--grain); opacity: .08; mix-blend-mode: overlay; pointer-events: none; }
 .card-in { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 0 28px; display: grid; grid-template-columns: minmax(0, 1fr) clamp(220px, 26vw, 380px); align-items: end; gap: 20px; }
-.card-paper { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); align-items: center; gap: clamp(20px, 3vw, 44px); background: var(--paper); border: 3px solid var(--ink); border-radius: 30px; padding: clamp(26px, 3.4vw, 50px); transform: rotate(-1.2deg); }
+.card-paper { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); align-items: center; gap: clamp(20px, 3vw, 44px); background: var(--paper); border: 3px solid var(--ink); border-radius: 30px; padding: clamp(26px, 3.4vw, 50px); transform: perspective(1400px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) rotate(-1.2deg); }
 .card-paper h2 { font-family: var(--font-point); font-weight: 900; font-size: clamp(36px, 4.2vw, 60px); letter-spacing: -.055em; line-height: 1; }
 .card-text p { margin: 14px 0 26px; font-size: 17px; font-weight: 700; line-height: 1.65; color: #4d4440; }
 .card-stamps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(8px, 1.2vw, 16px); padding: clamp(14px, 1.8vw, 22px); border: 2.5px dashed rgba(23, 23, 23, .4); border-radius: 22px; }
@@ -98,7 +98,7 @@
   .intro-hours { order: 1; width: 100%; margin-top: -12px; padding: 0 14px 12px; font-size: 13px; background: var(--paper); border: 2.5px solid var(--ink); border-top: 0; border-radius: 0 0 16px 16px; }
   .intro-clouds { height: 11svh; }
   .ch--y { height: calc(100svh + 8 * 64svh); }
-  .ch--y .ch-stage { --size: min(64vw, 36svh); }
+  .ch--y .ch-stage { --size: min(64vw, 36svh); perspective-origin: 50% 37%; }
   .ch--y .ch-covers { left: 50%; top: 37%; }
   .ch--y .ch-player { left: 50%; top: calc(37% + var(--size) * .5 + 26px); width: min(92vw, 300px); }
   .slots { --slot: min(32px, 8.2vw); left: 50%; top: 82px; transform: translateX(-50%); display: flex; gap: min(6px, 1.4vw); }

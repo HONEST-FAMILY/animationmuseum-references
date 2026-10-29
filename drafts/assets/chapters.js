@@ -44,27 +44,8 @@
   var createRings = function (canvas) {
     var gl = canvas.getContext('webgl', { antialias: false, premultipliedAlpha: false }) || canvas.getContext('experimental-webgl');
     if (!gl) return null;
-    var compile = function (type, src) {
-      var s = gl.createShader(type);
-      gl.shaderSource(s, src);
-      gl.compileShader(s);
-      return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : null;
-    };
-    var vs = compile(gl.VERTEX_SHADER, VERT);
-    var fs = compile(gl.FRAGMENT_SHADER, FRAG);
-    if (!vs || !fs) return null;
-    var prog = gl.createProgram();
-    gl.attachShader(prog, vs);
-    gl.attachShader(prog, fs);
-    gl.linkProgram(prog);
-    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return null;
-    gl.useProgram(prog);
-    var buf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
-    var loc = gl.getAttribLocation(prog, 'aPos');
-    gl.enableVertexAttribArray(loc);
-    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    var prog = window.Motion.quadProgram(gl, VERT, FRAG);
+    if (!prog) return null;
     var u = {};
     ['uRes', 'uCenter', 'uTime', 'uMix', 'uFlat', 'uInnerFrom', 'uOuterFrom', 'uInnerTo', 'uOuterTo'].forEach(function (name) {
       u[name] = gl.getUniformLocation(prog, name);
@@ -96,28 +77,32 @@
     };
   };
 
-  var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
+  var clamp = window.Motion.clamp;
+  var drift = function (i, ad, st) { return Math.sin(st.time * 1.1 + i * 2) * 0.014 * st.size * Math.min(ad, 1.2); };
+  var depth = function (near, far, st) { return -(near * 0.2 + far * 0.1) * st.size; };
 
   var layouts = {
     x: function (d, i, st) {
       var ad = Math.abs(d), s = d < 0 ? -1 : 1;
       var near = Math.min(ad, 1), far = Math.max(ad - 1, 0);
       var x = s * (near * 0.8 + far * 0.5) * st.size;
-      var y = near * 0.02 * st.h;
-      var scale = (1 - near * 0.44 - far * 0.27) * (1 - Math.min(st.speed * 2.4, 0.08));
-      var ry = -clamp(d, -1.6, 1.6) * 26;
+      var y = near * 0.02 * st.h + drift(i, ad, st);
+      var zz = depth(near, far, st);
+      var scale = (1 - near * 0.36 - far * 0.25) * (1 - Math.min(st.speed * 2.4, 0.08));
+      var ry = -clamp(d, -1.6, 1.6) * 26 + st.lean;
       var rz = d * 5 + (i % 2 ? 2 : -2) * near - 1.4 * (1 - near);
-      return { t: 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) rotateY(' + ry.toFixed(2) + 'deg) rotateZ(' + rz.toFixed(2) + 'deg) scale(' + Math.max(scale, 0.05).toFixed(4) + ')', z: 100 - Math.round(ad * 10), o: ad > 1.6 ? Math.max(0, 1 - (ad - 1.6) / 0.8) : 1 };
+      return { t: 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,' + zz.toFixed(1) + 'px) rotateY(' + ry.toFixed(2) + 'deg) rotateZ(' + rz.toFixed(2) + 'deg) scale(' + Math.max(scale, 0.05).toFixed(4) + ')', z: 100 - Math.round(ad * 10), o: ad > 1.6 ? Math.max(0, 1 - (ad - 1.6) / 0.8) : 1, rx: 0, ry: ry };
     },
     y: function (d, i, st) {
       var ad = Math.abs(d), s = d < 0 ? -1 : 1;
       var near = Math.min(ad, 1), far = Math.max(ad - 1, 0);
       var y = s * (near * 0.6 + far * 0.26) * st.h;
-      var x = (s > 0 ? 1 : -1) * near * 0.05 * st.w;
-      var scale = (1 - near * 0.42 - far * 0.2) * (1 - Math.min(st.speed * 2.4, 0.08));
-      var rx = -clamp(d, -1.6, 1.6) * 22;
+      var x = (s > 0 ? 1 : -1) * near * 0.05 * st.w + drift(i, ad, st);
+      var zz = depth(near, far, st);
+      var scale = (1 - near * 0.34 - far * 0.18) * (1 - Math.min(st.speed * 2.4, 0.08));
+      var rx = -clamp(d, -1.6, 1.6) * 22 + st.lean;
       var rz = d * 8 + (i % 2 ? 2.5 : -2.5) * near - 1.4 * (1 - near);
-      return { t: 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) rotateX(' + rx.toFixed(2) + 'deg) rotateZ(' + rz.toFixed(2) + 'deg) scale(' + Math.max(scale, 0.05).toFixed(4) + ')', z: 100 - Math.round(ad * 10), o: ad > 2.2 ? 0 : (ad > 1.4 ? 1 - (ad - 1.4) / 0.8 : 1) };
+      return { t: 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,' + zz.toFixed(1) + 'px) rotateX(' + rx.toFixed(2) + 'deg) rotateZ(' + rz.toFixed(2) + 'deg) scale(' + Math.max(scale, 0.05).toFixed(4) + ')', z: 100 - Math.round(ad * 10), o: ad > 2.2 ? 0 : (ad > 1.4 ? 1 - (ad - 1.4) / 0.8 : 1), rx: rx, ry: 0 };
     }
   };
 
@@ -130,7 +115,13 @@
     var rings = o.canvas ? createRings(o.canvas) : null;
     if (!rings && o.canvas) o.canvas.style.display = 'none';
 
-    var p = 0, target = 0, prevP = 0, speed = 0, index = -1;
+    var p = 0, target = 0, prevP = 0, speed = 0, index = -1, lastNow = 0, lean = 0;
+    var axis = o.axis || 'x';
+    var coarse = !window.matchMedia('(pointer: fine)').matches;
+    var faces = items.map(function (el) { return el.querySelector('.cv-face'); });
+    var sleeves = items.map(function (el) { return el.querySelector('.cv-sleeve'); });
+    var cards = items.map(function () { return { rx: 0, ry: 0, vx: 0, vy: 0, lift: 1, liftV: 0, dirty: true }; });
+    var press = { over: false, x: 0, y: 0 };
     var colorFrom = palette[0], colorTo = palette[0], mixStart = -10;
     var flat = 0, active = true, dragging = false, snapTimer = null;
     var start = performance.now();
@@ -157,8 +148,7 @@
       index = i;
       items.forEach(function (el, k) {
         el.classList.toggle('is-on', k === i);
-        var sleeve = el.querySelector('.cv-sleeve');
-        if (sleeve) sleeve.tabIndex = k === i ? 0 : -1;
+        sleeves[k].tabIndex = k === i ? 0 : -1;
       });
       if (o.onIndex) o.onIndex(i, dir);
     };
@@ -174,18 +164,66 @@
       return { x: a.left - r.left, y: clamp(a.top - r.top, 0, r.height * 0.48) };
     };
 
+    var MAX_TILT = 15;
+    var tiltCard = function (k, dt, tm) {
+      var card = cards[k], on = k === index;
+      var targetRx = 0, targetRy = 0, targetLift = 1;
+      if (on && !reduce) {
+        if (press.over) { targetRx = -press.y * 2 * MAX_TILT; targetRy = press.x * 2 * MAX_TILT; targetLift = 1.045; }
+        else { targetRx = Math.sin(tm * 0.8) * (coarse ? 5 : 2.2); targetRy = Math.sin(tm * 0.63 + 1) * (coarse ? 7 : 3); }
+      }
+      if (reduce) { card.rx = targetRx; card.ry = targetRy; card.lift = targetLift; card.vx = card.vy = card.liftV = 0; }
+      else {
+        var damping = on && press.over ? 6.5 : 9;
+        card.vx += (-150 * (card.rx - targetRx) - damping * card.vx) * dt; card.rx += card.vx * dt;
+        card.vy += (-150 * (card.ry - targetRy) - damping * card.vy) * dt; card.ry += card.vy * dt;
+        card.liftV += (-220 * (card.lift - targetLift) - 14 * card.liftV) * dt; card.lift += card.liftV * dt;
+      }
+      var still = Math.abs(card.rx) + Math.abs(card.ry) + Math.abs(card.vx) + Math.abs(card.vy) < 0.01 && Math.abs(card.lift - 1) < 0.0005;
+      if (!on && still && !card.dirty) return;
+      card.dirty = !still;
+      var sleeve = sleeves[k], face = faces[k];
+      sleeve.style.setProperty('--rx', card.rx.toFixed(2) + 'deg');
+      sleeve.style.setProperty('--ry', card.ry.toFixed(2) + 'deg');
+      sleeve.style.setProperty('--lift', card.lift.toFixed(4));
+      var tiltX = card.ry / MAX_TILT, tiltY = card.rx / MAX_TILT;
+      var glareX = on && press.over ? 50 + press.x * 100 : 50 - tiltX * 40;
+      var glareY = on && press.over ? 50 + press.y * 100 : 30 + tiltY * 40;
+      face.style.setProperty('--glare-x', glareX.toFixed(1) + '%');
+      face.style.setProperty('--glare-y', glareY.toFixed(1) + '%');
+      var tiltAmount = Math.min(1, Math.hypot(tiltX, tiltY));
+      face.style.setProperty('--glare', (on ? (press.over ? 0.95 : 0.3 + tiltAmount * 0.5) : 0).toFixed(3));
+      face.style.setProperty('--cello', (0.24 + tiltAmount * 0.3).toFixed(3));
+      face.style.setProperty('--cello-x', (-tiltX * 5).toFixed(2) + '%');
+      face.style.setProperty('--cello-y', (tiltY * 5).toFixed(2) + '%');
+    };
+    var shade = function (k, l) {
+      var card = cards[k];
+      var rx = (l.rx + card.rx) * Math.PI / 180, ry = (l.ry + card.ry) * Math.PI / 180;
+      var facing = Math.sin(rx) + Math.cos(ry) * Math.cos(rx);
+      var light = 0.5 + 0.5 * clamp(facing, 0, 1);
+      faces[k].style.setProperty('--shade', clamp((1 - light) * 1.25, 0, 0.5).toFixed(3));
+    };
+
     var frame = function (now) {
       requestAnimationFrame(frame);
-      if (!active || document.hidden) return;
+      if (!active || document.hidden) { lastNow = now; return; }
+      var dt = clamp((now - (lastNow || now)) / 1000, 0, 0.05);
+      lastNow = now;
+      var tm = (now - start) / 1000;
       p += (target - p) * (reduce ? 1 : 0.13);
       speed = Math.abs(p - prevP);
+      var vel = dt > 0 ? (p - prevP) / dt : 0;
       prevP = p;
-      var st = { w: stage.clientWidth, h: stage.clientHeight, size: items[0].offsetWidth, speed: speed };
+      lean += ((reduce ? 0 : clamp((axis === 'x' ? -vel : vel) * 5, -16, 16)) - lean) * 0.2;
+      var st = { w: stage.clientWidth, h: stage.clientHeight, size: items[0].offsetWidth, speed: speed, time: reduce ? 0 : tm, lean: lean };
       items.forEach(function (el, k) {
         var l = layout(k - p, k, st);
         el.style.transform = l.t;
         el.style.zIndex = l.z;
         el.style.opacity = l.o;
+        tiltCard(k, dt, tm);
+        shade(k, l);
       });
       var moving = Math.abs(target - p) > 0.02;
       stage.classList.toggle('is-moving', moving);
@@ -251,27 +289,28 @@
       window.addEventListener('pointercancel', release);
     }
 
-    if (!reduce && window.matchMedia('(pointer: fine)').matches) {
+    if (!reduce) {
+      var setPress = function (e) {
+        if (index < 0) return;
+        var rect = faces[index].getBoundingClientRect();
+        var localX = (e.clientX - rect.left) / rect.width - 0.5, localY = (e.clientY - rect.top) / rect.height - 0.5;
+        press.over = Math.abs(localX) < 0.56 && Math.abs(localY) < 0.56;
+        press.x = clamp(localX, -0.5, 0.5);
+        press.y = clamp(localY, -0.5, 0.5);
+      };
       stage.addEventListener('pointermove', function (e) {
-        var r = stage.getBoundingClientRect();
-        var nx = (e.clientX - r.left) / r.width - 0.5, ny = (e.clientY - r.top) / r.height - 0.5;
-        stage.style.setProperty('--tx', (nx * 12).toFixed(2) + 'deg');
-        stage.style.setProperty('--ty', (-ny * 9).toFixed(2) + 'deg');
-        stage.style.setProperty('--sx', (nx * 70).toFixed(1) + '%');
-        stage.style.setProperty('--sy', (ny * 50).toFixed(1) + '%');
+        if (e.pointerType === 'mouse' || e.buttons) setPress(e);
       });
-      stage.addEventListener('pointerleave', function () {
-        ['--tx', '--ty'].forEach(function (k) { stage.style.setProperty(k, '0deg'); });
-        ['--sx', '--sy'].forEach(function (k) { stage.style.setProperty(k, '0%'); });
-      });
+      stage.addEventListener('pointerdown', setPress);
+      stage.addEventListener('pointerleave', function () { press.over = false; });
+      window.addEventListener('pointerup', function (e) { if (e.pointerType !== 'mouse') press.over = false; });
+      window.addEventListener('pointercancel', function () { press.over = false; });
     }
 
     var moved = false;
     stage.addEventListener('pointerdown', function () { moved = false; }, true);
     window.addEventListener('pointermove', function (e) { if (e.buttons && (Math.abs(e.movementX) + Math.abs(e.movementY) > 2)) moved = true; }, true);
-    items.forEach(function (el, k) {
-      var btn = el.querySelector('.cv-sleeve');
-      if (!btn) return;
+    sleeves.forEach(function (btn, k) {
       btn.addEventListener('click', function (e) {
         if (moved && dragging === false && stage.classList.contains('was-drag')) { e.preventDefault(); return; }
         if (k === index && o.onOpen) o.onOpen(k, btn);

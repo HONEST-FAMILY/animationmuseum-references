@@ -1,16 +1,30 @@
 .ch { position: relative; background: var(--orange); }
-.ch-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; overflow: clip; perspective: 1700px; touch-action: pan-y; user-select: none; -webkit-user-select: none; --size: min(39vw, 66svh); }
+.ch-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; overflow: clip; perspective: 1250px; perspective-origin: 50% 48%; touch-action: pan-y; user-select: none; -webkit-user-select: none; --size: min(39vw, 66svh); }
 .ch-stage.is-drag { cursor: grabbing; }
 .ch-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; background: repeating-radial-gradient(circle at 50% 50%, #ff8a1f 0 9vmax, #f592c3 9vmax 18vmax); }
 .ch-stage::after { content: ""; position: absolute; inset: 0; background: var(--grain); opacity: .09; mix-blend-mode: overlay; pointer-events: none; }
-.ch-covers { position: absolute; left: 50%; top: 48%; width: 0; height: 0; z-index: 2; }
-.cv { position: absolute; left: calc(var(--size) / -2); top: calc(var(--size) / -2); width: var(--size); height: var(--size); will-change: transform; }
-.cv-sleeve { position: absolute; inset: 0; display: block; width: 100%; height: 100%; padding: 0; border: 0; overflow: hidden; background: var(--c); cursor: pointer; box-shadow: 0 34px 60px -26px rgba(60, 14, 0, .55), 0 6px 14px -6px rgba(60, 14, 0, .25); transition: transform .5s var(--ease), filter .5s; }
-.cv:not(.is-on) .cv-sleeve { filter: saturate(.9) brightness(.97); }
-.cv.is-on .cv-sleeve { transform: perspective(1000px) rotateX(var(--ty, 0deg)) rotateY(var(--tx, 0deg)); }
+.ch-covers { position: absolute; left: 50%; top: 48%; width: 0; height: 0; z-index: 2; transform-style: preserve-3d; }
+.cv { position: absolute; left: calc(var(--size) / -2); top: calc(var(--size) / -2); width: var(--size); height: var(--size); transform-style: preserve-3d; will-change: transform; }
+.cv-sleeve { --thick: calc(var(--size) * .024); position: absolute; inset: 0; display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: pointer; transform-style: preserve-3d; transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(var(--lift, 1)); }
+.cv-sleeve:focus-visible { outline: none; }
+.cv-sleeve:focus-visible .cv-face { outline: 3px solid var(--ink); outline-offset: 6px; }
+.cv-face { position: absolute; inset: 0; overflow: hidden; border-radius: 3px; background: var(--c); transform: translateZ(calc(var(--thick) / 2)); box-shadow: 0 34px 60px -26px rgba(60, 14, 0, .55), 0 6px 14px -6px rgba(60, 14, 0, .25); }
+.cv:not(.is-on) .cv-face { filter: saturate(.9) brightness(.97); }
+.cv-back { position: absolute; inset: 0; border-radius: 3px; background: color-mix(in srgb, var(--c) 55%, #2b1207); transform: translateZ(calc(var(--thick) / -2)) rotateY(180deg); }
+.cv-edge { position: absolute; background: color-mix(in srgb, var(--c) 58%, #2b1207); }
+.cv-edge--t, .cv-edge--b { left: 1px; right: 1px; height: var(--thick); }
+.cv-edge--l, .cv-edge--r { top: 1px; bottom: 1px; width: var(--thick); }
+.cv-edge--t { top: calc(var(--thick) / -2); transform: rotateX(90deg); background: color-mix(in srgb, var(--c) 78%, #fff); }
+.cv-edge--b { bottom: calc(var(--thick) / -2); transform: rotateX(-90deg); }
+.cv-edge--l { left: calc(var(--thick) / -2); transform: rotateY(-90deg); }
+.cv-edge--r { right: calc(var(--thick) / -2); transform: rotateY(90deg); }
 .cv-art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
-.cv-cello { position: absolute; inset: -12%; background: url("img/cello.webp") center / cover; mix-blend-mode: screen; opacity: .34; transform: translate(calc(var(--sx, 0%) * .12), calc(var(--sy, 0%) * .1)) rotate(-4deg); transition: transform .6s var(--ease); pointer-events: none; }
-.cv-gloss { position: absolute; inset: 0; background: linear-gradient(118deg, transparent 32%, rgba(255, 255, 255, .26) 46%, rgba(255, 255, 255, .06) 52%, transparent 62%); background-size: 260% 100%; background-position: calc(50% - var(--sx, 0%)) 0; mix-blend-mode: soft-light; pointer-events: none; }
+.cv-cello { position: absolute; inset: -12%; background: url("img/cello.webp") center / cover; mix-blend-mode: screen; opacity: var(--cello, .3); transform: translate(var(--cello-x, 0%), var(--cello-y, 0%)) rotate(-4deg); pointer-events: none; }
+.cv-gloss { position: absolute; inset: 0; background: linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, .42) 47%, rgba(255, 255, 255, .1) 52%, transparent 60%); background-size: 320% 100%; background-position: 115% 0; mix-blend-mode: soft-light; pointer-events: none; }
+.cv.is-on .cv-gloss { animation: wipe 5.2s 1.2s cubic-bezier(.45, 0, .2, 1) infinite; }
+@keyframes wipe { 0% { background-position: 115% 0; } 28%, 100% { background-position: -15% 0; } }
+.cv-glare { position: absolute; inset: 0; background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 30%), rgba(255, 250, 240, .34), rgba(255, 250, 240, .1) 24%, rgba(255, 250, 240, 0) 50%); mix-blend-mode: screen; opacity: var(--glare, 0); pointer-events: none; }
+.cv-shade { position: absolute; inset: 0; background: #1d0a02; opacity: var(--shade, 0); pointer-events: none; }
 .cv-sticker { position: absolute; width: 33%; aspect-ratio: 1; border-radius: 50%; background: var(--k); color: var(--kt); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transform: rotate(var(--r, -6deg)); box-shadow: 0 1px 0 rgba(0, 0, 0, .12), inset 0 0 0 calc(var(--size) * .004) rgba(0, 0, 0, .12); padding: 7%; z-index: 1; }
 .cv-sticker b { font-family: var(--font-point); font-weight: 900; font-size: calc(var(--size) * .058); line-height: .98; letter-spacing: -.05em; transform: skewX(-6deg); }
 .cv-sticker small { display: block; margin-top: 4%; font-size: calc(var(--size) * .019); font-weight: 800; letter-spacing: -.01em; }

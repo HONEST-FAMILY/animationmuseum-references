@@ -78,6 +78,58 @@
     window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
   });
 
+  var tiltCard = function (el, maxTilt, hoverLift) {
+    var tilt = { rx: 0, ry: 0, vx: 0, vy: 0, lift: 1, liftV: 0, targetRx: 0, targetRy: 0, targetLift: 1, running: false, last: 0, rect: null };
+    var step = function (now) {
+      var dt = Math.min(0.05, (now - (tilt.last || now)) / 1000);
+      tilt.last = now;
+      tilt.vx += (-150 * (tilt.rx - tilt.targetRx) - 8 * tilt.vx) * dt;
+      tilt.rx += tilt.vx * dt;
+      tilt.vy += (-150 * (tilt.ry - tilt.targetRy) - 8 * tilt.vy) * dt;
+      tilt.ry += tilt.vy * dt;
+      tilt.liftV += (-220 * (tilt.lift - tilt.targetLift) - 14 * tilt.liftV) * dt;
+      tilt.lift += tilt.liftV * dt;
+      el.style.setProperty('--rx', tilt.rx.toFixed(2) + 'deg');
+      el.style.setProperty('--ry', tilt.ry.toFixed(2) + 'deg');
+      el.style.setProperty('--lift', tilt.lift.toFixed(4));
+      var settling = Math.abs(tilt.rx - tilt.targetRx) + Math.abs(tilt.ry - tilt.targetRy) + Math.abs(tilt.vx) + Math.abs(tilt.vy) + Math.abs(tilt.lift - tilt.targetLift) + Math.abs(tilt.liftV) > 0.01;
+      if (settling) requestAnimationFrame(step);
+      else { tilt.running = false; tilt.last = 0; }
+    };
+    var kick = function () {
+      if (tilt.running) return;
+      tilt.running = true;
+      requestAnimationFrame(step);
+    };
+    el.addEventListener('pointerenter', function () { tilt.rect = el.getBoundingClientRect(); });
+    el.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      var rect = tilt.rect || el.getBoundingClientRect();
+      var localX = clamp((e.clientX - rect.left) / rect.width - 0.5, -0.5, 0.5);
+      var localY = clamp((e.clientY - rect.top) / rect.height - 0.5, -0.5, 0.5);
+      tilt.targetRx = -localY * 2 * maxTilt;
+      tilt.targetRy = localX * 2 * maxTilt;
+      tilt.targetLift = hoverLift;
+      el.style.setProperty('--glare-x', ((localX + 0.5) * 100).toFixed(1) + '%');
+      el.style.setProperty('--glare-y', ((localY + 0.5) * 100).toFixed(1) + '%');
+      el.classList.add('is-tilt');
+      kick();
+    });
+    el.addEventListener('pointerleave', function () {
+      tilt.targetRx = 0;
+      tilt.targetRy = 0;
+      tilt.targetLift = 1;
+      tilt.rect = null;
+      el.classList.remove('is-tilt');
+      kick();
+    });
+  };
+  if (!reduce && window.matchMedia('(pointer: fine)').matches) {
+    document.querySelectorAll('.now-card').forEach(function (el) { tiltCard(el, 12, 1.05); });
+    document.querySelectorAll('.ticket').forEach(function (el) { tiltCard(el, 3, 1); });
+    document.querySelectorAll('.card-paper').forEach(function (el) { tiltCard(el, 4, 1); });
+  }
+
   var rec = document.getElementById('rec');
   var data = window.CHAPTER_DATA;
   var recIndex = 0, recReturn = null;
