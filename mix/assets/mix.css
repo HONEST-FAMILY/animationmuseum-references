@@ -1,0 +1,21 @@
+.ch--x { height: calc(100svh + 8 * 58svh); }
+.ch-h { position: absolute; }
+.cv-window { position: absolute; left: 9%; top: 11%; width: 82%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: var(--cream); border: calc(var(--size) * .0075) solid var(--ink); box-shadow: inset 0 0 0 calc(var(--size) * .012) var(--cream); }
+.cv-photo { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.cv-larva { position: absolute; right: -5%; bottom: -1%; width: 70%; aspect-ratio: 1; z-index: 1; pointer-events: none; filter: drop-shadow(calc(var(--size) * .012) calc(var(--size) * .012) 0 rgba(23, 23, 23, .28)); }
+.cv-larva img { width: 100%; height: 100%; object-fit: contain; }
+.cv-sticker { z-index: 2; }
+.cv-cello, .cv-gloss, .cv-glare, .cv-shade { z-index: 3; }
+
+.rec-art { width: 54%; height: 54%; border-radius: 0; object-fit: contain; filter: grayscale(1) invert(1) brightness(.92) contrast(1.15); opacity: .9; }
+
+.ticket-larva { width: clamp(150px, 17vw, 250px); bottom: -34px; }
+.ticket-larva img { width: 100%; height: auto; animation: none; }
+.ft-credit { margin-top: 4px; font-size: 12px !important; opacity: .7; }
+
+.lv-mini { display: block; aspect-ratio: 1; }
+.lv-mini img { width: 100%; height: 100%; object-fit: contain; }
+
+@media (max-width: 700px) {
+  .ticket-larva { width: 110px; top: -104px; right: 0; }
+}

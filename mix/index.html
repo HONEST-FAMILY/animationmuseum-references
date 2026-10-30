@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#7c7cff">
+<title>춘천 애니메이션박물관 메인페이지 시안 3개</title>
+<meta name="description" content="Ponpon Mania를 바탕으로 레퍼런스 세 곳을 하나씩 섞고, 박물관의 실제 캐릭터 라바 레드와 옐로를 주인공으로 만든 메인페이지 시안 3개">
+<meta property="og:title" content="춘천 애니메이션박물관 메인페이지 시안 3개">
+<meta property="og:description" content="Ponpon Mania를 바탕으로 레퍼런스 세 곳을 하나씩 섞은 시안 3개">
+<meta property="og:image" content="https://honest-family.github.io/animationmuseum-references/mix/assets/img/og1.jpg?v=8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%274%27 y=%273%27 width=%2724%27 height=%2726%27 rx=%273%27 fill=%27%23ef1e28%27/%3E%3Ccircle cx=%2721%27 cy=%279%27 r=%273.5%27 fill=%27%23fff%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/fonts.css?v=8">
+<style>
+:root { --peri: #7c7cff; --ink: #171717; --cream: #feece3; --paper: #fff7f0; --red: #ee2a24; --orange: #ff8a1f; --ease: cubic-bezier(.2, .8, .2, 1); }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--font-body); color: var(--ink); background: var(--peri); word-break: keep-all; -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+h1, h2, h3, p { margin: 0; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
+.top { padding: clamp(48px, 8vh, 90px) 0 clamp(30px, 5vh, 50px); text-align: center; }
+.top small { display: inline-block; padding: 6px 14px; border: 2px solid var(--ink); border-radius: 99px; background: var(--cream); font-weight: 800; font-size: 13px; }
+.top h1 { margin-top: 18px; font-family: var(--font-point); font-weight: 900; font-size: clamp(34px, 5.4vw, 72px); line-height: 1.08; letter-spacing: -.055em; color: var(--cream); -webkit-text-stroke: .1em var(--ink); paint-order: stroke fill; text-shadow: 0 .06em 0 var(--ink); }
+.top p { max-width: 760px; margin: 20px auto 0; font-size: clamp(15.5px, 1.4vw, 18px); line-height: 1.7; font-weight: 600; }
+.cast { display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: center; max-width: 980px; margin: 0 auto clamp(40px, 6vh, 60px); padding: 22px 26px; border: 3px solid var(--ink); border-radius: 22px; background: var(--paper); box-shadow: 0 8px 0 var(--ink); }
+.cast-art { position: relative; aspect-ratio: 1.15; border-radius: 16px; background: #ffd23f; border: 2.5px solid var(--ink); overflow: hidden; }
+.cast-art img { position: absolute; bottom: 0; }
+.cast-art .y { left: 44%; height: 92%; width: auto; }
+.cast-art .r { left: 8%; height: 56%; width: auto; }
+.cast h2 { font-family: var(--font-point); font-weight: 900; font-size: 24px; letter-spacing: -.04em; }
+.cast p { margin-top: 10px; font-size: 15px; line-height: 1.7; font-weight: 500; }
+.cast p b { font-weight: 800; }
+.list { display: grid; gap: clamp(28px, 4vh, 44px); padding-bottom: clamp(60px, 9vh, 100px); }
+.card { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); border: 3px solid var(--ink); border-radius: 26px; background: var(--paper); overflow: hidden; box-shadow: 0 10px 0 var(--ink); }
+.shots { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 24%; gap: 14px; padding: 18px; background: var(--c); border-right: 3px solid var(--ink); }
+.shots img { width: 100%; border: 2.5px solid var(--ink); border-radius: 12px; background: #fff; }
+.shots .m { align-self: end; border-radius: 16px; }
+.info { display: flex; flex-direction: column; padding: clamp(22px, 2.6vw, 34px); }
+.no { display: inline-flex; align-self: flex-start; padding: 5px 13px; border-radius: 99px; background: var(--ink); color: var(--cream); font-size: 13px; font-weight: 900; }
+.info h2 { margin-top: 14px; font-family: var(--font-point); font-weight: 900; font-size: clamp(25px, 2.4vw, 34px); line-height: 1.15; letter-spacing: -.05em; }
+.mix { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; font-size: 14px; font-weight: 800; }
+.mix span { padding: 4px 11px; border: 2px solid var(--ink); border-radius: 99px; background: #fff; }
+.mix span.base { background: #ffd23f; }
+.mix i { font-style: normal; font-weight: 900; }
+.info dl { margin: 18px 0 0; display: grid; gap: 12px; }
+.info dt { font-size: 13px; font-weight: 900; color: #6b5a52; }
+.info dd { margin: 4px 0 0; font-size: 15px; line-height: 1.65; font-weight: 500; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 22px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 24px; border: 2.5px solid var(--ink); border-radius: 999px; font-family: var(--font-point); font-weight: 800; font-size: 17px; text-decoration: none; transition: transform .35s var(--ease); }
+.btn:hover { transform: rotate(-3deg) scale(1.04); }
+.btn--ink { background: var(--ink); color: var(--cream); }
+.btn--line { background: #fff; font-family: var(--font-body); font-size: 14.5px; min-height: 46px; padding: 0 18px; }
+.foot { padding: 30px 0 50px; text-align: center; font-size: 13px; font-weight: 600; color: rgba(23, 23, 23, .75); line-height: 1.7; }
+.foot a { font-weight: 800; }
+@media (max-width: 900px) {
+  .card { grid-template-columns: 1fr; }
+  .shots { border-right: 0; border-bottom: 3px solid var(--ink); }
+  .cast { grid-template-columns: 1fr; text-align: center; }
+  .cast-art { max-width: 260px; margin: 0 auto; width: 100%; }
+}
+</style>
+</head>
+<body>
+<header class="top wrap">
+  <small>춘천 애니메이션박물관 메인페이지 리뉴얼</small>
+  <h1>Ponpon Mania에<br>하나씩 섞은 시안 3개</h1>
+  <p>레퍼런스 보드의 Ponpon Mania를 바탕에 두고, 보드에서 고른 세 곳을 하나씩 섞었습니다. 세 시안 모두 박물관에 실제로 있는 캐릭터 라바 레드와 옐로가 주인공입니다.</p>
+</header>
+<main class="wrap">
+  <section class="cast" aria-labelledby="cast-h">
+    <div class="cast-art" aria-hidden="true"><img class="r" src="assets/larva/red@2x.webp" alt="" width="495" height="605"><img class="y" src="assets/larva/yellow@2x.webp" alt="" width="625" height="1005"></div>
+    <div>
+      <h2 id="cast-h">주인공은 박물관의 라바 레드와 옐로</h2>
+      <p>지금 애니메이션박물관 누리집 첫 화면을 꾸미는 그림과 야외 캐릭터공원의 대형 조형물이 라바입니다. 2019년 진흥원이 춘천시, 투바앤과 라바 캐릭터 활용 협약을 맺으며 박물관 홍보대사로 세운 캐릭터이기도 합니다.</p>
+      <p><b>새로 그리지 않았습니다.</b> 첫 화면의 레드와 옐로는 박물관 누리집의 라바 그림을, 앨범 표지와 안내도의 라바는 투바앤이 낸 라바 공식 이모티콘 그림을 그대로 키워 썼습니다. 표지에서는 공식 이모티콘의 동작 그대로 움직입니다.</p>
+    </div>
+  </section>
+
+  <div class="list">
+    <article class="card" style="--c:#e9e8f2">
+      <div class="shots"><img src="assets/img/thumb1_pc.webp" alt="시안 1을 다 칠한 뒤의 첫 화면" width="960" height="600" loading="lazy"><img class="m" src="assets/img/thumb1_m.webp" alt="시안 1 휴대폰 첫 화면" width="300" height="649" loading="lazy"></div>
+      <div class="info">
+        <span class="no">시안 1</span>
+        <h2>색을 칠하면 그림이 살아나요</h2>
+        <p class="mix"><span class="base">Ponpon Mania</span><i>+</i><span>Captain Goosebumps</span></p>
+        <dl>
+          <div><dt>Ponpon Mania에서</dt><dd>해와 구름 모양 액자 안의 첫 화면, 무대 위 큰 캐릭터, 검은 알약 버튼, 앨범 표지를 넘기는 전시 공간과 재생 바</dd></div>
+          <div><dt>Captain Goosebumps에서</dt><dd>회색 세상에 색을 되찾아 주는 놀이. 색종이를 겹친 시작 카드, 칠한 만큼 올라가는 숫자, 아래쪽 조작 안내</dd></div>
+          <div><dt>해 보세요</dt><dd>‘색칠 시작’을 누르거나 그림을 문지르면 선만 남은 박물관에 색이 칠해지고, 다 칠하면 라바가 움직입니다. 아래 앨범 표지도 넘길 때마다 색이 칠해집니다.</dd></div>
+        </dl>
+        <div class="actions"><a class="btn btn--ink" href="1/">시안 1 열기</a><a class="btn btn--line" href="compare/d1_pc.jpg">원본과 나란히 보기</a><a class="btn btn--line" href="compare/d1_m.jpg">휴대폰 비교</a></div>
+      </div>
+    </article>
+
+    <article class="card" style="--c:#2a2670">
+      <div class="shots"><img src="assets/img/thumb2_pc.webp" alt="시안 2 첫 화면" width="960" height="600" loading="lazy"><img class="m" src="assets/img/thumb2_m.webp" alt="시안 2 휴대폰 첫 화면" width="300" height="649" loading="lazy"></div>
+      <div class="info">
+        <span class="no">시안 2</span>
+        <h2>겹겹이 움직이는 그림 무대</h2>
+        <p class="mix"><span class="base">Ponpon Mania</span><i>+</i><span>Mouse Parallax Wonderland</span></p>
+        <dl>
+          <div><dt>Ponpon Mania에서</dt><dd>액자 모양 첫 화면과 무대, 라바 캐릭터 배치, 원형으로 열리는 앨범 표지 화면</dd></div>
+          <div><dt>Mouse Parallax Wonderland에서</dt><dd>어두운 하늘에서 보랏빛으로 내려오는 바탕, 가는 큰 제목, 마우스를 따라 서로 다른 깊이로 움직이는 소품, 아래로 내리면 파스텔 하늘로 떨어지는 장면</dd></div>
+          <div><dt>해 보세요</dt><dd>마우스를 움직이면 하늘, 박물관, 무대, 라바, 소품이 겹겹이 다르게 움직입니다. 천천히 내리면 그림 속으로 들어가 상상의 계단을 지나 앨범 표지로 이어집니다.</dd></div>
+        </dl>
+        <div class="actions"><a class="btn btn--ink" href="2/">시안 2 열기</a><a class="btn btn--line" href="compare/d2_pc.jpg">원본과 나란히 보기</a><a class="btn btn--line" href="compare/d2_m.jpg">휴대폰 비교</a></div>
+      </div>
+    </article>
+
+    <article class="card" style="--c:#36b3ad">
+      <div class="shots"><img src="assets/img/thumb3_pc.webp" alt="시안 3 첫 화면" width="960" height="600" loading="lazy"><img class="m" src="assets/img/thumb3_m.webp" alt="시안 3 휴대폰 첫 화면" width="300" height="649" loading="lazy"></div>
+      <div class="info">
+        <span class="no">시안 3</span>
+        <h2>라바가 말 거는 관람 안내</h2>
+        <p class="mix"><span class="base">Ponpon Mania</span><i>+</i><span>Ghibli Park</span></p>
+        <dl>
+          <div><dt>Ponpon Mania에서</dt><dd>액자 모양 첫 화면과 무대 위 라바, 공간을 고르면 열리는 검은 레코드판 화면, 앨범 표지 모양 공간 아이콘</dd></div>
+          <div><dt>Ghibli Park에서</dt><dd>그림 위에 떠 있는 말풍선 버튼, 아래쪽 큰 로고, 소식 상자와 바로가기 버튼, 그림 지도와 구역 아이콘</dd></div>
+          <div><dt>해 보세요</dt><dd>말풍선으로 예약, 지금 전시, 둘러보기로 바로 갑니다. 그림 안내도에서 방이나 아이콘을 누르면 그 공간 이야기가 열립니다.</dd></div>
+        </dl>
+        <div class="actions"><a class="btn btn--ink" href="3/">시안 3 열기</a><a class="btn btn--line" href="compare/d3_pc.jpg">원본과 나란히 보기</a><a class="btn btn--line" href="compare/d3_m.jpg">휴대폰 비교</a></div>
+      </div>
+    </article>
+  </div>
+</main>
+<footer class="foot wrap">
+  <p><a href="../">레퍼런스 보드로 돌아가기</a></p>
+  <p>2026-10-30 시안. 라바 캐릭터 ⓒ TUBAn. 박물관 사진은 애니메이션박물관 누리집에 게시된 사진이며, 비교 화면의 레퍼런스 저작권은 각 운영사에 있습니다. 춘천 애니메이션박물관 메인페이지 리뉴얼 검토용 자료, 어니스트패밀리</p>
+</footer>
+</body>
+</html>

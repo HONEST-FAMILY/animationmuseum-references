@@ -1,0 +1,74 @@
+.ch { position: relative; background: var(--orange); }
+.ch-stage { position: sticky; top: 0; height: 100svh; overflow: hidden; overflow: clip; perspective: 1250px; perspective-origin: 50% 48%; touch-action: pan-y; user-select: none; -webkit-user-select: none; --size: min(39vw, 66svh); }
+.ch-stage.is-drag { cursor: grabbing; }
+.ch-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; background: repeating-radial-gradient(circle at 50% 50%, #ff8a1f 0 9vmax, #f592c3 9vmax 18vmax); }
+.ch-stage::after { content: ""; position: absolute; inset: 0; background: var(--grain); opacity: .09; mix-blend-mode: overlay; pointer-events: none; }
+.ch-covers { position: absolute; left: 50%; top: 48%; width: 0; height: 0; z-index: 2; transform-style: preserve-3d; }
+.cv { position: absolute; left: calc(var(--size) / -2); top: calc(var(--size) / -2); width: var(--size); height: var(--size); transform-style: preserve-3d; will-change: transform; }
+.cv-sleeve { --thick: calc(var(--size) * .024); position: absolute; inset: 0; display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: pointer; transform-style: preserve-3d; transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(var(--lift, 1)); }
+.cv-sleeve:focus-visible { outline: none; }
+.cv-sleeve:focus-visible .cv-face { outline: 3px solid var(--ink); outline-offset: 6px; }
+.cv-face { position: absolute; inset: 0; overflow: hidden; border-radius: 3px; background: var(--c); transform: translateZ(calc(var(--thick) / 2)); box-shadow: 0 34px 60px -26px rgba(60, 14, 0, .55), 0 6px 14px -6px rgba(60, 14, 0, .25); }
+.cv:not(.is-on) .cv-face { filter: saturate(.9) brightness(.97); }
+.cv-back { position: absolute; inset: 0; border-radius: 3px; background: color-mix(in srgb, var(--c) 55%, #2b1207); transform: translateZ(calc(var(--thick) / -2)) rotateY(180deg); }
+.cv-edge { position: absolute; background: color-mix(in srgb, var(--c) 58%, #2b1207); }
+.cv-edge--t, .cv-edge--b { left: 1px; right: 1px; height: var(--thick); }
+.cv-edge--l, .cv-edge--r { top: 1px; bottom: 1px; width: var(--thick); }
+.cv-edge--t { top: calc(var(--thick) / -2); transform: rotateX(90deg); background: color-mix(in srgb, var(--c) 78%, #fff); }
+.cv-edge--b { bottom: calc(var(--thick) / -2); transform: rotateX(-90deg); }
+.cv-edge--l { left: calc(var(--thick) / -2); transform: rotateY(-90deg); }
+.cv-edge--r { right: calc(var(--thick) / -2); transform: rotateY(90deg); }
+.cv-art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.cv-cello { position: absolute; inset: -12%; background: url("img/cello.webp") center / cover; mix-blend-mode: screen; opacity: var(--cello, .3); transform: translate(var(--cello-x, 0%), var(--cello-y, 0%)) rotate(-4deg); pointer-events: none; }
+.cv-gloss { position: absolute; inset: 0; background: linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, .42) 47%, rgba(255, 255, 255, .1) 52%, transparent 60%); background-size: 320% 100%; background-position: 115% 0; mix-blend-mode: soft-light; pointer-events: none; }
+.cv.is-on .cv-gloss { animation: wipe 5.2s 1.2s cubic-bezier(.45, 0, .2, 1) infinite; }
+@keyframes wipe { 0% { background-position: 115% 0; } 28%, 100% { background-position: -15% 0; } }
+.cv-glare { position: absolute; inset: 0; background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 30%), rgba(255, 250, 240, .34), rgba(255, 250, 240, .1) 24%, rgba(255, 250, 240, 0) 50%); mix-blend-mode: screen; opacity: var(--glare, 0); pointer-events: none; }
+.cv-shade { position: absolute; inset: 0; background: #1d0a02; opacity: var(--shade, 0); pointer-events: none; }
+.cv-sticker { position: absolute; width: 33%; aspect-ratio: 1; border-radius: 50%; background: var(--k); color: var(--kt); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transform: rotate(var(--r, -6deg)); box-shadow: 0 1px 0 rgba(0, 0, 0, .12), inset 0 0 0 calc(var(--size) * .004) rgba(0, 0, 0, .12); padding: 7%; z-index: 1; }
+.cv-sticker b { font-family: var(--font-point); font-weight: 900; font-size: calc(var(--size) * .058); line-height: .98; letter-spacing: -.05em; transform: skewX(-6deg); }
+.cv-sticker small { display: block; margin-top: 4%; font-size: calc(var(--size) * .019); font-weight: 800; letter-spacing: -.01em; }
+.cv-sticker em { display: block; margin-top: 4%; font-style: normal; font-size: calc(var(--size) * .0105); line-height: 1.35; font-weight: 700; opacity: .8; letter-spacing: .02em; }
+.cv-marks { display: flex; gap: 4%; align-items: center; justify-content: center; margin-top: 5%; width: 80%; }
+.cv-marks i { display: block; font-style: normal; }
+.m-film { width: calc(var(--size) * .022); height: calc(var(--size) * .03); background: currentColor; border-radius: 2px; position: relative; }
+.m-film::after { content: ""; position: absolute; right: 18%; top: 14%; width: 30%; aspect-ratio: 1; border-radius: 50%; background: var(--k); }
+.m-box { border: 1.5px solid currentColor; border-radius: 3px; padding: 1px 4px; font-size: calc(var(--size) * .0115); font-weight: 900; letter-spacing: .04em; }
+.m-dot { width: calc(var(--size) * .026); aspect-ratio: 1; border-radius: 50%; border: 1.5px solid currentColor; }
+
+.ch-player { position: absolute; left: 50%; top: calc(48% + var(--size) * .5 - var(--size) * .03); z-index: 200; display: flex; align-items: center; gap: calc(var(--size) * .035); width: max(330px, calc(var(--size) * .8)); height: max(64px, calc(var(--size) * .154)); padding: 0 calc(var(--size) * .05) 0 calc(var(--size) * .06); background: var(--ink); color: var(--cream); border-radius: 999px; transform: translate(-50%, -50%); transition: opacity .35s, transform .55s var(--ease); }
+.ch-stage.is-moving .ch-player { opacity: 0; transform: translate(-50%, -20%) scale(.94); }
+.ch-play { flex: none; width: max(34px, calc(var(--size) * .07)); height: max(34px, calc(var(--size) * .07)); border: 0; padding: 0; background: none; cursor: pointer; transition: transform .3s var(--ease); }
+.ch-play:hover { transform: scale(1.12); }
+.ch-play svg { width: 100%; height: 100%; fill: var(--cream); }
+.ch-thumb { flex: none; width: max(40px, calc(var(--size) * .085)); aspect-ratio: 1; object-fit: cover; border-radius: 10px; border: 1.5px solid rgba(254, 236, 227, .35); }
+.ch-meta { flex: 1; min-width: 0; display: grid; gap: 1px; }
+.ch-meta b { font-size: max(14px, calc(var(--size) * .029)); font-weight: 800; letter-spacing: -.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ch-meta span { font-size: max(12.5px, calc(var(--size) * .024)); font-weight: 500; opacity: .92; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ch-meta small { font-size: max(11.5px, calc(var(--size) * .021)); opacity: .72; }
+.ch-skip { flex: none; display: flex; gap: 2px; }
+.ch-skip button { width: 34px; height: 34px; border: 0; background: none; padding: 7px; cursor: pointer; border-radius: 50%; }
+.ch-skip button:hover { background: rgba(254, 236, 227, .14); }
+.ch-skip svg { width: 100%; height: 100%; fill: var(--cream); }
+.ch-tip { position: absolute; bottom: 22px; z-index: 3; display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border: 1.5px solid var(--cream); border-radius: 99px; color: var(--cream); font-size: 13.5px; font-weight: 800; text-decoration: none; text-shadow: 0 1px 8px rgba(80, 20, 0, .25); }
+.ch-tip svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ch-tip--l { left: 22px; border-color: transparent; padding-left: 0; }
+.ch-tip--r { right: 22px; transition: transform .35s var(--ease); }
+.ch-tip--r:hover { transform: rotate(-4deg); }
+@media (max-width: 700px) {
+  .ch-stage { --size: min(83vw, 50svh); }
+  .ch-covers { top: 48%; }
+  .ch-player { top: calc(48% + var(--size) * .5); width: min(92vw, calc(var(--size) * .9)); height: 66px; gap: 10px; padding: 0 12px 0 18px; }
+  .ch-play { width: 30px; height: 30px; }
+  .ch-thumb { display: none; }
+  .ch-meta b { font-size: 13.5px; }
+  .ch-meta span { font-size: 12px; }
+  .ch-meta small { font-size: 11px; }
+  .ch-skip button { width: 30px; height: 30px; padding: 6px; }
+  .ch-tip--l { display: none; }
+  .ch-tip--r { left: 50%; right: auto; transform: translateX(-50%); bottom: 18px; }
+  .ch-tip--r:hover { transform: translateX(-50%); }
+  .cv-sticker em, .cv-marks { display: none; }
+  .cv-sticker b { font-size: calc(var(--size) * .066); }
+  .cv-sticker small { font-size: calc(var(--size) * .026); }
+}
