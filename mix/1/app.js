@@ -1,6 +1,5 @@
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var fine = window.matchMedia('(pointer: fine)').matches;
   var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
 
   var hero = document.querySelector('.hero--paint');
@@ -9,6 +8,7 @@
   var startBtn = hero.querySelector('.gb-start');
   var skipBtn = hero.querySelector('.gb-skip');
   var againBtn = hero.querySelector('.gb-again');
+  var doneBtn = hero.querySelector('.gb-done');
   var hudNum = hero.querySelector('.gb-num');
   var dots = hero.querySelectorAll('.gb-dots i');
   var brush = hero.querySelector('.gb-brush');
@@ -19,7 +19,8 @@
   var ctx = canvas.getContext('2d', { willReadFrequently: true });
   var state = 'sketch';
   var dirty = false, last = null, coverage = 0, colorIndex = 0, travelled = 0;
-  var auto = null, userPainted = false, lastSpark = 0;
+  var down = false, lastSpark = 0;
+  var GOAL = 0.8;
 
   var resize = function () {
     var r = sticky.getBoundingClientRect();
@@ -68,10 +69,11 @@
   };
 
   var measure = function () {
-    var d = ctx.getImageData(0, 0, W, H).data, sum = 0, n = 0;
-    for (var i = 3; i < d.length; i += 16) { sum += d[i]; n++; }
+    var x0 = Math.round(W * 0.08), x1 = Math.round(W * 0.92), y0 = Math.round(H * 0.12), y1 = Math.round(H * 0.92);
+    var d = ctx.getImageData(x0, y0, x1 - x0, y1 - y0).data, sum = 0, n = 0;
+    for (var i = 3; i < d.length; i += 8) { sum += d[i]; n++; }
     coverage = sum / (n * 255);
-    var pct = Math.min(100, Math.round(coverage * 100 / 0.66));
+    var pct = Math.min(100, Math.round(coverage * 100 / GOAL));
     hudNum.textContent = pct;
     dots.forEach(function (dot, k) { dot.classList.toggle('on', pct >= (k + 1) * 10); });
     return coverage;
@@ -102,20 +104,10 @@
     return { x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height, cx: e.clientX - r.left, cy: e.clientY - r.top };
   };
 
-  var autoPath = function (t) {
-    var rows = [0.2, 0.42, 0.62, 0.82, 0.5];
-    var seg = Math.min(rows.length - 1, Math.floor(t * rows.length));
-    var local = t * rows.length - seg;
-    var dir = seg % 2 ? -1 : 1;
-    var x = dir > 0 ? 0.06 + local * 0.88 : 0.94 - local * 0.88;
-    var y = rows[seg] + Math.sin(local * Math.PI * 3) * 0.05;
-    return { x: x, y: y };
-  };
-
   var finish = function (instant) {
     if (state === 'alive' || state === 'finishing') return;
-    if (auto) { cancelAnimationFrame(auto.raf); auto = null; }
-    brush.classList.remove('is-on');
+    down = false;
+    brush.classList.remove('is-on', 'is-down');
     var done = function () {
       ctx.fillStyle = '#000';
       ctx.fillRect(0, 0, W, H);
@@ -144,27 +136,6 @@
     requestAnimationFrame(grow);
   };
 
-  var startAuto = function () {
-    var begin = performance.now() + 380;
-    var DURATION = 5200;
-    auto = { raf: 0 };
-    var step = function (now) {
-      if (!auto) return;
-      auto.raf = requestAnimationFrame(step);
-      if (now < begin) return;
-      var t = clamp((now - begin) / DURATION, 0, 1);
-      var p = autoPath(t);
-      if (!userPainted || !fine) {
-        var r = sticky.getBoundingClientRect();
-        placeBrush(p.x * r.width, p.y * r.height);
-        spark(p.x * r.width, p.y * r.height);
-      }
-      strokeTo(p.x, p.y, 0.085);
-      if (t >= 1) { cancelAnimationFrame(auto.raf); auto = null; finish(); }
-    };
-    auto.raf = requestAnimationFrame(step);
-  };
-
   var start = function () {
     if (state !== 'sketch') return;
     resize();
@@ -172,7 +143,7 @@
     last = null;
     hero.classList.remove('is-sketch');
     hero.classList.add('is-painting');
-    startAuto();
+    measure();
   };
 
   var reset = function () {
@@ -182,38 +153,52 @@
     coverage = 0;
     measure();
     last = null;
-    userPainted = false;
     state = 'sketch';
     hero.classList.remove('is-alive');
     document.documentElement.classList.remove('is-alive');
     hero.classList.add('is-sketch');
     window.scrollTo({ top: 0, behavior: 'auto' });
-    setTimeout(start, 420);
+    start();
   };
 
+  var onControl = function (e) { return !!e.target.closest('a, button, .gb-card, .gb-guide'); };
+
+  sticky.addEventListener('pointerdown', function (e) {
+    if (state === 'alive' || state === 'finishing' || onControl(e) || e.button > 0) return;
+    if (state === 'sketch') start();
+    e.preventDefault();
+    var p = rel(e);
+    down = true;
+    last = null;
+    try { sticky.setPointerCapture(e.pointerId); } catch (err) {}
+    brush.classList.add('is-down');
+    placeBrush(p.cx, p.cy);
+    strokeTo(p.x, p.y, e.pointerType === 'mouse' ? 0.06 : 0.12);
+  });
   sticky.addEventListener('pointermove', function (e) {
     if (state !== 'painting') return;
-    if (e.pointerType !== 'mouse' && !e.buttons) return;
     var p = rel(e);
-    userPainted = true;
-    if (auto) last = null;
+    if (onControl(e) && !down) { brush.classList.remove('is-on'); return; }
     placeBrush(p.cx, p.cy);
+    if (!down) return;
     spark(p.cx, p.cy);
-    strokeTo(p.x, p.y, e.pointerType === 'mouse' ? 0.07 : 0.09);
+    strokeTo(p.x, p.y, e.pointerType === 'mouse' ? 0.06 : 0.12);
   });
-  sticky.addEventListener('pointerdown', function (e) {
-    if (state !== 'painting') return;
-    var p = rel(e);
+  var lift = function () {
+    if (!down) return;
+    down = false;
     last = null;
-    userPainted = true;
-    placeBrush(p.cx, p.cy);
-    strokeTo(p.x, p.y, 0.09);
-  });
-  sticky.addEventListener('pointerleave', function () { if (state === 'painting' && userPainted && fine) brush.classList.remove('is-on'); last = null; });
+    brush.classList.remove('is-down');
+    if (state === 'painting' && measure() >= GOAL) finish();
+  };
+  sticky.addEventListener('pointerup', lift);
+  sticky.addEventListener('pointercancel', lift);
+  sticky.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse' && !down) brush.classList.remove('is-on'); });
 
   startBtn.addEventListener('click', start);
   skipBtn.addEventListener('click', function () { if (state === 'sketch') { resize(); } finish(true); });
   againBtn.addEventListener('click', reset);
+  doneBtn.addEventListener('click', function () { finish(); });
 
   var loop = function () {
     requestAnimationFrame(loop);
@@ -221,18 +206,14 @@
   };
   requestAnimationFrame(loop);
   setInterval(function () {
-    if (state !== 'painting') return;
-    if (measure() >= 0.66) finish();
+    if (state !== 'painting' || !down) return;
+    if (measure() >= GOAL) finish();
   }, 220);
 
   window.addEventListener('resize', function () { if (state !== 'alive') resize(); });
-  window.addEventListener('scroll', function () {
-    if (state !== 'alive' && window.scrollY > window.innerHeight * 0.22) finish(true);
-  }, { passive: true });
 
   resize();
   flush();
-  if (reduce) finish(true);
 
   var section = document.getElementById('chapters');
   var colorCover = function (el) {

@@ -9,15 +9,15 @@
 <meta name="description" content="선만 남은 박물관 그림에 색을 칠하면 라바 레드와 옐로가 깨어나는 메인페이지 시안">
 <meta property="og:title" content="춘천 애니메이션박물관 메인페이지 시안 1, 색칠하면 살아나는 첫 화면">
 <meta property="og:description" content="선만 남은 박물관 그림에 색을 칠하면 라바 레드와 옐로가 깨어나는 메인페이지 시안">
-<meta property="og:image" content="https://honest-family.github.io/animationmuseum-references/mix/assets/img/og1.jpg?v=8">
+<meta property="og:image" content="https://honest-family.github.io/animationmuseum-references/mix/assets/img/og1.jpg?v=10">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%274%27 y=%273%27 width=%2724%27 height=%2726%27 rx=%273%27 fill=%27%23ef1e28%27/%3E%3Ccircle cx=%2721%27 cy=%279%27 r=%273.5%27 fill=%27%23fff%27/%3E%3C/svg%3E">
-<link rel="stylesheet" href="../assets/fonts.css?v=8">
-<link rel="stylesheet" href="../assets/site.css?v=8">
-<link rel="stylesheet" href="../assets/chapters.css?v=8">
-<link rel="stylesheet" href="../assets/sections.css?v=8">
-<link rel="stylesheet" href="../assets/hero.css?v=8">
-<link rel="stylesheet" href="../assets/mix.css?v=8">
-<link rel="stylesheet" href="style.css?v=8">
+<link rel="stylesheet" href="../assets/fonts.css?v=10">
+<link rel="stylesheet" href="../assets/site.css?v=10">
+<link rel="stylesheet" href="../assets/chapters.css?v=10">
+<link rel="stylesheet" href="../assets/sections.css?v=10">
+<link rel="stylesheet" href="../assets/hero.css?v=10">
+<link rel="stylesheet" href="../assets/mix.css?v=10">
+<link rel="stylesheet" href="style.css?v=10">
 </head>
 <body class="mx d1">
 <a class="skip" href="#chapters">본문 바로가기</a>
@@ -87,21 +87,25 @@
       <h1 class="hero-title"><span class="hl">하늘에는 별</span><span class="hl">호수엔 요정</span></h1>
       <p class="hero-by">우리나라 유일한 애니메이션박물관, 춘천</p>
     </div>
-    <div class="gb-card" id="gb-card">
+    <div class="gb-card" id="gb-card" role="group" aria-labelledby="gb-title">
       <div class="gb-paper">
-        <p class="gb-kicker">애니메이션박물관에 오신 것을 환영합니다</p>
-        <h2 class="gb-title"><span class="gb-t1">색을 칠하면</span><span class="gb-t2">그림이 살아나요</span></h2>
-        <p class="gb-text">선만 남은 박물관 그림에 색을 입혀 주세요. 색이 다 채워지면 라바 레드와 옐로가 깨어나 움직입니다.</p>
-        <button class="gb-start" type="button">색칠 시작</button>
+        <span class="gb-sticker" aria-hidden="true"><b>색칠<br>놀이</b></span>
+        <p class="gb-kicker">애니메이션박물관</p>
+        <h2 class="gb-title" id="gb-title">색을 칠하면<br>라바가 깨어나요</h2>
+        <p class="gb-text"><span class="gb-mouse">마우스를 누른 채</span><span class="gb-touch">손가락으로</span> 선만 남은 그림을 문질러 직접 색을 칠해 주세요. 다 칠하면 라바 레드와 옐로가 움직이기 시작합니다.</p>
+        <span class="gb-palette" aria-hidden="true"><i style="--c:#ee2a24"></i><i style="--c:#ff8a1f"></i><i style="--c:#ffd23f"></i><i style="--c:#3db54a"></i><i style="--c:#2bb3c0"></i><i style="--c:#7c7cff"></i><i style="--c:#f592c3"></i></span>
+        <div class="gb-actions"><button class="gb-start" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 3.2c1-1 2.8.8 1.8 1.8l-6.4 6.4-1.8-1.8z"/><path d="M9.4 10.3c1.5.6 2.5 1.6 3 3-1.2 3.2-4.4 5.6-8.6 5.9.3-4.2 2.5-7.5 5.6-8.9z"/></svg>색칠 시작</button><button class="gb-skip" type="button">색칠 없이 바로 보기</button></div>
         <p class="gb-note"><b>애니메이션</b>은 라틴어 아니마(숨, 생명)에서 온 말입니다. 멈춘 그림에 숨을 불어넣는 곳, 그곳이 애니메이션박물관입니다.</p>
-        <button class="gb-skip" type="button">색칠 없이 바로 보기</button>
       </div>
     </div>
     <div class="gb-hud" aria-hidden="true">
       <span class="gb-label">색칠</span><b class="gb-num">0</b><span class="gb-pct">%</span>
       <span class="gb-dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
     </div>
-    <p class="gb-hint" aria-live="polite"><span class="gb-key gb-key--mouse">마우스</span><span class="gb-key gb-key--touch">손가락</span>으로 그림을 문지르면 색이 칠해져요</p>
+    <div class="gb-guide">
+      <p class="gb-hint" aria-live="polite"><span class="gb-mouse"><span class="gb-key">마우스</span>를 누른 채</span><span class="gb-touch"><span class="gb-key">손가락</span>으로</span> 그림을 문지르면 색이 칠해져요</p>
+      <button class="gb-done" type="button">그만 칠하고 보기</button>
+    </div>
     <span class="gb-brush" aria-hidden="true"><svg viewBox="0 0 64 64"><path class="br-handle" d="M44 6c3-3 9 3 6 6L33 33l-5-5z"/><path class="br-ferrule" d="M28 28l5 5-3 3-5-5z"/><path class="br-tip" d="M25 31c4 2 7 5 8 8-3 9-12 16-24 17 1-12 7-21 16-25z"/></svg></span>
     <button class="gb-again" type="button">다시 칠하기</button>
     <a class="hero-badge" href="#chapters" data-depth="14" aria-label="전시 공간 둘러보기로 이동"><svg viewBox="0 0 200 200" aria-hidden="true"><defs><path id="badgeRing" d="M100 100m-74 0a74 74 0 1 1 148 0a74 74 0 1 1-148 0"/></defs><circle cx="100" cy="100" r="99" fill="#171717"/><g class="badge-spin"><text font-size="15.5" font-weight="700" letter-spacing="2.2" fill="#feece3"><textPath href="#badgeRing">하늘에는 별 ✦ 호수엔 요정 ✦ ANIMATION MUSEUM ✦</textPath></text></g><circle cx="100" cy="100" r="47" fill="#ff8a1f" stroke="#171717" stroke-width="3"/><circle cx="100" cy="100" r="33" fill="#f592c3" stroke="#171717" stroke-width="3"/><rect x="88" y="84" width="24" height="32" rx="3" fill="#ee2a24" stroke="#171717" stroke-width="3"/><circle cx="104" cy="92" r="4" fill="#fff"/></svg></a>
@@ -341,10 +345,10 @@
   <button class="rec-close" type="button" aria-label="닫기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
 </div>
 <script>window.CHAPTER_DATA = [{"name": "동굴벽화", "place": "애니메이션박물관 1층", "desc": "애니메이션은 무슨 뜻일까요? 기원전 1만년 경 알타미라 동굴에서 그 뜻과 원리를 알아보세요.", "ring": ["#ff8a1f", "#f592c3"], "photo": "cave2", "pose": "cave", "photoAlt": "알타미라 동굴벽화를 재현한 1층 전시 공간"}, {"name": "1층 전시관", "place": "애니메이션박물관 1층", "desc": "애니메이션의 탄생과 발전과정을 영상과 다양한 전시물로 살펴보고, 애니메이션의 종류와 한국 애니 역사를 알아볼 수 있습니다.", "ring": ["#f592c3", "#7c7cff"], "photo": "hall", "pose": "box", "photoAlt": "옛 만화가게 거리와 대형 로봇이 있는 1층 전시관"}, {"name": "영사기", "place": "애니메이션박물관 1층", "desc": "영사기는 어떻게 시작되었을까요? 환등기에서 시작된 영사기의 발달과정과 1890년대 사용된 유리필름을 만나보세요.", "ring": ["#ffb21e", "#ee2a24"], "photo": "projector", "pose": "spark", "photoAlt": "옛 영사기가 놓인 전시 공간"}, {"name": "상상의 계단", "place": "1층에서 2층으로", "desc": "다양한 애니메이션 포스터가 있는 상상의 계단을 통해 2층으로 올라가보세요.", "ring": ["#7c7cff", "#ee2a24"], "photo": "stairs", "pose": "dizzy", "photoAlt": "애니메이션 포스터가 걸린 보랏빛 상상의 계단"}, {"name": "세계관", "place": "애니메이션박물관 2층", "desc": "각 나라별 애니메이션 경향을 알 수 있습니다.", "ring": ["#ffd23f", "#ff8a1f"], "photo": "world", "pose": "thumbs", "photoAlt": "나라별 애니메이션을 소개하는 세계관"}, {"name": "메모리얼 홀", "place": "애니메이션박물관 2층", "desc": "한국 애니메이션의 산 역사, 故 신동헌 감독의 기념 공간입니다.", "ring": ["#93d9c4", "#3db54a"], "photo": "memorial", "pose": "calm", "photoAlt": "故 신동헌 감독 메모리얼 홀"}, {"name": "애니메이션이랑 놀자", "place": "애니메이션박물관 2층", "desc": "몸으로 느껴보는 핀스크린 체험, 주인공 체험, 캐릭터 변검체험을 할 수 있습니다.", "ring": ["#7c7cff", "#f592c3"], "photo": "pinscreen", "pose": "wig", "photoAlt": "몸으로 누르는 핀스크린 체험"}, {"name": "체험공간", "place": "애니메이션박물관 2층", "desc": "소리를 만들어 내는 폴리아티스트 체험, 더빙체험을 할 수 있습니다.", "ring": ["#ee2a24", "#ff8a1f"], "photo": "dubbing", "pose": "laugh", "photoAlt": "더빙 체험 스튜디오"}, {"name": "기획전시실", "place": "애니메이션박물관 2층", "desc": "해마다 두 번 이상 애니메이션 기획전을 엽니다. 제21회 기획전 《아니마(ANIMA): 연필 끝에서 살아나는 우리들의 얼굴》은 지금 양평 황순원문학촌에서 순회 전시 중입니다(26.10.27 ~ 11.29).", "ring": ["#7c7cff", "#ff8a1f"], "photo": "anima", "pose": "joy", "photoAlt": "제21회 기획전 아니마(ANIMA) 포스터"}];</script>
-<script src="../assets/larva.js?v=8"></script>
-<script src="../assets/site.js?v=8"></script>
-<script src="../assets/chapters.js?v=8"></script>
-<script src="../assets/common.js?v=8"></script>
-<script src="app.js?v=8"></script>
+<script src="../assets/larva.js?v=10"></script>
+<script src="../assets/site.js?v=10"></script>
+<script src="../assets/chapters.js?v=10"></script>
+<script src="../assets/common.js?v=10"></script>
+<script src="app.js?v=10"></script>
 </body>
 </html>
