@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0d1424">
+<title>03 영사기 공간 안으로 들어가 보기, 춘천 애니메이션박물관 놀이판 실험</title>
+<meta name="description" content="사진 한 장으로 깊이를 계산해 1층 영사기 전시 공간을 다시 세우고, 영사기가 돌며 벽에 작품을 비추는 실험 화면">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%274%27 y=%273%27 width=%2724%27 height=%2726%27 rx=%273%27 fill=%27%23ef1e28%27/%3E%3Ccircle cx=%2721%27 cy=%279%27 r=%273.5%27 fill=%27%23fff%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/fonts.css?v=10">
+<link rel="stylesheet" href="../../assets/site.css?v=10">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body class="sp">
+<main class="sp-stage" aria-label="1층 영사기 전시 공간을 다시 세운 화면">
+  <img class="sp-photo" src="room.webp" alt="옛 영사기가 가운데 놓인 1층 영사기 전시 공간" width="1600" height="864">
+  <canvas class="sp-canvas" aria-hidden="true"></canvas>
+  <div class="sp-shade" aria-hidden="true"></div>
+  <div class="sp-spots"></div>
+</main>
+<a class="sp-back" href="../../play3/"><span aria-hidden="true">←</span> <span class="sp-back-label">놀이판으로 돌아가기</span></a>
+<div class="sp-top">
+  <span class="sp-tag">03 영사기 · 공간 재현 실험</span>
+  <button class="sp-sound" type="button" aria-pressed="false">소리 켜기</button>
+  <button class="sp-tilt" type="button" hidden>기울여 보기</button>
+</div>
+<div class="sp-guide">
+  <span class="sp-larva" data-larva="spark" data-alt=""></span>
+  <p class="sp-say">끌어서 둘러보고, 노란 동그라미를 눌러 보세요</p>
+</div>
+<section class="sp-card" hidden aria-live="polite">
+  <div class="sp-card-media"></div>
+  <p class="sp-card-no"></p>
+  <h2 class="sp-card-title"></h2>
+  <p class="sp-card-meta"></p>
+  <p class="sp-card-desc"></p>
+  <p class="sp-card-credit"></p>
+  <div class="sp-card-actions">
+    <button class="sp-btn sp-btn--ink" type="button" data-sp-other></button>
+    <button class="sp-btn" type="button" data-sp-out>둘러보기로</button>
+  </div>
+</section>
+<script src="../../assets/larva.js?v=10"></script>
+<script src="../../assets/works.js?v=1"></script>
+<script src="app.js?v=1"></script>
+</body>
+</html>

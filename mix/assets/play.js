@@ -380,6 +380,9 @@
     var progress = make('div', 'pl-room-progress', '<span class="pl-dots" aria-hidden="true"></span><span></span>');
     var photo = rec.querySelector('.rec-photo');
     photo.querySelector('figcaption').textContent = '실제 전시 공간';
+    var enter = make('a', 'pl-space-enter', '공간 들어가 보기 (실험) <span aria-hidden="true">▶</span>');
+    enter.hidden = true;
+    photo.appendChild(enter);
     side.appendChild(photo);
     side.appendChild(guide);
     ['.rec-no', '.rec-title', '.rec-floor', '.rec-desc'].forEach(function (sel) { side.appendChild(rec.querySelector(sel)); });
@@ -401,7 +404,7 @@
     back.type = 'button';
     back.addEventListener('click', function () { rec.querySelector('.rec-close').click(); });
     rec.appendChild(back);
-    room = { main: main, guide: guide, progress: progress, back: back, next: actions.querySelector('[data-rec-next]') };
+    room = { main: main, guide: guide, progress: progress, back: back, next: actions.querySelector('[data-rec-next]'), enter: enter };
   };
 
   var renderRoom = function (i) {
@@ -452,6 +455,8 @@
     var target = nextTarget(i);
     room.next.textContent = all ? '다 봤어요! 선물 받기' : '다음 방: ' + pad2(target + 1) + ' ' + data[target].name + ' →';
     room.next.classList.toggle('is-primary', done || all);
+    room.enter.hidden = i !== 2;
+    if (i === 2) room.enter.href = '../space/03/';
   };
 
   if (rec) {
@@ -620,4 +625,9 @@
     reset: reset,
     celebrate: celebrate
   };
+
+  var deep = /^#room-(\d\d)$/.exec(window.location.hash);
+  if (deep && rec && window.openRecord && works[parseInt(deep[1], 10) - 1]) {
+    window.addEventListener('load', function () { setTimeout(function () { window.openRecord(parseInt(deep[1], 10) - 1); }, 300); });
+  }
 })();

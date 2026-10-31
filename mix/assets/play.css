@@ -6,6 +6,9 @@
 .rec.pl-room .rec-photo { position: relative; margin: 0; width: 100%; }
 .rec.pl-room .rec-photo img { aspect-ratio: 16 / 9; border-radius: 16px; border: 3px solid rgba(254, 236, 227, .45); }
 .rec.pl-room .rec-photo figcaption { position: absolute; right: 10px; top: 10px; margin: 0; padding: 4px 10px; border-radius: 99px; background: rgba(23, 23, 23, .72); font-size: 12px; opacity: 1; }
+.pl-space-enter { position: absolute; left: 12px; top: 12px; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 18px; border: 3px solid var(--ink); border-radius: 99px; background: #ffd23f; color: var(--ink); font-weight: 900; font-size: 15px; text-decoration: none; box-shadow: 0 3px 0 var(--ink); transition: transform .3s; }
+.pl-space-enter:hover { transform: translateY(-2px); }
+.pl-space-enter[hidden] { display: none; }
 .pl-guide { position: relative; z-index: 1; display: flex; align-items: flex-end; gap: 8px; margin: -46px 0 0 2px; }
 .pl-guide-larva { flex: none; width: 84px; height: 84px; object-fit: contain; filter: drop-shadow(3px 4px 0 rgba(0, 0, 0, .4)); }
 .pl-guide-say { position: relative; margin-bottom: 14px; padding: 10px 14px; border: 3px solid var(--ink); border-radius: 16px; background: #fff; color: var(--ink); font-weight: 800; font-size: 15px; line-height: 1.4; }
