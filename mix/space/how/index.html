@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#ffffff">
+<title>폰 카메라로 공간을 그대로 옮기는 법, 애니메이션박물관 영사기 방 조사</title>
+<meta name="description" content="360도 장비 없이 폰으로 전시 공간을 실사 3D로 옮기는 방법 7가지 비교와 영사기 방 촬영 가이드">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%274%27 y=%273%27 width=%2724%27 height=%2726%27 rx=%273%27 fill=%27%23ef1e28%27/%3E%3Ccircle cx=%2721%27 cy=%279%27 r=%273.5%27 fill=%27%23fff%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/fonts.css?v=10">
+<link rel="stylesheet" href="style.css?v=1">
+</head>
+<body>
+<header class="top">
+  <a class="back" href="../03/">영사기 방 실험으로</a>
+  <p class="date">2026-10-31 조사 · 이슈 #1525</p>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="kicker">애니메이션박물관 영사기 방</p>
+    <h1>폰 카메라로 됩니다</h1>
+    <ul class="answer">
+      <li>360도 장비는 필요 없습니다. 폰으로 방 안을 천천히 걸으며 2~3분 찍으면, 그 방이 사진 같은 3D(가우시안 스플랫)로 만들어집니다.</li>
+      <li>무료 앱(Scaniverse)이 폰 안에서 3D로 바꿔 줍니다. 아이폰·안드로이드 둘 다 됩니다.</li>
+      <li>폰 화면에서 걸어 다니는 웹 뷰어는 이미 우리 도구가 있습니다. 빠진 것은 영사기 방 촬영본 하나입니다.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>지금 방이 '구현되다 만' 이유</h2>
+    <p>지금 실험은 누리집 사진 한 장(가로 600픽셀)에 AI로 깊이만 입힌 것입니다. 사진에는 카메라 쪽에서 보이는 면만 있습니다. 영사기 뒤, 옆벽, 발밑은 처음부터 정보가 없어서 조금만 돌아도 늘어나거나 비어 보입니다. 그래서 움직일 수 있는 폭을 일부러 좁혀 두었고, 그게 '구현되다 만' 느낌입니다.</p>
+    <div class="pair pair--diagram">
+      <figure>
+        <svg viewBox="0 0 300 210" role="img" aria-label="사진 한 장은 카메라 쪽 면만 찍히고 영사기 뒤쪽은 비어 있는 그림">
+          <rect x="10" y="10" width="280" height="190" fill="#f4f1ea" stroke="#171717" stroke-width="2"/>
+          <path d="M150 190 L40 14 L260 14 Z" fill="#ffd23f" opacity=".55"/>
+          <path d="M133 85 L167 85 L178.8 12 L121.2 12 Z" fill="#fff" stroke="#ee2a24" stroke-width="2" stroke-dasharray="5 4"/>
+          <rect x="133" y="85" width="34" height="30" fill="#171717"/>
+          <circle cx="150" cy="190" r="8" fill="#171717"/>
+        </svg>
+        <figcaption><b>사진 한 장</b>카메라 쪽 면만 찍힙니다. 영사기 뒤(빨간 칸)와 옆벽은 정보가 없습니다.</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 300 210" role="img" aria-label="폰으로 영사기 둘레를 돌며 여러 자리에서 찍어 방 전체가 채워지는 그림">
+          <rect x="10" y="10" width="280" height="190" fill="#f4f1ea" stroke="#171717" stroke-width="2"/>
+          <rect x="11" y="11" width="278" height="188" fill="#ffd23f" opacity=".4"/>
+          <ellipse cx="150" cy="105" rx="105" ry="68" fill="none" stroke="#171717" stroke-width="2" stroke-dasharray="6 6"/>
+          <rect x="133" y="90" width="34" height="30" fill="#171717"/>
+          <g fill="#171717"><circle cx="45" cy="105" r="7"/><circle cx="65" cy="65" r="7"/><circle cx="117" cy="40" r="7"/><circle cx="183" cy="40" r="7"/><circle cx="235" cy="65" r="7"/><circle cx="255" cy="105" r="7"/><circle cx="235" cy="145" r="7"/><circle cx="183" cy="170" r="7"/><circle cx="117" cy="170" r="7"/><circle cx="65" cy="145" r="7"/></g>
+        </svg>
+        <figcaption><b>폰으로 돌며 찍기</b>여러 자리(검은 점)에서 찍어 모든 쪽이 채워집니다.</figcaption>
+      </figure>
+    </div>
+    <div class="pair">
+      <figure><img src="now-photo.webp" alt="지금 실험 화면, 영사기 방을 정면에서 본 모습" width="960" height="600" loading="lazy"><figcaption>지금 실험: 사진 한 장, 정면 근처에서만 움직임</figcaption></figure>
+      <figure><img src="splat-sample.webp" alt="우리 투어 도구로 만든 가우시안 스플랫 본보기, 유리문 너머 거실까지 사진처럼 보이는 아파트" width="960" height="600" loading="lazy"><figcaption>우리 투어 도구 본보기: 스플랫, 방 사이를 걸어 다님 (공개 장면 SA3D, CC BY 4.0. 실제 촬영인지 CG인지는 확인 못 함)</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>공간을 옮기는 방법 7가지</h2>
+    <div class="cards">
+      <article class="card">
+        <h3>1. 사진 한 장 + AI 깊이 <span>지금 실험</span></h3>
+        <dl><dt>필요한 것</dt><dd>누리집 사진</dd><dt>실감</dt><dd>정면에서만. 옆·뒤가 없음</dd><dt>걸어 다니기</dt><dd>못 함, 살짝 기울기만</dd></dl>
+        <p class="verdict">맛보기용</p>
+      </article>
+      <article class="card is-pick">
+        <h3>2. 폰 촬영 → 가우시안 스플랫 <span>권장</span></h3>
+        <dl><dt>필요한 것</dt><dd>폰 하나 + 무료 앱, 또는 우리 사무실 PC로 학습</dd><dt>실감</dt><dd>사진 그대로. 조명·반사·질감까지</dd><dt>걸어 다니기</dt><dd>찍은 범위 안에서 자유롭게</dd><dt>약점</dt><dd>무늬 없는 흰 벽·유리 진열장은 뭉개질 수 있음. 안 찍은 곳(문 너머)은 흐림</dd></dl>
+        <p class="verdict">실사로 걷는 박물관에 맞는 방법</p>
+      </article>
+      <article class="card">
+        <h3>3. 폰 사진 → 사진측량(3D 모형)</h3>
+        <dl><dt>필요한 것</dt><dd>폰 + RealityScan 같은 앱</dd><dt>실감</dt><dd>모양은 잡히지만 질감이 떡지고 흰 벽·유리에 구멍</dd><dt>걸어 다니기</dt><dd>충돌·게임 만들기는 쉬움</dd></dl>
+        <p class="verdict">영사기 같은 물건 하나 스캔에 좋음</p>
+      </article>
+      <article class="card">
+        <h3>4. 아이폰 프로 라이다 스캔</h3>
+        <dl><dt>필요한 것</dt><dd>아이폰 프로·아이패드 프로(갤럭시는 라이다 없음)</dd><dt>실감</dt><dd>크기·모양은 정확, 사진감은 보통</dd><dt>걸어 다니기</dt><dd>쉬움</dd></dl>
+        <p class="verdict">2번과 함께 쓰면 흰 벽에 강해짐</p>
+      </article>
+      <article class="card">
+        <h3>5. 360 파노라마 투어</h3>
+        <dl><dt>필요한 것</dt><dd>360 카메라(폰 파노라마는 이음새가 보임)</dd><dt>실감</dt><dd>사진 그대로</dd><dt>걸어 다니기</dt><dd>점에서 점으로 순간이동만</dd></dl>
+        <p class="verdict">박물관 누리집 2층 가상 전시관(매터포트)이 이 방식. 라바와 걷는 게임 느낌은 못 냄</p>
+      </article>
+      <article class="card">
+        <h3>6. AI가 공간을 지어내기</h3>
+        <dl><dt>필요한 것</dt><dd>사진 몇 장 + 유료 서비스(World Labs Marble 등)</dd><dt>실감</dt><dd>그럴듯하지만 실제에 없는 것을 지어냄</dd><dt>걸어 다니기</dt><dd>됨</dd></dl>
+        <p class="verdict">박물관 기록용으로는 부적합, 콘셉트 그림용</p>
+      </article>
+      <article class="card">
+        <h3>7. 직접 3D 모델링 <span>국중박 시험 방식</span></h3>
+        <dl><dt>필요한 것</dt><dd>사람 손, 방 하나에 며칠</dd><dt>실감</dt><dd>그림 같은 느낌, 실사 아님</dd><dt>걸어 다니기</dt><dd>가장 가볍고 자유로움</dd></dl>
+        <p class="verdict">실사가 필요 없을 때</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>권장 순서: 폰 촬영 → 스플랫 → 우리 투어 도구</h2>
+    <ol class="steps">
+      <li><b>촬영</b>영사기 방 하나에 10분. 아래 가이드대로.</li>
+      <li><b>3D로 바꾸기</b>앱(Scaniverse)이면 폰 안에서 끝나고 파일(SPZ)만 보내면 됩니다. 4K 영상으로 찍으면 우리 사무실 PC(RTX 3070)에서 무료 공개 도구로 더 선명하게 학습합니다.</li>
+      <li><b>걸어 다니게</b>우리 투어 도구가 정류장, 바닥 눌러 걷기, 벽에 막힘, 자동 투어를 붙입니다.</li>
+      <li><b>박물관답게</b>놀이판에서 만든 것을 얹습니다. 라바 안내, 작품 점을 누르면 그 벽에서 영상 재생, 부드럽게 따라오는 카메라.</li>
+      <li><b>공개</b>폰으로 열리는 링크 하나로 드립니다. 방 하나 파일은 10~30MB 예상(본보기 아파트 66만 점이 8.4MB).</li>
+    </ol>
+    <p class="link"><a href="https://honest-family.github.io/apartment-tour/">우리 투어 도구 본보기 열어 보기</a></p>
+  </section>
+
+  <section>
+    <h2>영사기 방 촬영 가이드</h2>
+    <div class="ways">
+      <article class="way">
+        <h3>가장 쉬운 길: Scaniverse 앱</h3>
+        <ol>
+          <li>앱스토어·플레이스토어에서 Scaniverse 설치(기본 무료).</li>
+          <li>새 스캔 → 스플랫(Splat) 고르기.</li>
+          <li>처음 보여 줄 장면(입구에서 본 영사기)에서 시작해 아래 길을 따라 천천히 걷기.</li>
+          <li>한 번에 3분 안쪽. 길면 처리에 실패할 수 있다고 앱이 안내합니다. 방이 크면 두 번으로 나눕니다.</li>
+          <li>처리가 끝나면 내보내기 → SPZ(또는 PLY) 파일을 이 이슈에 첨부.</li>
+        </ol>
+      </article>
+      <article class="way">
+        <h3>더 선명한 길: 4K 영상</h3>
+        <ol>
+          <li>기본 카메라, 1배 렌즈, 4K 60fps(안 되면 30fps). 줌 금지.</li>
+          <li>화면을 길게 눌러 노출·초점 고정. HDR은 끄고, 손떨림 보정은 되면 끕니다.</li>
+          <li>아래 길을 3~5분 동안 천천히(한 걸음에 2초).</li>
+          <li>영상 파일 원본을 이슈에 첨부(메신저로 보내면 화질이 깎입니다).</li>
+        </ol>
+      </article>
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 640 340" role="img" aria-label="영사기 방을 위에서 본 촬영 길. 1 벽 따라 한 바퀴, 2 영사기 둘레 세 바퀴, 3 모서리와 진열장, 입구에서 시작">
+        <rect x="40" y="30" width="560" height="250" fill="#f4f1ea" stroke="#171717" stroke-width="3"/>
+        <rect x="40" y="30" width="560" height="28" fill="#23345c"/>
+        <rect x="40" y="30" width="28" height="250" fill="#23345c"/>
+        <path d="M92 250 L92 74 L560 74 L560 236" fill="none" stroke="#171717" stroke-width="2.5" stroke-dasharray="8 7"/>
+        <path d="M560 252 l-8 -16 l16 0 Z" fill="#171717"/>
+        <ellipse cx="330" cy="168" rx="122" ry="62" fill="none" stroke="#ee2a24" stroke-width="3"/>
+        <ellipse cx="330" cy="168" rx="94" ry="46" fill="none" stroke="#ee2a24" stroke-width="2.5" stroke-dasharray="7 6"/>
+        <ellipse cx="330" cy="168" rx="66" ry="31" fill="none" stroke="#ee2a24" stroke-width="2" stroke-dasharray="2 6"/>
+        <rect x="313" y="151" width="34" height="34" fill="#171717"/>
+        <path d="M330 300 L330 238" stroke="#171717" stroke-width="3"/>
+        <path d="M330 232 l-8 14 l16 0 Z" fill="#171717"/>
+        <g font-weight="900" font-size="22" text-anchor="middle">
+          <circle cx="92" cy="160" r="18" fill="#171717"/><text x="92" y="168" fill="#fff">1</text>
+          <circle cx="452" cy="168" r="18" fill="#ee2a24"/><text x="452" y="176" fill="#fff">2</text>
+          <circle cx="572" cy="268" r="18" fill="#23345c"/><text x="572" y="276" fill="#fff">3</text>
+          <circle cx="330" cy="312" r="16" fill="#ffd23f" stroke="#171717" stroke-width="3"/>
+          <text x="330" y="100" font-size="20" fill="#171717">영사기</text>
+          <text x="392" y="320" font-size="20" fill="#171717">입구</text>
+          <text x="140" y="51" font-size="17" font-weight="800" fill="#f4f1ea">진열 벽</text>
+        </g>
+      </svg>
+      <ol class="legend">
+        <li><b class="n1">1</b>벽을 따라 한 바퀴. 벽에서 1~1.5m 떨어져 진열 벽을 비스듬히 훑습니다.</li>
+        <li><b class="n2">2</b>영사기 둘레 세 바퀴. 눈높이, 허리 높이, 머리 위(팔을 들고) 순서로.</li>
+        <li><b class="n3">3</b>마지막에 모서리, 바닥과 벽이 만나는 곳, 진열장을 비스듬히.</li>
+        <li><b class="n0">↑</b>입구에서 시작합니다. 처음 보여 줄 장면부터 찍습니다.</li>
+      </ol>
+    </figure>
+    <div class="dodont">
+      <div>
+        <h3>이렇게</h3>
+        <ul>
+          <li>관람객 없는 시간(휴관일·개관 전). 사람이 지나가면 그 부분을 다시 찍기.</li>
+          <li>조명은 그대로. 촬영 중에 불을 끄고 켜지 않기.</li>
+          <li>벽에 움직이는 영상이 나오면 끌 수 있으면 끄기(영상은 우리가 화면에서 다시 틀어 줍니다).</li>
+          <li>옆 장면과 많이 겹치게, 몸을 옮겨 가며 찍기.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>이건 피하기</h3>
+        <ul>
+          <li>제자리에서 빙글 돌기. 파노라마처럼 서서 돌면 3D가 안 나옵니다. 걸어야 합니다.</li>
+          <li>빠르게 휘두르기, 줌, 플래시.</li>
+          <li>유리 진열장 정면에 바짝 붙기(반사가 뭉개짐).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>일정·비용</h2>
+    <table class="plan">
+      <tr><th>촬영</th><td>영사기 방 10분. 9개 방 전부 반나절</td></tr>
+      <tr><th>3D로 바꾸기</th><td>앱이면 폰에서 10분 안팎. 영상이면 우리 PC에서 방마다 1~2시간(첫 회는 도구 설치 포함 반나절)</td></tr>
+      <tr><th>화면 만들기</th><td>첫 방 하루(정류장·작품 점·벽 영상·라바), 다음 방부터 반나절</td></tr>
+      <tr><th>비용</th><td>앱 기본 무료, 우리 PC 학습 도구 무료. 유료 대안 Polycam은 스플랫에 유료 요금제 필요</td></tr>
+      <tr><th>확인 못 한 것</th><td>우리 PC에서 실제 학습은 아직 안 돌려 봄(촬영본이 오면 첫 학습). 공개하려면 박물관 촬영 허락</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>박물관이 이미 가진 3D 투어</h2>
+    <p>박물관 누리집 가상 전시관은 매터포트(전문 3D 스캔 카메라) 투어입니다. 2층은 지금도 열리고, 함께 걸려 있던 다른 하나는 열리지 않습니다(404). 매터포트는 점에서 점으로 순간이동하는 방식이라 라바와 걸어 다니는 놀이판 느낌을 내기 어렵습니다. 우리 화면에 끼워 넣으려면 매터포트 개발 키가 필요하고, 3D 물체를 넣는 건 별도 개발 도구가 필요합니다.</p>
+    <p class="link"><a href="https://my.matterport.com/show/?m=CNVbrHteMir">박물관 2층 매터포트 투어</a></p>
+  </section>
+
+  <section class="sources">
+    <h2>출처</h2>
+    <ul>
+      <li><a href="https://www.nianticspatial.com/products/capture">Niantic Spatial Capture, Scaniverse(아이폰·안드로이드, 폰 안에서 스플랫, SPZ 내보내기)</a></li>
+      <li><a href="https://scaniverse.com/news/scaniverse-introduces-support-for-3d-gaussian-splatting">Scaniverse 스플랫 촬영 순서</a></li>
+      <li><a href="https://radiancefields.com/scaniverse-cloud-comes-to-android">Scaniverse 안드로이드 지원</a></li>
+      <li><a href="https://developer.playcanvas.com/user-manual/gaussian-splatting/">PlayCanvas 스플랫 만들기·촬영 문서(우리 투어 도구 바탕)</a></li>
+      <li><a href="https://github.com/ArthurBrussee/brush">Brush, 무료 공개 학습 도구</a></li>
+      <li><a href="https://www.skyebrowse.com/news/posts/gaussian-splat-from-video">영상으로 스플랫 만들기 안내</a></li>
+      <li><a href="https://community.intuiface.com/t/augmented-reality-ar-and-3d-in-player-next-gen/6108/4">항공 박물관(Museum of Flight) 폰 촬영 스플랫 웹 앱 사례</a></li>
+      <li><a href="https://radiancefields.com/gaussian-splatting-brings-art-exhibitions-online-with-yulei">갤러리 전시를 스플랫 웹 산책으로 옮긴 사례</a></li>
+      <li><a href="https://matterport.github.io/developer-docs/embed-sdk/">매터포트 임베드 개발 문서</a></li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>
