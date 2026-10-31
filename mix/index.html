@@ -51,6 +51,9 @@ h1, h2, h3, p { margin: 0; }
 .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 24px; border: 2.5px solid var(--ink); border-radius: 999px; font-family: var(--font-point); font-weight: 800; font-size: 17px; text-decoration: none; transition: transform .35s var(--ease); }
 .btn:hover { transform: rotate(-3deg) scale(1.04); }
 .btn--ink { background: var(--ink); color: var(--cream); }
+.btn--play { background: #ff8a1f; color: #171717; }
+.top .news { margin-top: 14px; padding: 10px 16px; border: 2.5px solid #171717; border-radius: 16px; background: #ff8a1f; font-weight: 700; }
+dl .new dt { color: #e0442b; }
 .btn--line { background: #fff; font-family: var(--font-body); font-size: 14.5px; min-height: 46px; padding: 0 18px; }
 .foot { padding: 30px 0 50px; text-align: center; font-size: 13px; font-weight: 600; color: rgba(23, 23, 23, .75); line-height: 1.7; }
 .foot a { font-weight: 800; }
@@ -67,7 +70,7 @@ h1, h2, h3, p { margin: 0; }
   <small>춘천 애니메이션박물관 메인페이지 리뉴얼</small>
   <h1>Ponpon Mania에<br>하나씩 섞은 시안 3개</h1>
   <p>레퍼런스 보드의 Ponpon Mania를 바탕에 두고, 보드에서 고른 세 곳을 하나씩 섞었습니다. 세 시안 모두 박물관에 실제로 있는 캐릭터 라바 레드와 옐로가 주인공입니다.</p>
-</header>
+  <p class="news"><b>10/31 새로</b> 세 시안에 ‘돌아다니다가 누르면 작품을 바로 보는’ 놀이판을 하나씩 붙였습니다. 시안마다 주황색 ‘놀이판 열기’를 눌러 보세요.</p></header>
 <main class="wrap">
   <section class="cast" aria-labelledby="cast-h">
     <div class="cast-art" aria-hidden="true"><img class="r" src="assets/larva/red@2x.webp" alt="" width="495" height="605"><img class="y" src="assets/larva/yellow@2x.webp" alt="" width="625" height="1005"></div>
@@ -89,8 +92,9 @@ h1, h2, h3, p { margin: 0; }
           <div><dt>Ponpon Mania에서</dt><dd>해와 구름 모양 액자 안의 첫 화면, 무대 위 큰 캐릭터, 검은 알약 버튼, 앨범 표지를 넘기는 전시 공간과 재생 바</dd></div>
           <div><dt>Captain Goosebumps에서</dt><dd>색이 빠진 세상에 직접 색을 되찾아 주는 놀이. 시작 안내, 칠한 만큼 올라가는 숫자, 아래쪽 조작 안내</dd></div>
           <div><dt>해 보세요</dt><dd>‘색칠 시작’을 누른 뒤 마우스를 누른 채(휴대폰은 손가락으로) 그림을 문지르면 문지른 곳만 색이 칠해집니다. 다 칠하면 라바가 움직이고, 아래 앨범 표지도 넘길 때마다 색이 칠해집니다.</dd></div>
+        <div class="new"><dt>놀이판 (새로)</dt><dd>공간마다 ▶를 누르면 그 방 작품이 차례로 재생되고, 다 보면 회색 앨범 표지에 색이 돌아옵니다. 9곳을 다 칠하면 라바가 축하해 줍니다.</dd></div>
         </dl>
-        <div class="actions"><a class="btn btn--ink" href="1/">시안 1 열기</a><a class="btn btn--line" href="compare/d1_pc.jpg">원본과 나란히 보기</a><a class="btn btn--line" href="compare/d1_m.jpg">휴대폰 비교</a></div>
+        <div class="actions"><a class="btn btn--play" href="play1/">놀이판 열기</a><a class="btn btn--ink" href="1/">시안 1 열기</a><a class="btn btn--line" href="compare/d1_pc.jpg">원본과 나란히 보기</a><a class="btn btn--line" href="compare/d1_m.jpg">휴대폰 비교</a></div>
       </div>
     </article>
 
@@ -104,8 +108,9 @@ h1, h2, h3, p { margin: 0; }
           <div><dt>Ponpon Mania에서</dt><dd>액자 모양 첫 화면과 무대, 라바 캐릭터 배치, 원형으로 열리는 앨범 표지 화면</dd></div>
           <div><dt>Mouse Parallax Wonderland에서</dt><dd>어두운 하늘에서 보랏빛으로 내려오는 바탕, 가는 큰 제목, 마우스를 따라 서로 다른 깊이로 움직이는 소품, 아래로 내리면 파스텔 하늘로 떨어지는 장면</dd></div>
           <div><dt>해 보세요</dt><dd>마우스를 움직이면 하늘, 박물관, 무대, 라바, 소품이 겹겹이 다르게 움직입니다. 천천히 내리면 그림 속으로 들어가 상상의 계단을 지나 앨범 표지로 이어집니다.</dd></div>
+        <div class="new"><dt>놀이판 (새로)</dt><dd>‘아래로 내려 그림 속으로’ 끝에서 라바가 겹겹이 움직이는 무대를 옆으로 걸어 9개 방을 지나갑니다. 방 앞에서 누르면 작품이 바로 열립니다.</dd></div>
         </dl>
-        <div class="actions"><a class="btn btn--ink" href="2/">시안 2 열기</a><a class="btn btn--line" href="compare/d2_pc.jpg">원본과 나란히 보기</a><a class="btn btn--line" href="compare/d2_m.jpg">휴대폰 비교</a></div>
+        <div class="actions"><a class="btn btn--play" href="play2/">놀이판 열기</a><a class="btn btn--ink" href="2/">시안 2 열기</a><a class="btn btn--line" href="compare/d2_pc.jpg">원본과 나란히 보기</a><a class="btn btn--line" href="compare/d2_m.jpg">휴대폰 비교</a></div>
       </div>
     </article>
 
@@ -119,15 +124,16 @@ h1, h2, h3, p { margin: 0; }
           <div><dt>Ponpon Mania에서</dt><dd>액자 모양 첫 화면과 무대 위 라바, 공간을 고르면 열리는 검은 레코드판 화면, 앨범 표지 모양 공간 아이콘</dd></div>
           <div><dt>Ghibli Park에서</dt><dd>그림 위에 떠 있는 말풍선 버튼, 아래쪽 큰 로고, 소식 상자와 바로가기 버튼, 그림 지도와 구역 아이콘</dd></div>
           <div><dt>해 보세요</dt><dd>말풍선으로 예약, 지금 전시, 둘러보기로 바로 갑니다. 그림 안내도에서 방이나 아이콘을 누르면 그 공간 이야기가 열립니다.</dd></div>
+        <div class="new"><dt>놀이판 (새로)</dt><dd>안내도에서 방을 누르면 라바가 점선 길을 따라 그 방까지 기어가고, 방에 들어가면 작품을 바로 봅니다. ‘다음 공간’을 누르면 다음 방으로 걸어가요.</dd></div>
         </dl>
-        <div class="actions"><a class="btn btn--ink" href="3/">시안 3 열기</a><a class="btn btn--line" href="compare/d3_pc.jpg">원본과 나란히 보기</a><a class="btn btn--line" href="compare/d3_m.jpg">휴대폰 비교</a></div>
+        <div class="actions"><a class="btn btn--play" href="play3/">놀이판 열기</a><a class="btn btn--ink" href="3/">시안 3 열기</a><a class="btn btn--line" href="compare/d3_pc.jpg">원본과 나란히 보기</a><a class="btn btn--line" href="compare/d3_m.jpg">휴대폰 비교</a></div>
       </div>
     </article>
   </div>
 </main>
 <footer class="foot wrap">
   <p><a href="../">레퍼런스 보드로 돌아가기</a></p>
-  <p>2026-10-30 시안. 라바 캐릭터 ⓒ TUBAn. 박물관 사진은 애니메이션박물관 누리집에 게시된 사진이며, 비교 화면의 레퍼런스 저작권은 각 운영사에 있습니다. 춘천 애니메이션박물관 메인페이지 리뉴얼 검토용 자료, 어니스트패밀리</p>
+  <p>2026-10-30 시안. 라바 캐릭터 ⓒ TUBAn. 박물관 사진은 애니메이션박물관 누리집에 게시된 사진이며, 비교 화면의 레퍼런스 저작권은 각 운영사에 있습니다. 놀이판에 넣은 초기 애니메이션 작품은 위키미디어 공용 등의 공개 저작물입니다. 춘천 애니메이션박물관 메인페이지 리뉴얼 검토용 자료, 어니스트패밀리</p>
 </footer>
 </body>
 </html>
