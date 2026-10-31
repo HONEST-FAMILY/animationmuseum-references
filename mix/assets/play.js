@@ -532,7 +532,7 @@
       s += v * dt;
       phase += Math.abs(v) * dt / (o.stride || 70);
       place();
-      if (Math.abs(target - s) < 0.6 && Math.abs(v) < 4) {
+      if (Math.abs(target - s) < 1.5 && Math.abs(v) < 8) {
         settle++;
         if (settle > 2) {
           s = target;
@@ -552,7 +552,8 @@
     };
     var api = {
       el: el,
-      go: function (t, cb) {
+      go: function (t, cb, sp) {
+        speed = sp || o.speed || 700;
         target = t;
         arrive = cb || null;
         if (reduce) { s = t; v = 0; place(); if (cb) { arrive = null; cb(); } return; }

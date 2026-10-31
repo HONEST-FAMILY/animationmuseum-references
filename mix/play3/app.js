@@ -100,7 +100,7 @@
     img: '../assets/larva/yellow@2x.webp',
     start: stops[0],
     speed: 820,
-    k: 14,
+    k: 26,
     stride: 64,
     place: place,
     onMove: follow
@@ -136,7 +136,7 @@
     walker.say('');
     if (Math.abs(walker.get() - stops[i]) < 2 && !walker.moving()) { open(i); return; }
     walking = true;
-    walker.go(stops[i], function () { walking = false; open(i); });
+    walker.go(stops[i], function () { walking = false; open(i); }, Math.max(820, Math.abs(stops[i] - walker.get()) / 1.3));
   };
 
   var suggest = function () {
