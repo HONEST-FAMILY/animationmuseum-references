@@ -156,15 +156,14 @@
   };
 
   var rec = document.getElementById('rec');
-  rec.addEventListener('click', function (e) {
-    if (!e.target.closest('[data-rec-next]')) return;
-    e.stopPropagation();
-    e.preventDefault();
-    var n = (here + 1) % rooms.length;
-    pendingNext = n;
-    rec.querySelector('.rec-close').click();
-    setTimeout(function () { pendingNext = -1; visit(n); }, reduce ? 0 : 260);
-  }, true);
+  window.Play.room({
+    back: '안내도로 돌아가기',
+    onNext: function (n) {
+      pendingNext = n;
+      rec.querySelector('.rec-close').click();
+      setTimeout(function () { pendingNext = -1; visit(n); }, reduce ? 0 : 260);
+    }
+  });
 
   window.Play.on('room', markDone);
   window.Play.on('reset', function () { markDone(); suggest(); });

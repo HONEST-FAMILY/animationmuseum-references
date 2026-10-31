@@ -217,6 +217,7 @@
 
   var section = document.getElementById('chapters');
   var Play = window.Play;
+  Play.room({ back: '앨범으로 돌아가기' });
   var covers = section.querySelectorAll('.cv');
   var colorCover = function (el) {
     if (!el || el.classList.contains('is-colored')) return;

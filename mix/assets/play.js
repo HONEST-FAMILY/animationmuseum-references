@@ -337,41 +337,117 @@
   var playRoom = function (i, onEnd) { openWork(i, 0, { auto: true, onEnd: onEnd }); };
 
   var rec = document.getElementById('rec');
-  var strip = null, recRoom = -1;
-  var renderStrip = function (i) {
-    if (!rec || !works[i]) return;
-    recRoom = i;
-    rec.classList.add('has-works');
-    if (!strip) {
-      strip = make('div', 'pl-works', '<p class="pl-works-h">이 공간의 작품 <b></b><span></span></p><ol></ol>');
-      var body = rec.querySelector('.rec-body');
-      body.insertBefore(strip, body.querySelector('.rec-photo'));
+  var roomCfg = { back: '돌아가기', onNext: null };
+  var room = null, recRoom = -1;
+  var pad2 = function (n) { return String(n).padStart(2, '0'); };
+  var BACK_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>';
+
+  var nextTarget = function (i) {
+    for (var k = 1; k < works.length; k++) {
+      var n = (i + k) % works.length;
+      if (!roomDone(n)) return n;
     }
-    strip.querySelector('b').textContent = roomSeen(i) + ' / ' + works[i].length;
-    strip.querySelector('span').textContent = roomDone(i) ? '다 봤어요' : '눌러서 바로 보기';
-    var list = strip.querySelector('ol');
-    list.innerHTML = '';
-    works[i].forEach(function (w, j) {
-      var li = make('li');
-      var btn = make('button', 'pl-work' + (isSeen(i, j) ? ' is-seen' : '') + (w.kind === 'video' ? ' is-play' : ''), '<img alt="" width="128" height="96" loading="lazy"><span></span><i>✓</i>');
-      btn.type = 'button';
-      btn.querySelector('img').src = w.thumb;
-      btn.querySelector('span').textContent = w.title;
-      btn.setAttribute('aria-label', w.title + (isSeen(i, j) ? ', 봤어요' : ''));
-      btn.addEventListener('click', function () { openWork(i, j); });
-      li.appendChild(btn);
-      list.appendChild(li);
-    });
+    return (i + 1) % works.length;
   };
+
+  var buildRoom = function () {
+    rec.classList.add('pl-room');
+    var body = rec.querySelector('.rec-body');
+    var side = make('div', 'pl-room-side');
+    var main = make('div', 'pl-room-main', '<p class="pl-room-h"><b>이 방의 작품</b><span></span></p><ol class="pl-room-works"></ol>');
+    var guide = make('div', 'pl-guide', '<img class="pl-guide-larva" alt="" width="600" height="600"><p class="pl-guide-say"></p>');
+    var progress = make('div', 'pl-room-progress', '<span class="pl-dots" aria-hidden="true"></span><span></span>');
+    var photo = rec.querySelector('.rec-photo');
+    photo.querySelector('figcaption').textContent = '실제 전시 공간';
+    side.appendChild(photo);
+    side.appendChild(guide);
+    ['.rec-no', '.rec-title', '.rec-floor', '.rec-desc'].forEach(function (sel) { side.appendChild(rec.querySelector(sel)); });
+    side.appendChild(progress);
+    var actions = rec.querySelector('.rec-actions');
+    side.appendChild(actions);
+    body.innerHTML = '';
+    body.appendChild(side);
+    body.appendChild(main);
+    var link = actions.querySelector('a');
+    if (link) {
+      link.className = 'pl-room-link';
+      link.textContent = '박물관 누리집에서 전시 설명 보기';
+      link.target = '_blank';
+      link.rel = 'noopener';
+      actions.appendChild(link);
+    }
+    var back = make('button', 'pl-room-back', BACK_ICON + '<span></span>');
+    back.type = 'button';
+    back.addEventListener('click', function () { rec.querySelector('.rec-close').click(); });
+    rec.appendChild(back);
+    room = { main: main, guide: guide, progress: progress, back: back, next: actions.querySelector('[data-rec-next]') };
+  };
+
+  var renderRoom = function (i) {
+    if (!rec || !works[i]) return;
+    if (!room) buildRoom();
+    recRoom = i;
+    var list = works[i], seenCount = roomSeen(i), done = roomDone(i), all = doneCount() === works.length;
+    room.back.querySelector('span').textContent = roomCfg.back;
+    room.main.querySelector('.pl-room-h span').textContent = list.length + '점 · 눌러서 바로 보기';
+    var ol = room.main.querySelector('.pl-room-works');
+    ol.innerHTML = '';
+    ol.classList.toggle('is-few', list.length < 3);
+    var firstNew = -1;
+    list.forEach(function (w, j) {
+      var seenNow = isSeen(i, j);
+      if (!seenNow && firstNew < 0) firstNew = j;
+      var li = make('li');
+      var card = make('button', 'pl-card' + (seenNow ? ' is-seen' : '') + (w.kind === 'video' ? ' is-video' : ''), '<span class="pl-card-thumb"><img alt="" width="400" height="300" loading="lazy"><i class="pl-card-play" aria-hidden="true"></i></span><b></b><small></small><em></em>');
+      card.type = 'button';
+      card.querySelector('img').src = w.thumb;
+      card.querySelector('b').textContent = w.title;
+      card.querySelector('small').textContent = w.meta;
+      card.querySelector('em').textContent = seenNow ? '봤어요 ✓' : (w.kind === 'pins' || w.kind === 'foley' ? '해 보기 ▶' : '보기 ▶');
+      card.setAttribute('aria-label', w.title + (seenNow ? ', 봤어요' : ', 눌러서 보기'));
+      card.addEventListener('click', function () { openWork(i, j); });
+      li.appendChild(card);
+      ol.appendChild(li);
+    });
+    if (firstNew >= 0) ol.children[firstNew].firstChild.classList.add('is-next');
+    var dots = room.progress.querySelector('.pl-dots');
+    dots.innerHTML = '';
+    list.forEach(function (w, j) {
+      var dot = make('i', isSeen(i, j) ? 'is-on' : '');
+      dot.style.setProperty('--c', data[i].ring ? data[i].ring[0] : '');
+      dots.appendChild(dot);
+    });
+    room.progress.lastChild.textContent = '이 방 작품 ' + seenCount + ' / ' + list.length + ' 봤어요';
+    room.guide.querySelector('img').src = window.Larva ? window.Larva.src(data[i].pose, 0) : '';
+    var say = room.guide.querySelector('.pl-guide-say');
+    if (all) say.textContent = '박물관 9곳을 다 둘러봤어요! 선물 받으러 가요';
+    else if (done) say.textContent = '이 방은 다 봤어요! 다음 방으로 가 볼까요?';
+    else if (seenCount) say.textContent = seenCount + '점 봤어요. ' + (list.length - seenCount) + '점 남았어요!';
+    else say.textContent = '여기 작품 ' + list.length + '점이 있어요. ' + (window.matchMedia('(max-width: 760px)').matches ? '아래' : '오른쪽') + ' 작품을 눌러 봐요!';
+    rec.classList.toggle('is-room-done', done);
+    var target = nextTarget(i);
+    room.next.textContent = all ? '다 봤어요! 선물 받기' : '다음 방: ' + pad2(target + 1) + ' ' + data[target].name + ' →';
+    room.next.classList.toggle('is-primary', done || all);
+  };
+
   if (rec) {
     var recNo = rec.querySelector('[data-rec-no]');
-    var syncStrip = function () {
+    var syncRoom = function () {
       var n = parseInt(recNo.textContent, 10);
-      if (!isNaN(n)) renderStrip(n - 1);
+      if (!isNaN(n)) renderRoom(n - 1);
     };
-    new MutationObserver(syncStrip).observe(recNo, { childList: true, characterData: true, subtree: true });
-    on('seen', function () { if (recRoom >= 0) renderStrip(recRoom); });
-    on('reset', function () { if (recRoom >= 0) renderStrip(recRoom); });
+    new MutationObserver(syncRoom).observe(recNo, { childList: true, characterData: true, subtree: true });
+    on('seen', function () { if (recRoom >= 0) renderRoom(recRoom); });
+    on('reset', function () { if (recRoom >= 0) renderRoom(recRoom); });
+    rec.addEventListener('click', function (e) {
+      if (!e.target.closest('[data-rec-next]')) return;
+      e.stopPropagation();
+      e.preventDefault();
+      if (doneCount() === works.length) { celebrate(); return; }
+      var target = nextTarget(recRoom);
+      if (roomCfg.onNext) roomCfg.onNext(target);
+      else window.openRecord(target);
+    }, true);
   }
 
   var chips = [];
@@ -513,6 +589,7 @@
     closeWork: closeWork,
     isOpen: function () { return !view.hidden; },
     chip: chip,
+    room: function (cfg) { Object.keys(cfg || {}).forEach(function (k) { roomCfg[k] = cfg[k]; }); if (recRoom >= 0) renderRoom(recRoom); },
     toast: toast,
     walker: walker,
     reset: reset,

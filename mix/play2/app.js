@@ -333,6 +333,7 @@
   };
 
   var paintDone = function () { sets.forEach(function (btn, i) { btn.classList.toggle('is-done', window.Play.roomDone(i)); }); };
+  window.Play.room({ back: '산책으로 돌아가기' });
 
   layout();
   walker = window.Play.walker({
