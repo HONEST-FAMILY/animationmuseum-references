@@ -3,7 +3,7 @@
   var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
   var works = window.WORKS || [];
   var data = window.CHAPTER_DATA || [];
-  var KEY = 'am-play-v1';
+  var KEY = 'am-play-v1:' + window.location.pathname;
   var CLOSE_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>';
   var LOCK_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
 
