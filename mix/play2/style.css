@@ -58,6 +58,7 @@
 .dp-arch img { width: 100%; height: 100%; object-fit: cover; }
 .dp-arch figcaption { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); padding: 5px 12px; border-radius: 99px; background: var(--ink); color: var(--cream); font-size: 12.5px; font-weight: 800; white-space: nowrap; }
 .dp-faller { position: absolute; width: clamp(150px, 14vw, 230px); }
+.dp-quote, .dp-arch, .dp-faller { will-change: transform; }
 .dp-faller--y { left: 16%; top: 0; }
 .dp-faller--r { right: 15%; top: 0; }
 

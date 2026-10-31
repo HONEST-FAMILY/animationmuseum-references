@@ -7,6 +7,9 @@
 
   var hero = document.querySelector('.hero--deep');
   var sticky = hero.querySelector('.hero-sticky');
+  var pastel = hero.querySelector('.dp-pastel');
+  var iris = hero.querySelector('.hero-iris');
+  var lastPastel = '', lastR = '', lastIo = '';
   var world = hero.querySelector('.dp-world');
   var layers = Array.prototype.slice.call(hero.querySelectorAll('.dp-world .dp-layer'));
   var props = Array.prototype.slice.call(hero.querySelectorAll('.dp-prop'));
@@ -78,7 +81,8 @@
     var fadeOut = clamp(1 - a * 4, 0, 1);
     fades.forEach(function (el) { el.style.opacity = fadeOut; el.style.visibility = fadeOut > 0 ? '' : 'hidden'; });
 
-    sticky.style.setProperty('--pastel', clamp((t - 0.24) / 0.16, 0, 1).toFixed(3));
+    var pastelNow = clamp((t - 0.24) / 0.16, 0, 1).toFixed(3);
+    if (pastelNow !== lastPastel) { lastPastel = pastelNow; pastel.style.opacity = pastelNow; }
     var fallOpacity = clamp(b * 3, 0, 1) * (1 - clamp((c - 0.35) / 0.4, 0, 1));
     fall.style.opacity = fallOpacity.toFixed(3);
     quote.style.transform = 'translateX(-50%) translate3d(' + (-mx * 10).toFixed(1) + 'px,' + ((1 - eb) * 50 - my * 8).toFixed(1) + 'px,0)';
@@ -88,8 +92,16 @@
     fallR.style.transform = 'translate3d(' + (-mx * 40 - Math.sin(b * 5) * 3 * vw).toFixed(1) + 'px,' + ((-0.75 + b * 1.9) * window.innerHeight).toFixed(1) + 'px,0) rotate(' + (-b * 360).toFixed(1) + 'deg)';
 
     var maxR = Math.hypot(window.innerWidth / 2, window.innerHeight * 0.52) + 16;
-    sticky.style.setProperty('--R', (ease(c) * maxR).toFixed(1) + 'px');
-    sticky.style.setProperty('--io', c > 0 && c < 1 ? '1' : '0');
+    var R = (ease(c) * maxR).toFixed(1);
+    if (R !== lastR) {
+      lastR = R;
+      var mask = 'radial-gradient(circle at 50% 48%, transparent ' + R + 'px, #000 ' + (+R + 0.6).toFixed(1) + 'px)';
+      sticky.style.webkitMaskImage = mask;
+      sticky.style.maskImage = mask;
+      iris.style.background = 'radial-gradient(circle at 50% 48%, transparent ' + (+R - 1).toFixed(1) + 'px, #171717 ' + R + 'px, #171717 ' + (+R + 6).toFixed(1) + 'px, transparent ' + (+R + 7).toFixed(1) + 'px)';
+    }
+    var io = c > 0 && c < 1 ? '1' : '0';
+    if (io !== lastIo) { lastIo = io; iris.style.opacity = io; }
   };
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (en) { on = en[0].isIntersecting; }, { rootMargin: '100px 0px' }).observe(sticky);
@@ -118,7 +130,7 @@
   var STEPS = 5;
   var W = 0, H = 0, spacing = 0, worldW = 0, base = 0, rise = 0, stairA = 0, stairB = 0, minX = 0, maxX = 0, setW = 0;
   var fronts = [], walker = null, ground = null, farSvg = null, midSvg = null;
-  var camX = 0, camV = 0, near = -1, holding = 0, pressedAt = 0, greeted = false, fromWalk = false, visible = false, last = 0, moved = false;
+  var camX = 0, camV = 0, near = -1, holding = 0, pressedAt = 0, greeted = false, fromWalk = false, visible = false, last = 0, moved = false, lastCam = '';
 
   section.querySelector('.gw-hud').appendChild(window.Play.chip('둘러본 공간'));
   if (coarse) hint.textContent = '◀ ▶ 를 꾹 누르거나 방을 눌러 보세요';
@@ -402,6 +414,7 @@
     if (!visible) { last = 0; return; }
     var dt = Math.min(0.05, (now - (last || now)) / 1000);
     last = now;
+    var pinned = pinnedNow();
     if (holding) walker.go(clamp(walker.get() + holding * 260, minX, maxX));
     var x = walker.get();
     var target = clamp(x - W * 0.42, 0, Math.max(0, worldW - W));
@@ -411,13 +424,16 @@
       camV += (k * (target - camX) - c * camV) * dt;
       camX += camV * dt;
     }
-    world.style.transform = 'translate3d(' + (-camX).toFixed(1) + 'px,0,0)';
-    far.style.transform = 'translate3d(' + (-camX * 0.25).toFixed(1) + 'px,0,0)';
-    mid.style.transform = 'translate3d(' + (-camX * 0.55).toFixed(1) + 'px,0,0)';
-    front.style.transform = 'translate3d(' + (-camX * 1.45).toFixed(1) + 'px,0,0)';
+    var camKey = (-camX).toFixed(1);
+    if (camKey !== lastCam) {
+      lastCam = camKey;
+      world.style.transform = 'translate3d(' + camKey + 'px,0,0)';
+      far.style.transform = 'translate3d(' + (-camX * 0.25).toFixed(1) + 'px,0,0)';
+      mid.style.transform = 'translate3d(' + (-camX * 0.55).toFixed(1) + 'px,0,0)';
+      front.style.transform = 'translate3d(' + (-camX * 1.45).toFixed(1) + 'px,0,0)';
+    }
     var n = -1;
     fronts.forEach(function (f, i) { if (Math.abs(x - f) < 70) n = i; });
-    var pinned = pinnedNow();
     if (pinned && !greeted) {
       greeted = true;
       walker.say('◀ ▶ 로 같이 걸어요');

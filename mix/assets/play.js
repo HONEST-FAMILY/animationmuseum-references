@@ -39,6 +39,27 @@
     return el;
   };
 
+  document.querySelectorAll('.hero-badge svg').forEach(function (svg) {
+    var spin = svg.querySelector('.badge-spin');
+    if (!spin) return;
+    var ring = svg.cloneNode(true);
+    var middle = svg.cloneNode(true);
+    var ringSpin = ring.querySelector('.badge-spin');
+    while (ringSpin.nextSibling) ring.removeChild(ringSpin.nextSibling);
+    var keep = false;
+    Array.prototype.slice.call(middle.childNodes).forEach(function (node) {
+      if (node.nodeType === 1 && node.classList.contains('badge-spin')) { keep = true; middle.removeChild(node); return; }
+      if (!keep) middle.removeChild(node);
+    });
+    ring.setAttribute('class', 'pl-badge-ring');
+    middle.setAttribute('class', 'pl-badge-middle');
+    var wrap = make('span', 'pl-badge');
+    wrap.setAttribute('aria-hidden', 'true');
+    wrap.appendChild(ring);
+    wrap.appendChild(middle);
+    svg.parentNode.replaceChild(wrap, svg);
+  });
+
   var toastEl = make('div', 'pl-toast', '<img alt="" width="46" height="46"><span></span>');
   toastEl.setAttribute('role', 'status');
   document.body.appendChild(toastEl);
@@ -409,7 +430,10 @@
       li.appendChild(card);
       ol.appendChild(li);
     });
-    if (firstNew >= 0) ol.children[firstNew].firstChild.classList.add('is-next');
+    if (firstNew >= 0) {
+      ol.children[firstNew].classList.add('is-next');
+      ol.children[firstNew].firstChild.classList.add('is-next');
+    }
     var dots = room.progress.querySelector('.pl-dots');
     dots.innerHTML = '';
     list.forEach(function (w, j) {

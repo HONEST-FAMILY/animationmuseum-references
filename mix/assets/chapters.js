@@ -50,8 +50,12 @@
     ['uRes', 'uCenter', 'uTime', 'uMix', 'uFlat', 'uInnerFrom', 'uOuterFrom', 'uInnerTo', 'uOuterTo'].forEach(function (name) {
       u[name] = gl.getUniformLocation(prog, name);
     });
-    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    var dpr = Math.min(window.devicePixelRatio || 1, window.matchMedia('(pointer: coarse)').matches ? 1 : 1.5);
+    var sizeDirty = true;
+    window.addEventListener('resize', function () { sizeDirty = true; });
     var resize = function () {
+      if (!sizeDirty) return;
+      sizeDirty = false;
       var w = Math.round(canvas.clientWidth * dpr);
       var h = Math.round(canvas.clientHeight * dpr);
       if (canvas.width !== w || canvas.height !== h) {
@@ -164,6 +168,19 @@
       return { x: a.left - r.left, y: clamp(a.top - r.top, 0, r.height * 0.48) };
     };
 
+    var setStyle = function (el, name, value) {
+      var cache = el.__styles || (el.__styles = {});
+      if (cache[name] === value) return;
+      cache[name] = value;
+      el.style[name] = value;
+    };
+
+    var faceParts = [];
+    var facePart = function (k) {
+      if (!faceParts[k]) faceParts[k] = { glare: faces[k].querySelector('.cv-glare'), cello: faces[k].querySelector('.cv-cello'), shade: faces[k].querySelector('.cv-shade') };
+      return faceParts[k];
+    };
+
     var MAX_TILT = 15;
     var tiltCard = function (k, dt, tm) {
       var card = cards[k], on = k === index;
@@ -182,27 +199,28 @@
       var still = Math.abs(card.rx) + Math.abs(card.ry) + Math.abs(card.vx) + Math.abs(card.vy) < 0.01 && Math.abs(card.lift - 1) < 0.0005;
       if (!on && still && !card.dirty) return;
       card.dirty = !still;
-      var sleeve = sleeves[k], face = faces[k];
-      sleeve.style.setProperty('--rx', card.rx.toFixed(2) + 'deg');
-      sleeve.style.setProperty('--ry', card.ry.toFixed(2) + 'deg');
-      sleeve.style.setProperty('--lift', card.lift.toFixed(4));
+      var parts = facePart(k);
+      setStyle(sleeves[k], 'transform', 'rotateX(' + card.rx.toFixed(2) + 'deg) rotateY(' + card.ry.toFixed(2) + 'deg) scale(' + card.lift.toFixed(4) + ')');
       var tiltX = card.ry / MAX_TILT, tiltY = card.rx / MAX_TILT;
       var glareX = on && press.over ? 50 + press.x * 100 : 50 - tiltX * 40;
       var glareY = on && press.over ? 50 + press.y * 100 : 30 + tiltY * 40;
-      face.style.setProperty('--glare-x', glareX.toFixed(1) + '%');
-      face.style.setProperty('--glare-y', glareY.toFixed(1) + '%');
       var tiltAmount = Math.min(1, Math.hypot(tiltX, tiltY));
-      face.style.setProperty('--glare', (on ? (press.over ? 0.95 : 0.3 + tiltAmount * 0.5) : 0).toFixed(3));
-      face.style.setProperty('--cello', (0.24 + tiltAmount * 0.3).toFixed(3));
-      face.style.setProperty('--cello-x', (-tiltX * 5).toFixed(2) + '%');
-      face.style.setProperty('--cello-y', (tiltY * 5).toFixed(2) + '%');
+      if (parts.glare) {
+        setStyle(parts.glare, 'transform', 'translate(' + ((glareX / 100 - 0.5) / 3 * 100).toFixed(2) + '%,' + ((glareY / 100 - 0.5) / 3 * 100).toFixed(2) + '%)');
+        setStyle(parts.glare, 'opacity', (on ? (press.over ? 0.95 : 0.3 + tiltAmount * 0.5) : 0).toFixed(3));
+      }
+      if (parts.cello) {
+        setStyle(parts.cello, 'transform', 'translate(' + (-tiltX * 5).toFixed(2) + '%,' + (tiltY * 5).toFixed(2) + '%) rotate(-4deg)');
+        setStyle(parts.cello, 'opacity', (0.24 + tiltAmount * 0.3).toFixed(3));
+      }
     };
     var shade = function (k, l) {
       var card = cards[k];
       var rx = (l.rx + card.rx) * Math.PI / 180, ry = (l.ry + card.ry) * Math.PI / 180;
       var facing = Math.sin(rx) + Math.cos(ry) * Math.cos(rx);
       var light = 0.5 + 0.5 * clamp(facing, 0, 1);
-      faces[k].style.setProperty('--shade', clamp((1 - light) * 1.25, 0, 0.5).toFixed(3));
+      var parts = facePart(k);
+      if (parts.shade) setStyle(parts.shade, 'opacity', clamp((1 - light) * 1.25, 0, 0.5).toFixed(3));
     };
 
     var frame = function (now) {
@@ -211,6 +229,7 @@
       var dt = clamp((now - (lastNow || now)) / 1000, 0, 0.05);
       lastNow = now;
       var tm = (now - start) / 1000;
+      var c = rings ? center() : null;
       p += (target - p) * (reduce ? 1 : 0.13);
       speed = Math.abs(p - prevP);
       var vel = dt > 0 ? (p - prevP) / dt : 0;
@@ -219,9 +238,9 @@
       var st = { w: stage.clientWidth, h: stage.clientHeight, size: items[0].offsetWidth, speed: speed, time: reduce ? 0 : tm, lean: lean };
       items.forEach(function (el, k) {
         var l = layout(k - p, k, st);
-        el.style.transform = l.t;
-        el.style.zIndex = l.z;
-        el.style.opacity = l.o;
+        setStyle(el, 'transform', l.t);
+        setStyle(el, 'zIndex', String(l.z));
+        setStyle(el, 'opacity', String(l.o));
         tiltCard(k, dt, tm);
         shade(k, l);
       });
@@ -232,7 +251,6 @@
       if (rings) {
         flat += ((moving ? Math.min(1, speed * 26) : 0) - flat) * 0.18;
         var mix = clamp((now - mixStart) / 900, 0, 1);
-        var c = center();
         rings.draw({ cx: c.x, cy: c.y, time: reduce ? 0 : (now - start) / 1000, mix: reduce ? 1 : mix, flat: reduce ? 0 : flat, from: colorFrom, to: colorTo });
       }
     };
