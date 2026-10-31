@@ -73,3 +73,18 @@ figcaption b { display: block; color: #171717; font-size: 15px; }
   .plan th { width: 92px; white-space: normal; }
   .date { display: none; }
 }
+.jump { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 0; }
+.jump a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 2px solid #171717; font-weight: 800; font-size: 15px; text-decoration: none; }
+.jump a::after { content: " ↓"; margin-left: 6px; }
+.ex-head { margin-top: 22px; }
+.ex-note { color: #4c4842; font-size: 14px; }
+.ex { margin: 0 0 8px; padding: 0; list-style: none; border-top: 1.5px solid #171717; }
+.ex li { border-bottom: 1px solid #e0dbd2; }
+.ex a { display: block; padding: 14px 34px 14px 2px; position: relative; text-decoration: none; }
+.ex a::after { content: "→"; position: absolute; right: 6px; top: 50%; transform: translateY(-50%); font-weight: 900; }
+.ex b { display: block; font-size: 16px; }
+.ex span { display: block; color: #4c4842; font-size: 14px; line-height: 1.5; }
+.lesson { margin: 22px 0 24px; padding: 18px 20px; background: #fff8dc; border: 2px solid #171717; }
+.lesson ul { margin: 0; padding-left: 18px; font-size: 15px; }
+.lesson li { margin-bottom: 8px; }
+.verdict-line { padding: 14px 16px; border-left: 4px solid #ee2a24; background: #faf8f3; font-weight: 700; }

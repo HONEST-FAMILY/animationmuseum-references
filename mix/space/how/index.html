@@ -9,7 +9,7 @@
 <meta name="description" content="360도 장비 없이 폰으로 전시 공간을 실사 3D로 옮기는 방법 7가지 비교와 영사기 방 촬영 가이드">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%274%27 y=%273%27 width=%2724%27 height=%2726%27 rx=%273%27 fill=%27%23ef1e28%27/%3E%3Ccircle cx=%2721%27 cy=%279%27 r=%273.5%27 fill=%27%23fff%27/%3E%3C/svg%3E">
 <link rel="stylesheet" href="../../assets/fonts.css?v=10">
-<link rel="stylesheet" href="style.css?v=1">
+<link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 <header class="top">
@@ -26,6 +26,7 @@
       <li>무료 앱(Scaniverse)이 폰 안에서 3D로 바꿔 줍니다. 아이폰·안드로이드 둘 다 됩니다.</li>
       <li>폰 화면에서 걸어 다니는 웹 뷰어는 이미 우리 도구가 있습니다. 빠진 것은 영사기 방 촬영본 하나입니다.</li>
     </ul>
+    <p class="jump"><a href="#examples">실제 예시 9곳 보기</a><a href="#ai">AI 보정은 어디까지</a></p>
   </section>
 
   <section>
@@ -110,6 +111,47 @@
       <li><b>공개</b>폰으로 열리는 링크 하나로 드립니다. 방 하나 파일은 10~30MB 예상(본보기 아파트 66만 점이 8.4MB).</li>
     </ol>
     <p class="link"><a href="https://honest-family.github.io/apartment-tour/">우리 투어 도구 본보기 열어 보기</a></p>
+  </section>
+
+  <section id="examples">
+    <h2>실제 예시: 눌러서 폰으로 바로 보기</h2>
+    <p>공개된 실내 스플랫 중 잘 나온 것들을 골라 실제로 열리는지 확인했습니다. 촬영 기기가 페이지에 적힌 것만 기기 이름을 썼습니다.</p>
+    <h3 class="ex-head">아이폰 촬영 앱 서비스(Teleport)에 올라온 실내</h3>
+    <p class="ex-note">Teleport는 아이폰으로 찍어 클라우드에서 3D로 만드는 서비스입니다. 다만 다른 카메라 사진도 올릴 수 있고, 장면마다 기기 표시는 없습니다.</p>
+    <ul class="ex">
+      <li><a href="https://teleport.varjo.com/share/7357d4ca9f4847c0a67620d36bfd9cf3/"><b>디자인 갤러리 (미국 힐즈버그)</b><span>사진 2,824장 · 점 490만 개 · 갤러리 실내</span></a></li>
+      <li><a href="https://teleport.varjo.com/share/c5412f09f7cc4f52a01c56fe106c6655/"><b>런던 빅토리아 시대 저택</b><span>'10분 한 번에 찍기' · 사진 1,160장 · 점 360만 개</span></a></li>
+      <li><a href="https://teleport.varjo.com/share/16d83e831abe492e8890c4030fbe7bb6/"><b>미술관 조각 작품 (소노마 카운티 미술관)</b><span>사진 587장 · 점 130만 개 · 미술관 전시 작품</span></a></li>
+      <li><a href="https://teleport.varjo.com/share/c33a5c58618e43788608c90bfa9ab943/"><b>파리 오페라 가르니에 객석</b><span>사진 104장 · 점 160만 개 · 큰 실내도 장수 적게</span></a></li>
+    </ul>
+    <h3 class="ex-head">소비자용 카메라로 찍은 고품질 실내 (기기 확인됨)</h3>
+    <ul class="ex">
+      <li><a href="https://superspl.at/scene/6e4c6c91"><b>바르샤바 국립기술박물관</b><span>360 카메라(인스타360 X6) · 박물관 전시실</span></a></li>
+      <li><a href="https://superspl.at/scene/541bac0c"><b>킬 식물원 온실 (여러 방)</b><span>액션캠(DJI 오즈모 액션 5 프로) 4K 영상 · 방마다 5~7분 · 문마다 양쪽에서 이어 찍기</span></a></li>
+      <li><a href="https://superspl.at/scene/15a202e6"><b>체코 성 마우리치오 성당</b><span>미러리스(후지필름 X-T2 + 9mm 광각)</span></a></li>
+      <li><a href="https://superspl.at/scene/13b9a601"><b>몬트리올 도자기 작업실</b><span>미러리스(후지필름 X-T3) 사진 약 400장 · 삼각대</span></a></li>
+      <li><a href="https://current-exhibition.com/laboratorio31/"><b>이탈리아 갤러리 전시를 웹 산책으로 (Laboratorio 31)</b><span>미러리스(소니 a6100) 사진 525장 · 만든 사람은 폰이 너무 똑똑해서(알아서 보정해서) 안 썼다고 함</span></a></li>
+    </ul>
+    <div class="lesson">
+      <h3>보고 알게 된 것</h3>
+      <ul>
+        <li>공개된 최고 품질 실내는 대부분 폰이 아니라 360 카메라·액션캠·미러리스로 찍었습니다. 기기 확인된 5곳이 전부 그렇습니다.</li>
+        <li>이유는 폰의 자동 보정입니다. 폰은 장면마다 밝기·색·선명도를 AI로 알아서 바꿔서, 같은 벽이 사진마다 달라지고 3D가 흐려집니다.</li>
+        <li>그래서 폰으로 할 땐 '보정 끄고 고정'이 핵심입니다. 스플랫 전용 앱(Scaniverse·Teleport)은 앱이 이걸 맞춰 줍니다.</li>
+        <li>장비를 산다면 '비싼 장비'가 아니어도 됩니다. 박물관 예시의 360 카메라와 같은 계열인 인스타360 X5는 공식 스토어 65만~76만 원입니다(할인 시점마다 다름). 한 번에 사방을 찍어 촬영이 빠릅니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="ai">
+    <h2>AI 보정은 어디까지 되나</h2>
+    <table class="plan">
+      <tr><th>촬영본 고르기</th><td>흔들리거나 흐린 프레임을 자동으로 빼고, 사진마다 다른 밝기를 맞춥니다. 우리 PC에서 바로 할 수 있습니다.</td></tr>
+      <tr><th>학습 중 AI 깊이</th><td>무늬 없는 흰 벽·바닥이 울퉁불퉁해지지 않게 AI가 추정한 깊이를 함께 씁니다. 공개 도구로 가능합니다.</td></tr>
+      <tr><th>학습 뒤 AI 손질</th><td>엔비디아 Difix3D+(2025): 흐리거나 깨진 장면을 확산 AI가 고쳐 다시 3D에 반영합니다. 코드는 공개됐지만 연구·비상업용이라 고객 납품엔 그대로 못 씁니다.</td></tr>
+      <tr><th>AI로 빈 곳 채우기</th><td>안 찍은 곳을 AI가 지어냅니다(World Labs Marble 등). 실제와 다른 게 생겨 박물관 기록에는 주의가 필요합니다.</td></tr>
+    </table>
+    <p class="verdict-line">결론: AI 보정은 마지막 다듬기입니다. 품질 대부분은 촬영이 정합니다. 잘 찍은 폰 영상 + 우리 PC 학습이 가장 싸고 확실한 길입니다.</p>
   </section>
 
   <section>
@@ -215,6 +257,9 @@
       <li><a href="https://community.intuiface.com/t/augmented-reality-ar-and-3d-in-player-next-gen/6108/4">항공 박물관(Museum of Flight) 폰 촬영 스플랫 웹 앱 사례</a></li>
       <li><a href="https://radiancefields.com/gaussian-splatting-brings-art-exhibitions-online-with-yulei">갤러리 전시를 스플랫 웹 산책으로 옮긴 사례</a></li>
       <li><a href="https://matterport.github.io/developer-docs/embed-sdk/">매터포트 임베드 개발 문서</a></li>
+      <li><a href="https://teleport.varjo.com/discover/">Teleport 공개 장면 모음</a></li>
+      <li><a href="https://research.nvidia.com/labs/toronto-ai/difix3d/">엔비디아 Difix3D+ (AI로 3D 손질)</a></li>
+      <li><a href="https://store.insta360.com/kr/product/x5">인스타360 X5 공식 스토어(한국)</a></li>
     </ul>
   </section>
 </main>
